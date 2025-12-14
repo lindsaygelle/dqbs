@@ -1,8 +1,5 @@
 package com.github.lindsaygelle
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 enum class Operator {
     EQUAL_TO,
     GREATER_THAN,
