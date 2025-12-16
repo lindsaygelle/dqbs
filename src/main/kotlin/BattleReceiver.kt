@@ -10,3 +10,10 @@ interface BattleReceiver : AttackReceiver,
     StopSpellLimiter,
     StopSpellResolver,
     TurnsAccumulator
+/*
+interface BattleReceiver : ActionInvoker, ActionReceiver, AgilityPointer, AllegianceKeeper, HitPointer, Indexer,
+    TurnAccumulator,
+    UniversalIdentifier {
+    fun takeTurn(battleReceivers: List<IndexedValue<BattleReceiver>>): BattleReceiverContext
+}
+*/
