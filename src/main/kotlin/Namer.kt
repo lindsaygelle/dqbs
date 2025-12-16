@@ -1,5 +1,5 @@
 package com.github.lindsaygelle
 
-interface Nameable {
+interface Namer {
     var name: String
 }
