@@ -1,5 +1,5 @@
 package com.github.lindsaygelle
 
 interface Itemizer {
-    var item: Item
+    var items: MutableMap<Item, Int>
 }
