@@ -15,12 +15,14 @@ class ActorContext(
     magicPoints: Int,
     magicPointsMaximum: Int,
     name: String,
+    statusSleep: Boolean,
+    statusStopSpell: Boolean,
+    strength: Int,
+    turns: Int,
     timeMilliseconds: Long,
     turnsSleep: Int,
     turnsSleepMaximum: Int,
     turnsSleepMinimum: Int,
-    strength: Int,
-    turns: Int,
     turnsStopSpell: Int,
     turnsStopSpellMaximum: Int,
     turnsStopSpellMinimum: Int,
@@ -79,10 +81,30 @@ class ActorContext(
             field = value
             logger.trace("name={}", field)
         }
+    override var statusSleep: Boolean = statusSleep
+        set(value) {
+            field = value
+            logger.trace("statusSleep={}", field)
+        }
+    override var statusStopSpell: Boolean = statusStopSpell
+        set(value) {
+            field = value
+            logger.trace("statusStopSpell={}", field)
+        }
+    override var strength: Int = strength
+        set(value) {
+            field = value
+            logger.trace("strength={}", field)
+        }
     override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = value
             logger.trace("timeMilliseconds={}", field)
+        }
+    override var turns: Int = turns
+        set(value) {
+            field = value
+            logger.trace("turns={}", field)
         }
     override var turnsSleep: Int = turnsSleep
         set(value) {
@@ -98,16 +120,6 @@ class ActorContext(
         set(value) {
             field = value
             logger.trace("turnsSleepMinimum={}", field)
-        }
-    override var strength: Int = strength
-        set(value) {
-            field = value
-            logger.trace("strength={}", field)
-        }
-    override var turns: Int = turns
-        set(value) {
-            field = value
-            logger.trace("turns={}", field)
         }
     override var turnsStopSpell: Int = turnsStopSpell
         set(value) {
@@ -141,12 +153,14 @@ class ActorContext(
         this.magicPoints = magicPoints
         this.magicPointsMaximum = magicPointsMaximum
         this.name = name
-        this.turnsSleep = turnsSleep
-        this.turnsSleepMaximum = turnsSleepMaximum
-        this.turnsSleepMinimum = turnsSleepMinimum
+        this.statusSleep = statusSleep
+        this.statusStopSpell = statusSleep
         this.strength = strength
         this.timeMilliseconds = timeMilliseconds
         this.turns = turns
+        this.turnsSleep = turnsSleep
+        this.turnsSleepMaximum = turnsSleepMaximum
+        this.turnsSleepMinimum = turnsSleepMinimum
         this.turnsStopSpell = turnsStopSpell
         this.turnsStopSpellMaximum = turnsStopSpellMaximum
         this.turnsStopSpellMinimum = turnsStopSpellMinimum
