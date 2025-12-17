@@ -15,4 +15,21 @@ abstract class Ability<A : AbilityInvoker, B : AbilityReceiver, C : AbilityConte
     init {
         this.limit = limit
     }
+
+    private fun processReceiver(invoker: A, receiver: Receiver, receiverIndex: Int) {
+        logger.debug("invoker={} receiver={} receiverIndex={}", invoker, receiver, receiverIndex)
+    }
+
+    private fun processReceivers(invoker: A, receivers: List<Receiver>) {
+        logger.debug("invoker={} receivers={} receivers.size={}", invoker, receivers, receivers.size)
+        receivers.take(limit).forEachIndexed { receiverIndex, receiver ->
+            processReceiver(invoker, receiver, receiverIndex)
+        }
+    }
+
+    override fun use(invoker: A, receivers: List<B>): C {
+        logger.debug("invoker={} limit={} receivers={} receivers.size={}", invoker, limit, receivers, receivers.size)
+        processReceivers(invoker, receivers)
+        TODO()
+    }
 }
