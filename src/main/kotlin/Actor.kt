@@ -345,6 +345,7 @@ open class Actor(
             magicPoints,
             magicPointsMaximum,
             name,
+            shield,
             statusSleep,
             statusStopSpell,
             strength,
@@ -357,6 +358,7 @@ open class Actor(
             turnsStopSpellMaximum,
             turnsStopSpellMinimum,
             uuid,
+            weapon,
         )
     }
 }

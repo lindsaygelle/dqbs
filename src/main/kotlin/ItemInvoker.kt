@@ -1,3 +1,5 @@
 package com.github.lindsaygelle
 
-interface ItemInvoker : Itemizer
+interface ItemInvoker : AbilityInvoker {
+    var items: MutableMap<Item, Int>
+}
