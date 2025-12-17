@@ -6,8 +6,10 @@ import java.util.*
 
 class Battle(
     battleReceivers: List<BattleReceiver>,
-    uuid: UUID
-) : Iterator<BattleContext>, TurnAccumulator, UniversalIdentifier {
+    uuid: UUID,
+) : Iterator<BattleContext>,
+    TurnAccumulator,
+    UniversalIdentifier {
     private var battleReceivers: List<BattleReceiver> = emptyList()
         set(value) {
             field = value
@@ -46,8 +48,7 @@ class Battle(
         logger.debug("battleReceivers.size={}", battleReceivers.size)
         return battleReceivers.filterIndexed { battleReceiverIndex, battleReceiver ->
             filterBattleReceiver(
-                battleReceiver,
-                battleReceiverIndex
+                battleReceiver, battleReceiverIndex
             )
         }
     }
@@ -101,13 +102,11 @@ class Battle(
 
     private fun sortBattleReceivers(battleReceivers: List<BattleReceiver>): List<IndexedValue<BattleReceiver>> {
         logger.debug("battleReceivers.size={}", battleReceivers.size)
-        return battleReceivers.withIndex()
-            .sortedBy { indexedValue ->
-                sortBattleReceiver(
-                    battleReceiver = indexedValue.value,
-                    battleReceiverIndex = indexedValue.index
-                )
-            }
+        return battleReceivers.withIndex().sortedBy { indexedValue ->
+            sortBattleReceiver(
+                battleReceiver = indexedValue.value, battleReceiverIndex = indexedValue.index
+            )
+        }
     }
 
 }

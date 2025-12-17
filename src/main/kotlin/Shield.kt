@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-class Weight
+class Shield

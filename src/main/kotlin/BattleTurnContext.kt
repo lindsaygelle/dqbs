@@ -4,8 +4,12 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class BattleTurnContext(battleReceiverContexts: Collection<BattleReceiverContext>, timeMilliseconds: Long, uuid: UUID) :
-    TimeMeasurer, UniversalIdentifier {
+class BattleTurnContext(
+    battleReceiverContexts: Collection<BattleReceiverContext>,
+    timeMilliseconds: Long,
+    uuid: UUID,
+) : TimeMeasurer,
+    UniversalIdentifier {
     var battleReceiverContexts: Collection<BattleReceiverContext> = emptyList()
         set(value) {
             field = value

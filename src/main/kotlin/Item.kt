@@ -1,3 +1,5 @@
 package com.github.lindsaygelle
 
-class Weight
+enum class Item {
+    HERB
+}

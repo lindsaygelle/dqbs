@@ -1,4 +1,3 @@
 package com.github.lindsaygelle
 
-class ActionWeightContext() {
-}
+interface ItemInvoker : Itemizer

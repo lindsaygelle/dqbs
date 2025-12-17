@@ -1,3 +1,4 @@
 package com.github.lindsaygelle
 
-interface MagicContext : AbilityContext, MagicPointer
+interface MagicContext : AbilityContext,
+    MagicPointer
