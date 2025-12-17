@@ -1,6 +1,6 @@
 package com.github.lindsaygelle
 
-class StopSpell : MagicAbility<StopSpellInvoker, StopSpellReceiver, StopSpellContext>() {
+class StopSpell(magicPoints: Int) : MagicAbility<StopSpellInvoker, StopSpellReceiver, StopSpellContext>(magicPoints) {
     override fun use(
         invoker: StopSpellInvoker,
         receiver: StopSpellReceiver,
