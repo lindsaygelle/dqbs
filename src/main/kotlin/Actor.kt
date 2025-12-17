@@ -22,6 +22,7 @@ open class Actor(
     hurtScale: Int,
     hurtShift: Int,
     index: Int,
+    items: MutableMap<Item, Int>,
     magicPoints: Int,
     magicPointsMaximum: Int,
     name: String,
@@ -133,6 +134,11 @@ open class Actor(
         set(value) {
             field = value
             logger.trace("index={}", field)
+        }
+    override var items: MutableMap<Item, Int> = items
+        set(value) {
+            field = value
+            logger.trace("items={}", value)
         }
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
     override var magicPoints: Int = magicPoints
@@ -284,6 +290,7 @@ open class Actor(
         this.hurtScale = hurtScale
         this.hurtShift = hurtShift
         this.index = index
+        this.items = items
         this.magicPoints = magicPoints
         this.magicPointsMaximum = magicPointsMaximum
         this.name = name
@@ -310,5 +317,30 @@ open class Actor(
         this.turnsStopSpellMaximum = turnsStopSpellMaximum
         this.turnsStopSpellMinimum = turnsStopSpellMinimum
         this.uuid = uuid
+    }
+
+    override fun turn(battleReceivers: List<BattleReceiver>): BattlerContext {
+        return ActorContext(
+            agility,
+            allegiance,
+            armor,
+            hitPoints,
+            hitPointsMaximum,
+            index,
+            items,
+            magicPoints,
+            magicPointsMaximum,
+            name,
+            System.currentTimeMillis(),
+            turnsSleep,
+            turnsSleepMaximum,
+            turnsSleepMinimum,
+            strength,
+            turns,
+            turnsStopSpell,
+            turnsStopSpellMaximum,
+            turnsStopSpellMinimum,
+            uuid,
+        )
     }
 }
