@@ -29,6 +29,7 @@ class Comparison(attribute: Attribute, operator: Operator, value: Int) {
             Attribute.HIT_POINTS_MAXIMUM -> battler.hitPointsMaximum
             Attribute.MAGIC_POINTS -> battler.magicPoints
             Attribute.MAGIC_POINTS_MAXIMUM -> battler.magicPointsMaximum
+            Attribute.MAGIC_POINTS_PERCENTAGE -> battler.magicPointsPercentage
             Attribute.STRENGTH -> battler.strength
         }
         compareValue(attributeValue)

@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-interface Ability<A : AbilityInvoker, B : AbilityReceiver, C : AbilityContext> : Usable<A, B, C>
+abstract class Ability<A : AbilityInvoker, B : AbilityReceiver, C : AbilityContext> : Usable<A, B, C>
