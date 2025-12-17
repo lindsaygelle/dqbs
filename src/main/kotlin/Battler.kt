@@ -5,5 +5,6 @@ interface Battler : Actioner,
     BattleInvoker,
     BattleReceiver,
     HitPointsPercenter,
-    Namer,
-    TurnsAccumulator
+    Indexable,
+    MagicPointPercenter,
+    Nameable
