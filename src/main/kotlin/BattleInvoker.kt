@@ -1,6 +1,7 @@
 package com.github.lindsaygelle
 
-interface BattleInvoker : HealInvoker,
+interface BattleInvoker : AttackInvoker,
+    HealInvoker,
     HurtInvoker,
     SleepInvoker,
     StopSpellInvoker

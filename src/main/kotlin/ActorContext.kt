@@ -15,6 +15,7 @@ class ActorContext(
     magicPoints: Int,
     magicPointsMaximum: Int,
     name: String,
+    shield: Shield?,
     statusSleep: Boolean,
     statusStopSpell: Boolean,
     strength: Int,
@@ -27,6 +28,7 @@ class ActorContext(
     turnsStopSpellMaximum: Int,
     turnsStopSpellMinimum: Int,
     uuid: UUID,
+    weapon: Weapon?,
 ) : BattlerContext {
     override var agility: Int = agility
         set(value) {
@@ -80,6 +82,11 @@ class ActorContext(
         set(value) {
             field = value
             logger.trace("name={}", field)
+        }
+    override var shield: Shield? = shield
+        set(value) {
+            field = value
+            logger.trace("shield={}", field)
         }
     override var statusSleep: Boolean = statusSleep
         set(value) {
@@ -139,7 +146,12 @@ class ActorContext(
     override var uuid: UUID = uuid
         set(value) {
             field = value
-            logger.trace("uuid={}", uuid)
+            logger.trace("uuid={}", field)
+        }
+    override var weapon: Weapon? = weapon
+        set(value) {
+            field = value
+            logger.trace("weapon={}", field)
         }
 
     init {
@@ -153,6 +165,7 @@ class ActorContext(
         this.magicPoints = magicPoints
         this.magicPointsMaximum = magicPointsMaximum
         this.name = name
+        this.shield = shield
         this.statusSleep = statusSleep
         this.statusStopSpell = statusSleep
         this.strength = strength
@@ -165,5 +178,6 @@ class ActorContext(
         this.turnsStopSpellMaximum = turnsStopSpellMaximum
         this.turnsStopSpellMinimum = turnsStopSpellMinimum
         this.uuid = uuid
+        this.weapon = weapon
     }
 }

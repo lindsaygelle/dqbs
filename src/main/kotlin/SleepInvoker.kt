@@ -1,4 +1,5 @@
 package com.github.lindsaygelle
 
 
-interface SleepInvoker : MagicInvoker, SleepRequirer
+interface SleepInvoker : MagicInvoker,
+    SleepRequirer

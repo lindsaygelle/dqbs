@@ -31,7 +31,7 @@ class Comparison(attribute: Attribute, operator: Operator, value: Int) {
             Attribute.MAGIC_POINTS_MAXIMUM -> battler.magicPointsMaximum
             Attribute.STRENGTH -> battler.strength
         }
-        val comparisonValue = compareValue(attributeValue)
+        compareValue(attributeValue)
     }
 
     private fun compareValue(attributeValue: Int): Boolean {

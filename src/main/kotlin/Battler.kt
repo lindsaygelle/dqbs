@@ -6,5 +6,8 @@ interface Battler : Actioner,
     BattleReceiver,
     HitPointsPercenter,
     Indexable,
+    ItemInvoker,
     MagicPointPercenter,
-    Nameable
+    Nameable {
+    fun turn(battleReceivers: List<BattleReceiver>): BattlerContext
+}

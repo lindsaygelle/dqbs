@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-interface Invoker: UniversalIdentifier {}
+interface Invoker : UniversalIdentifier

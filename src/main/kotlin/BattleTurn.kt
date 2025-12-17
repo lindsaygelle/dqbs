@@ -7,7 +7,8 @@ import java.util.*
 class BattleTurn(
     battleReceivers: List<IndexedValue<BattleReceiver>>,
     turn: Int,
-) : TurnAccumulator, UniversalIdentifier {
+) : TurnAccumulator,
+    UniversalIdentifier {
     private var battleReceivers: List<IndexedValue<BattleReceiver>> = emptyList()
         set(value) {
             field = value
@@ -32,7 +33,7 @@ class BattleTurn(
 
     private fun getBattleReceiverContext(
         battleReceiver: BattleReceiver,
-        battleReceivers: List<IndexedValue<BattleReceiver>>
+        battleReceivers: List<IndexedValue<BattleReceiver>>,
     ): BattleReceiverContext {
         logger.debug("battleReceiver={} battleReceivers.size={}", battleReceiver, battleReceivers.size)
         return battleReceiver.takeTurn(battleReceivers)
@@ -40,7 +41,7 @@ class BattleTurn(
 
     private fun getBattleReceiverContexts(
         battleReceiverIterator: Iterator<IndexedValue<BattleReceiver>>,
-        battleReceivers: List<IndexedValue<BattleReceiver>>
+        battleReceivers: List<IndexedValue<BattleReceiver>>,
     ): List<BattleReceiverContext> {
         val battleReceiverContexts = mutableListOf<BattleReceiverContext>()
         while (battleReceiverIterator.hasNext()) {
@@ -54,17 +55,13 @@ class BattleTurn(
 
     private fun getBattleTurnContext(
         battleReceiverContexts: List<BattleReceiverContext>,
-        timeMilliseconds: Long
+        timeMilliseconds: Long,
     ): BattleTurnContext {
         logger.debug(
-            "battleReceiverContexts.size={} timeMilliseconds={}",
-            battleReceiverContexts.size,
-            timeMilliseconds
+            "battleReceiverContexts.size={} timeMilliseconds={}", battleReceiverContexts.size, timeMilliseconds
         )
         return BattleTurnContext(
-            battleReceiverContexts = battleReceiverContexts,
-            timeMilliseconds = timeMilliseconds,
-            uuid = uuid
+            battleReceiverContexts = battleReceiverContexts, timeMilliseconds = timeMilliseconds, uuid = uuid
         )
     }
 
@@ -78,7 +75,7 @@ class BattleTurn(
     private fun processBattleReceiver(
         battleReceiver: BattleReceiver,
         battleReceiverIndex: Int,
-        battleReceivers: List<IndexedValue<BattleReceiver>>
+        battleReceivers: List<IndexedValue<BattleReceiver>>,
     ): BattleReceiverContext {
         logger.debug(
             "battleReceiver={} battleReceiverIndex={} battleReceivers.size={}",

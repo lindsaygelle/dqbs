@@ -8,7 +8,8 @@ class BattleContext(
     battleTurnContext: BattleTurnContext,
     timeMilliseconds: Long,
     turn: Int,
-) : TimeMeasurer, TurnAccumulator {
+) : TimeMeasurer,
+    TurnAccumulator {
     var battleTurnContext: BattleTurnContext = battleTurnContext
         set(value) {
             field = value

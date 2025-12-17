@@ -26,6 +26,7 @@ open class Actor(
     magicPoints: Int,
     magicPointsMaximum: Int,
     name: String,
+    shield: Shield?,
     sleepRequirementMaximum: Int,
     sleepRequirementMinimum: Int,
     sleepResolutionMaximum: Int,
@@ -49,6 +50,7 @@ open class Actor(
     turnsStopSpellMaximum: Int,
     turnsStopSpellMinimum: Int,
     uuid: UUID,
+    weapon: Weapon?,
 ) : Battler {
     override var actions: List<Action> = actions
         set(value) {
@@ -155,6 +157,11 @@ open class Actor(
         set(value) {
             field = value
             logger.trace("name={}", field)
+        }
+    override var shield: Shield? = shield
+        set(value) {
+            field = value
+            logger.trace("shield={}", field)
         }
     override var sleepRequirementMaximum: Int = sleepRequirementMaximum
         set(value) {
@@ -271,6 +278,11 @@ open class Actor(
             field = value
             logger.trace("uuid={}", field)
         }
+    override var weapon: Weapon? = weapon
+        set(value) {
+            field = value
+            logger.trace("weapon={}", field)
+        }
 
     init {
         this.actions = actions
@@ -294,6 +306,7 @@ open class Actor(
         this.magicPoints = magicPoints
         this.magicPointsMaximum = magicPointsMaximum
         this.name = name
+        this.shield = shield
         this.sleepRequirementMaximum = sleepRequirementMaximum
         this.sleepRequirementMinimum = sleepRequirementMinimum
         this.sleepResolutionMaximum = sleepResolutionMaximum
@@ -317,6 +330,7 @@ open class Actor(
         this.turnsStopSpellMaximum = turnsStopSpellMaximum
         this.turnsStopSpellMinimum = turnsStopSpellMinimum
         this.uuid = uuid
+        this.weapon = weapon
     }
 
     override fun turn(battleReceivers: List<BattleReceiver>): BattlerContext {
