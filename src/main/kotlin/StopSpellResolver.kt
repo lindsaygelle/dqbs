@@ -1,6 +1,6 @@
 package com.github.lindsaygelle
 
-interface StopSpellResolver {
+interface StopSpellResolver : Resolver {
     var stopSpellResolutionMaximum: Int
     var stopSpellResolutionMinimum: Int
     val stopSpellResolutionRange: IntRange
