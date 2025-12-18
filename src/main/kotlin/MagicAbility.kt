@@ -1,11 +1,12 @@
 package com.github.lindsaygelle
 
-abstract class MagicAbility<A : MagicInvoker, B : AbilityReceiver, C : MagicContext>(magicPoints: Int) : Ability<A, B, C>(),
+abstract class MagicAbility<A : MagicInvoker, B : AbilityReceiver, C : MagicContext>(limit: Int, magicPoints: Int) :
+    Ability<A, B, C>(limit),
     MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {
             field = maxOf(0, value)
-            logger
+            logger.trace("magicPoints={}", field)
         }
 
     init {
