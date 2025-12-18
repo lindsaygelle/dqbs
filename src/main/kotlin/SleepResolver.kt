@@ -1,6 +1,6 @@
 package com.github.lindsaygelle
 
-interface SleepResolver {
+interface SleepResolver : Resolver {
     var sleepResolutionMaximum: Int
     var sleepResolutionMinimum: Int
     val sleepResolutionRange: IntRange
