@@ -1,11 +1,12 @@
 package com.github.lindsaygelle
 
 class Action {
-    lateinit var ability: Ability<Battler, Battler>
+    // var ability: Ability<Battler, Battler>
     lateinit var assessment: Assessment
     lateinit var choice: Choice
     lateinit var weight: Weight
-}/*
+}
+/*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
