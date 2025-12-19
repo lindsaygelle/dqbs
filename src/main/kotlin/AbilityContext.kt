@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-interface AbilityContext : Context
+open class AbilityContext : Context()
