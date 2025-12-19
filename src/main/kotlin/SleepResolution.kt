@@ -1,7 +1,8 @@
 package com.github.lindsaygelle
 
-class SleepResolution(resolved: Boolean, sleepResolutionRandom: Int, timeMilliseconds: Long) :
-    Resolution(resolved, timeMilliseconds) {
+class SleepResolution(resolved: Boolean, sleepResolutionRandom: Int, timeMilliseconds: Long) : Resolution(
+    resolved, timeMilliseconds
+) {
     var sleepResolutionRandom: Int = sleepResolutionRandom
         set(value) {
             field = value

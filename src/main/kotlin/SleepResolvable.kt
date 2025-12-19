@@ -8,6 +8,6 @@ class SleepResolvable(resolver: SleepResolver) : Resolvable<SleepResolver, Sleep
             resolver.statusSleep = false
             resolver.turnsSleep = 0
         }
-        return SleepResolution(resolved, sleepResolutionRandom)
+        return SleepResolution(resolved, sleepResolutionRandom, System.currentTimeMillis())
     }
 }

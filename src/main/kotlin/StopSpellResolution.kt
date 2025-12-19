@@ -1,6 +1,8 @@
 package com.github.lindsaygelle
 
-class StopSpellResolution(resolved: Boolean, stopSpellResolutionRandom: Int) : Resolution(resolved) {
+class StopSpellResolution(resolved: Boolean, stopSpellResolutionRandom: Int, timeMilliseconds: Long) : Resolution(
+    resolved, timeMilliseconds
+) {
     var stopSpellResolutionRandom: Int = stopSpellResolutionRandom
         set(value) {
             field = value

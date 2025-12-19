@@ -8,6 +8,6 @@ class StopSpellResolvable(resolver: StopSpellResolver) : Resolvable<StopSpellRes
             resolver.statusStopSpell = false
             resolver.turnsStopSpell = 0
         }
-        return StopSpellResolution(resolved, stopSpellResolutionRandom)
+        return StopSpellResolution(resolved, stopSpellResolutionRandom, System.currentTimeMillis())
     }
 }
