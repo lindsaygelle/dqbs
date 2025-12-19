@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-abstract class SleepContext : MagicContext
+class SleepContext(magicPoints: Int, timeMilliseconds: Long) : MagicContext(magicPoints, "SLEEP", timeMilliseconds)

@@ -3,23 +3,21 @@ package com.github.lindsaygelle
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-open class AbilityContext(name: String, timeMilliseconds: Long) : Context,
-    Nameable {
-    @Transient
+open class Resolution(resolved: Boolean, timeMilliseconds: Long) : TimeMeasurer {
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-    override var name: String = name
+    var resolved: Boolean = resolved
         set(value) {
             field = value
-            logger.trace("name={}", field)
+            logger.trace("resolved={}", field)
         }
     override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
-            field = maxOf(0, value)
+            field = value
             logger.trace("timeMilliseconds={}", field)
         }
 
     init {
-        this.name = name
+        this.resolved = resolved
         this.timeMilliseconds = timeMilliseconds
     }
 }
