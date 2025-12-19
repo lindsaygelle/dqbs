@@ -1,9 +1,14 @@
 package com.github.lindsaygelle
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 class BattleContext(
+    override var timeMilliseconds: Long,
     turnContext: TurnContext,
     turns: Int
-) : Context(), TurnsAccumulator {
+) : Context, TurnsAccumulator {
+    private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
     var turnContext: TurnContext = turnContext
         set(value) {
             field = value

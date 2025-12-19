@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-class Herb // TODO
+class Herb(limit: Int) : ItemAbility<HerbInvoker, HealReceiver, ItemContext>(Item.HERB, limit)

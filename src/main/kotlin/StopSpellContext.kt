@@ -1,3 +1,4 @@
 package com.github.lindsaygelle
 
-abstract class StopSpellContext : MagicContext
+class StopSpellContext(magicPoints: Int, timeMilliseconds: Long) :
+    MagicContext(magicPoints, "STOP_SPELL", timeMilliseconds)

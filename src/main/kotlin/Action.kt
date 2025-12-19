@@ -5,8 +5,7 @@ class Action {
     lateinit var assessment: Assessment
     lateinit var choice: Choice
     lateinit var weight: Weight
-}
-/*
+}/*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
