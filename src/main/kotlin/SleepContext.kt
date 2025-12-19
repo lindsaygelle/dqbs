@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-abstract class SleepContext : MagicContext {}
+abstract class SleepContext : MagicContext

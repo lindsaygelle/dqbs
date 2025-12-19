@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-interface Receiver : UniversalIdentifier {}
+interface Receiver : UniversalIdentifier

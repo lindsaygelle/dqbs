@@ -1,5 +1,5 @@
 package com.github.lindsaygelle
 
-interface Indexer {
+interface Indexable {
     var index: Int
 }

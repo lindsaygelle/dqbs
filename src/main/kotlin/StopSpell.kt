@@ -1,10 +1,4 @@
 package com.github.lindsaygelle
 
-class StopSpell : MagicAbility<StopSpellInvoker, StopSpellReceiver, StopSpellContext>() {
-    override fun use(
-        invoker: StopSpellInvoker,
-        receiver: StopSpellReceiver,
-    ): StopSpellContext {
-        TODO("Not yet implemented")
-    }
-}
+class StopSpell(limit: Int, magicPoints: Int) :
+    MagicAbility<StopSpellInvoker, StopSpellReceiver, StopSpellContext>(limit, magicPoints)

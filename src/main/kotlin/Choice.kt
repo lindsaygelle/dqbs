@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-class Choice {}
+class Choice

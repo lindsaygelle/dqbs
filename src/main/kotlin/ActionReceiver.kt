@@ -1,3 +1,3 @@
 package com.github.lindsaygelle
 
-interface ActionReceiver
+interface ActionReceiver : AbilityReceiver

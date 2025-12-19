@@ -1,7 +1,7 @@
 package com.github.lindsaygelle
 
 interface HitPointsPercenter : HitPointer,
-    Percenter {
+    HitPointerMaximizer {
     val hitPointsPercentage: Int
-        get() = getPercentage(hitPoints, hitPointsMaximum)
+        get() = ((hitPoints.toDouble() / hitPointsMaximum.toDouble()) * 100).toInt()
 }

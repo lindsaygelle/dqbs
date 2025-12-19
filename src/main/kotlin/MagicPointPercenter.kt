@@ -1,8 +1,7 @@
 package com.github.lindsaygelle
 
 interface MagicPointPercenter : MagicPointer,
-    MagicPointMaximizer,
-    Percenter {
+    MagicPointMaximizer {
     val magicPointsPercentage: Int
-        get() = getPercentage(magicPoints, magicPointsMaximum)
+        get() = ((magicPoints.toDouble() / magicPointsMaximum.toDouble()) * 100).toInt()
 }

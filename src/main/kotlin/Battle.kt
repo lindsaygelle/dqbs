@@ -4,110 +4,84 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class Battle(
-    battleReceivers: List<BattleReceiver>,
-    uuid: UUID
-) : Iterator<BattleContext>, TurnAccumulator, UniversalIdentifier {
-    private var battleReceivers: List<BattleReceiver> = emptyList()
+class Battle(battlers: List<Battler>, uuid: UUID) : Ticker<BattleContext>,
+    TurnsAccumulator,
+    UniversalIdentifier {
+    var battlers: List<Battler> = battlers
         set(value) {
             field = value
-            logger.trace("battleReceivers={} battleReceivers.size={}", field, field.size)
+            logger.trace("battlers={} battlers.size={}", field, field.size)
         }
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-    override var turn: Int = 0
+    override var turns: Int = 0
         set(value) {
             field = maxOf(0, value)
-            logger.trace("turn={}", field)
+            logger.trace("turns={}", field)
         }
-    override var uuid: UUID = UUID(0, 0)
+    override var uuid: UUID = uuid
         set(value) {
             field = value
             logger.trace("uuid={}", field)
         }
 
     init {
-        this.battleReceivers = battleReceivers
+        this.battlers = battlers
+        this.turns = 0
         this.uuid = uuid
     }
 
-    private fun filterBattleReceiver(battleReceiver: BattleReceiver, battleReceiverIndex: Int): Boolean {
-        logger.debug(
-            "battleReceiver.hashCode={} battleReceiver.hitPoints={} battleReceiver.index={} battleReceiver.uuid={} battleReceiverIndex={}",
-            battleReceiver.hashCode(),
-            battleReceiver.hitPoints,
-            battleReceiver.index,
-            battleReceiver.uuid,
-            battleReceiverIndex
-        )
-        return battleReceiver.hitPoints > 0
+    private fun getBattleContext(turnContext: TurnContext): BattleContext {
+        logger.debug("turnContext={}", turnContext)
+        return BattleContext(System.currentTimeMillis(), turnContext, turns)
     }
 
-    private fun filterBattleReceivers(battleReceivers: List<BattleReceiver>): List<BattleReceiver> {
-        logger.debug("battleReceivers.size={}", battleReceivers.size)
-        return battleReceivers.filterIndexed { battleReceiverIndex, battleReceiver ->
-            filterBattleReceiver(
-                battleReceiver,
-                battleReceiverIndex
-            )
+    private fun getBattlers(battlers: List<Battler>): List<Battler> {
+        logger.debug("battlers={} battlers.size={}", battlers, battlers.size)
+        return sortBattlers(filterBattlers(battlers))
+    }
+
+    private fun getTurn(battlers: List<Battler>): Turn {
+        logger.debug("battlers={} battlers.size={}", battlers, battlers.size)
+        return Turn(getBattlers(battlers))
+    }
+
+    private fun getTurnContext(turn: Turn): TurnContext {
+        logger.debug("turn={}", turn)
+        return turn.tick()
+    }
+
+    private fun filterBattler(battler: Battler): Boolean {
+        logger.debug(
+            "battler.hitPoints={} battler.actions.size={} battler.uuid={}",
+            battler.hitPoints,
+            battler.actions.size,
+            battler.uuid
+        )
+        return (battler.hitPoints > 0) && battler.actions.isNotEmpty()
+    }
+
+    private fun filterBattlers(battlers: List<Battler>): List<Battler> {
+        logger.debug("battlers={} battlers.size={}", battlers, battlers.size)
+        return battlers.filter { battler ->
+            filterBattler(battler)
         }
     }
 
-    private fun getBattleContext(battleTurnContext: BattleTurnContext, timeMilliseconds: Long): BattleContext {
-        logger.debug("battleTurnContext={} timeMilliseconds={}", battleTurnContext, timeMilliseconds)
-        return BattleContext(
-            battleTurnContext = battleTurnContext,
-            timeMilliseconds = timeMilliseconds,
-            turn = turn,
-        )
+    private fun sortBattler(battler: Battler): Int {
+        logger.debug("battler.agility={} battler.uuid={}", battler.agility, battler.uuid)
+        return battler.agility
     }
 
-    private fun getBattleTurn(): BattleTurn {
-        val battleReceivers = sortBattleReceivers(filterBattleReceivers(battleReceivers))
-        val battleTurn = BattleTurn(
-            battleReceivers = battleReceivers, turn = turn
-        )
-        return battleTurn
+    private fun sortBattlers(battlers: List<Battler>): List<Battler> {
+        logger.debug("battlers={} battlers.size={}", battlers, battlers.size)
+        return battlers.sortedBy { battler ->
+            sortBattler(battler)
+        }
     }
 
-    private fun getBattleTurnContext(battleTurn: BattleTurn): BattleTurnContext {
-        logger.debug("battleTurn={}", battleTurn)
-        return battleTurn.process()
+    override fun tick(): BattleContext {
+        val turn = getTurn(battlers)
+        val turnContext = getTurnContext(turn)
+        return getBattleContext(turnContext)
     }
-
-    override fun hasNext(): Boolean {
-        return battleReceivers.distinctBy { battleReceiver -> battleReceiver.allegiance }.size > 1
-    }
-
-    override fun next(): BattleContext {
-        val timeMilliseconds = System.currentTimeMillis()
-        val battleTurn = getBattleTurn()
-        val battleTurnContext = getBattleTurnContext(battleTurn)
-        val battleContext = getBattleContext(battleTurnContext, timeMilliseconds)
-        turn++
-        return battleContext
-    }
-
-    private fun sortBattleReceiver(battleReceiver: BattleReceiver, battleReceiverIndex: Int): Int {
-        logger.debug(
-            "battleReceiver.agility={} battleReceiver.hashCode={} battleReceiver.index={} battleReceiver.uuid={} battleReceiverIndex={}",
-            battleReceiver.agility,
-            battleReceiver.hashCode(),
-            battleReceiver.index,
-            battleReceiver.uuid,
-            battleReceiverIndex
-        )
-        return battleReceiver.agility
-    }
-
-    private fun sortBattleReceivers(battleReceivers: List<BattleReceiver>): List<IndexedValue<BattleReceiver>> {
-        logger.debug("battleReceivers.size={}", battleReceivers.size)
-        return battleReceivers.withIndex()
-            .sortedBy { indexedValue ->
-                sortBattleReceiver(
-                    battleReceiver = indexedValue.value,
-                    battleReceiverIndex = indexedValue.index
-                )
-            }
-    }
-
 }
