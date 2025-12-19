@@ -306,6 +306,8 @@ open class Actor(
         this.magicPoints = magicPoints
         this.magicPointsMaximum = magicPointsMaximum
         this.name = name
+        SleepResolvable(this)
+        StopSpellResolvable(this)
         this.shield = shield
         this.sleepRequirementMaximum = sleepRequirementMaximum
         this.sleepRequirementMinimum = sleepRequirementMinimum
@@ -333,7 +335,7 @@ open class Actor(
         this.weapon = weapon
     }
 
-    override fun turn(battleReceivers: List<BattleReceiver>): BattlerContext {
+    override fun turn(battlers: List<Battler>): BattlerContext {
         return ActorContext(
             agility,
             allegiance,
