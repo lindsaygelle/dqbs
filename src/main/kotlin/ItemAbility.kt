@@ -1,8 +1,7 @@
 package com.github.lindsaygelle
 
 abstract class ItemAbility<A : ItemInvoker, B : AbilityReceiver, C : ItemContext>(item: Item, limit: Int) :
-    Ability<A, B, C>(limit),
-    Itemizer {
+    Ability<A, B, C>(limit) {
     var item: Item = item
         set(value) {
             field = value
