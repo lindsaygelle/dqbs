@@ -1,7 +1,13 @@
 package com.github.lindsaygelle
 
-class SleepResolvable : Resolvable<SleepResolver> {
-    override fun resolve(resolver: SleepResolver): Resolution {
-        return SleepResolution()
+class SleepResolvable(resolver: SleepResolver) : Resolvable<SleepResolver, SleepResolution>(resolver) {
+    override fun resolve(): SleepResolution {
+        val sleepResolutionRandom = resolver.sleepResolutionRandom
+        val resolved = sleepResolutionRandom == resolver.sleepResolutionMaximum
+        if (resolved) {
+            resolver.statusSleep = false
+            resolver.turnsSleep = 0
+        }
+        return SleepResolution(resolved, sleepResolutionRandom)
     }
 }
