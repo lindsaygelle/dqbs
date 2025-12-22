@@ -10,7 +10,7 @@ open class Resolution(resolved: Boolean, timeMilliseconds: Long) : TimeMeasurer 
             field = value
             logger.trace("resolved={}", field)
         }
-    override var timeMilliseconds: Long = timeMilliseconds
+    final override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = value
             logger.trace("timeMilliseconds={}", field)

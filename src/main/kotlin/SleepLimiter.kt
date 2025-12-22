@@ -1,7 +1,6 @@
 package com.github.lindsaygelle
 
-interface SleepLimiter {
-    var turnsSleep: Int
+interface SleepLimiter : SleepAccumulator {
     var turnsSleepMaximum: Int
     var turnsSleepMinimum: Int
 }

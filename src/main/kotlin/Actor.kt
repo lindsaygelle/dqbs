@@ -181,6 +181,11 @@ open class Actor(
             logger.trace("name={}", field)
         }
 
+    protected val resolutions: List<Resolution>
+        get() = listOf<Resolution>(
+            this.sleepResolvable.resolve(), this.stopSpellResolvable.resolve()
+        )
+
     override var shield: Shield? = shield
         set(value) {
             field = value
@@ -222,6 +227,9 @@ open class Actor(
             field = minOf(maxOf(0, value), sleepResistanceMaximum)
             logger.trace("sleepResistanceMinimum={}", field)
         }
+
+    @Transient
+    protected val sleepResolvable: SleepResolvable = SleepResolvable(this)
 
     override var statusSleep: Boolean = statusSleep
         set(value) {
@@ -270,6 +278,9 @@ open class Actor(
             field = minOf(maxOf(0, value), stopSpellResistanceMaximum)
             logger.trace("stopSpellResistanceMinimum={}", field)
         }
+
+    @Transient
+    protected val stopSpellResolvable: StopSpellResolvable = StopSpellResolvable(this)
 
     override var strength: Int = strength
         set(value) {
