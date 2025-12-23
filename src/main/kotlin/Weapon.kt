@@ -1,26 +1,16 @@
 package com.github.lindsaygelle
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import java.util.UUID
+import java.util.*
 
-class Weapon(name: String, uuid: UUID) : Nameable,
-    UniversalIdentifier {
-    @Transient
-    private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-    override var name: String = name
+class Weapon(attack: Int, name: String, uuid: UUID) : AttackPointer,
+    Equipment(name, uuid) {
+    override var attack: Int = attack
         set(value) {
-            field = value
-            logger.trace("name={}", field)
-        }
-    override var uuid: UUID = uuid
-        set(value) {
-            field = value
-            logger.trace("uuid={}", field)
+            field = maxOf(0, value)
+            logger.trace("attack={}", field)
         }
 
     init {
-        this.name = name
-        this.uuid = uuid
+        this.attack = attack
     }
 }
