@@ -1,5 +1,6 @@
 package com.github.lindsaygelle
 
+/*
 class Heal(override var magicPoints: Int) : MagicAbility<HealInvoker, HealReceiver, HealContext>() {
     private fun getInvokerContext(invoker: HealInvoker): HealInvokerContext {
         return HealInvokerContext(
@@ -56,4 +57,4 @@ class Heal(override var magicPoints: Int) : MagicAbility<HealInvoker, HealReceiv
         val context = getContext(invokable, receivable, invokerContext, receiverContext)
         return context
     }
-}
+}*/

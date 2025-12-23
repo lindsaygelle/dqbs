@@ -7,6 +7,27 @@ interface Battler : Actioner,
     HitPointsPercenter,
     Indexable,
     MagicPointPercenter,
-    Nameable {
-    fun turn(battlers: List<Battler>): BattlerContext
-}
+    Nameable
+
+/*
+AllegianceKeeper,
+    AgilityPointer,
+    ArmorWearer,
+    HitPointer,
+    HitPointerMaximizer,
+    Indexable,
+    Itemizer,
+    MagicPointer,
+    MagicPointMaximizer,
+    Nameable,
+    ShieldWielder,
+    SleepLimiter,
+    SleepToggler,
+    StrengthPointer,
+    StopSpellLimiter,
+    StopSpellToggler,
+    TimeMeasurer,
+    TurnsAccumulator,
+    UniversalIdentifier,
+    WeaponWielder
+ */
