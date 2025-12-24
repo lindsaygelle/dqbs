@@ -4,6 +4,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 open class Resolution(resolved: Boolean, timeMilliseconds: Long) : TimeMeasurer {
+    @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
     var resolved: Boolean = resolved
         set(value) {
