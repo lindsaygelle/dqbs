@@ -5,4 +5,6 @@ interface SleepRequirer {
     var sleepRequirementMinimum: Int
     val sleepRequirementRange: IntRange
         get() = (sleepRequirementMinimum..sleepRequirementMaximum)
+    val sleepRequirement: Int
+        get() = sleepRequirementRange.random()
 }

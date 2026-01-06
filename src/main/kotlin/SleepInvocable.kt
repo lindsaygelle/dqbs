@@ -1,9 +1,10 @@
 package com.github.lindsaygelle
 
-class SleepInvocable : Invocable<SleepInvoker>() {
-    override fun invoke(invoker: SleepInvoker): Invocation {
+class SleepInvocable(magicPoints: Int) : MagicInvocable<SleepInvoker, SleepInvocation>(magicPoints) {
+    override fun invoke(invoker: SleepInvoker): SleepInvocation {
         return SleepInvocation(
-            invoker.sleepRequirementRange.random(),
+            invoker.magicPoints,
+            invoker.sleepRequirement,
             invoker.sleepRequirementMaximum,
             invoker.sleepRequirementMinimum
         )
