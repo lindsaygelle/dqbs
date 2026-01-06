@@ -13,6 +13,10 @@ open class Actor(
     healRangeMinimum: Int,
     healScale: Int,
     healShift: Int,
+    herbRangeMaximum: Int,
+    herbRangeMinimum: Int,
+    herbScale: Int,
+    herbShift: Int,
     hitPoints: Int,
     hitPointsMaximum: Int,
     hurtRangeMaximum: Int,
@@ -29,18 +33,20 @@ open class Actor(
     shield: Shield?,
     sleepRequirementMaximum: Int,
     sleepRequirementMinimum: Int,
-    sleepResolutionMaximum: Int,
-    sleepResolutionMinimum: Int,
     sleepResistanceMaximum: Int,
     sleepResistanceMinimum: Int,
+    sleepResolutionMaximum: Int,
+    sleepResolutionMinimum: Int,
+    sleepResolvable: SleepResolvable,
     statusSleep: Boolean,
     statusStopSpell: Boolean,
-    stopSpellResolutionMaximum: Int,
-    stopSpellResolutionMinimum: Int,
     stopSpellRequirementMaximum: Int,
     stopSpellRequirementMinimum: Int,
     stopSpellResistanceMaximum: Int,
     stopSpellResistanceMinimum: Int,
+    stopSpellResolutionMaximum: Int,
+    stopSpellResolutionMinimum: Int,
+    stopSpellResolvable: StopSpellResolvable,
     strength: Int,
     turns: Int,
     turnsSleep: Int,
@@ -52,9 +58,6 @@ open class Actor(
     uuid: UUID,
     weapon: Weapon?,
 ) : Battler {
-
-    protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-
     override var actions: List<Action> = actions
         set(value) {
             field = value
@@ -101,6 +104,30 @@ open class Actor(
         set(value) {
             field = maxOf(0, value)
             logger.trace("healShift={}", field)
+        }
+
+    override var herbRangeMaximum: Int = herbRangeMaximum
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("herbRangeMaximum={}", field)
+        }
+
+    override var herbRangeMinimum: Int = herbRangeMinimum
+        set(value) {
+            field = minOf(maxOf(0, value), herbRangeMaximum)
+            logger.trace("herbRangeMinimum={}", field)
+        }
+
+    override var herbScale: Int = herbScale
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("herbScale={}", field)
+        }
+
+    override var herbShift: Int = herbShift
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("herbShift={}", field)
         }
 
     override var hitPoints: Int = hitPoints
@@ -162,6 +189,9 @@ open class Actor(
             field = value
             logger.trace("items={}", field)
         }
+    
+    @Transient
+    protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
     override var magicPoints: Int = magicPoints
         set(value) {
@@ -181,10 +211,6 @@ open class Actor(
             logger.trace("name={}", field)
         }
 
-    protected val resolutions: List<Resolution>
-        get() = listOf<Resolution>(
-            this.sleepResolvable.resolve(), this.stopSpellResolvable.resolve()
-        )
 
     override var shield: Shield? = shield
         set(value) {
@@ -204,18 +230,6 @@ open class Actor(
             logger.trace("sleepRequirementMinimum={}", field)
         }
 
-    override var sleepResolutionMaximum: Int = sleepResolutionMaximum
-        set(value) {
-            field = maxOf(0, value)
-            logger.trace("sleepResolutionMaximum={}", field)
-        }
-
-    override var sleepResolutionMinimum: Int = sleepResolutionMinimum
-        set(value) {
-            field = minOf(maxOf(0, value), sleepResolutionMaximum)
-            logger.trace("sleepResolutionMinimum={}", field)
-        }
-
     override var sleepResistanceMaximum: Int = sleepResistanceMaximum
         set(value) {
             field = maxOf(0, value)
@@ -228,8 +242,25 @@ open class Actor(
             logger.trace("sleepResistanceMinimum={}", field)
         }
 
+
+    override var sleepResolutionMaximum: Int = sleepResolutionMaximum
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("sleepResolutionMaximum={}", field)
+        }
+
+    override var sleepResolutionMinimum: Int = sleepResolutionMinimum
+        set(value) {
+            field = minOf(maxOf(0, value), sleepResolutionMaximum)
+            logger.trace("sleepResolutionMinimum={}", field)
+        }
+
     @Transient
-    protected val sleepResolvable: SleepResolvable = SleepResolvable(this)
+    var sleepResolvable: SleepResolvable =  sleepResolvable
+        set(value) {
+            field = value
+            logger.trace("sleepResolvable={}", field)
+        }
 
     override var statusSleep: Boolean = statusSleep
         set(value) {
@@ -241,18 +272,6 @@ open class Actor(
         set(value) {
             field = value
             logger.trace("statusStopSpell={}", field)
-        }
-
-    override var stopSpellResolutionMaximum: Int = stopSpellResolutionMaximum
-        set(value) {
-            field = maxOf(0, value)
-            logger.trace("stopSpellResolutionMaximum={}", field)
-        }
-
-    override var stopSpellResolutionMinimum: Int = stopSpellResolutionMinimum
-        set(value) {
-            field = minOf(maxOf(0, value), stopSpellResolutionMaximum)
-            logger.trace("stopSpellResolutionMinimum={}", field)
         }
 
     override var stopSpellRequirementMaximum: Int = stopSpellRequirementMaximum
@@ -279,8 +298,24 @@ open class Actor(
             logger.trace("stopSpellResistanceMinimum={}", field)
         }
 
+    override var stopSpellResolutionMaximum: Int = stopSpellResolutionMaximum
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("stopSpellResolutionMaximum={}", field)
+        }
+
+    override var stopSpellResolutionMinimum: Int = stopSpellResolutionMinimum
+        set(value) {
+            field = minOf(maxOf(0, value), stopSpellResolutionMaximum)
+            logger.trace("stopSpellResolutionMinimum={}", field)
+        }
+
     @Transient
-    protected val stopSpellResolvable: StopSpellResolvable = StopSpellResolvable(this)
+    var stopSpellResolvable: StopSpellResolvable = stopSpellResolvable
+        set(value) {
+            field = value
+            logger.trace("stopSpellResolvable={}", field)
+        }
 
     override var strength: Int = strength
         set(value) {
@@ -351,6 +386,10 @@ open class Actor(
         this.healRangeMinimum = healRangeMinimum
         this.healScale = healScale
         this.healShift = healShift
+        this.herbRangeMaximum = herbRangeMaximum
+        this.herbRangeMinimum = herbRangeMinimum
+        this.herbScale = herbScale
+        this.herbShift = herbShift
         this.hitPoints = hitPoints
         this.hitPointsMaximum = hitPointsMaximum
         this.hurtRangeMaximum = hurtRangeMaximum
@@ -364,23 +403,23 @@ open class Actor(
         this.magicPoints = magicPoints
         this.magicPointsMaximum = magicPointsMaximum
         this.name = name
-        SleepResolvable(this)
-        StopSpellResolvable(this)
         this.shield = shield
         this.sleepRequirementMaximum = sleepRequirementMaximum
         this.sleepRequirementMinimum = sleepRequirementMinimum
-        this.sleepResolutionMaximum = sleepResolutionMaximum
-        this.sleepResolutionMinimum = sleepResolutionMinimum
         this.sleepResistanceMaximum = sleepResistanceMaximum
         this.sleepResistanceMinimum = sleepResistanceMinimum
+        this.sleepResolutionMaximum = sleepResolutionMaximum
+        this.sleepResolutionMinimum = sleepResolutionMinimum
+        this.sleepResolvable = sleepResolvable
         this.statusSleep = statusSleep
         this.statusStopSpell = statusStopSpell
-        this.stopSpellResolutionMaximum = stopSpellResolutionMaximum
-        this.stopSpellResolutionMinimum = stopSpellResolutionMinimum
         this.stopSpellRequirementMaximum = stopSpellRequirementMaximum
         this.stopSpellRequirementMinimum = stopSpellRequirementMinimum
         this.stopSpellResistanceMaximum = stopSpellResistanceMaximum
         this.stopSpellResistanceMinimum = stopSpellResistanceMinimum
+        this.stopSpellResolutionMaximum = stopSpellResolutionMaximum
+        this.stopSpellResolutionMinimum = stopSpellResolutionMinimum
+        this.stopSpellResolvable = stopSpellResolvable
         this.strength = strength
         this.turns = turns
         this.turnsSleep = turnsSleep
