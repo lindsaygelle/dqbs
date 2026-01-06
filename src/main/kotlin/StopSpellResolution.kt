@@ -1,12 +1,15 @@
 package com.github.lindsaygelle
 
+import java.util.*
+
 class StopSpellResolution(
     resolved: Boolean,
     stopSpellResolutionRandom: Int,
     timeMilliseconds: Long,
     turnsStopSpell: Int,
+    uuid: UUID,
 ) : Resolution(
-    resolved, timeMilliseconds
+    resolved, timeMilliseconds, uuid
 ),
     StopSpellAccumulator {
     var stopSpellResolutionRandom: Int = stopSpellResolutionRandom
@@ -23,5 +26,9 @@ class StopSpellResolution(
     init {
         this.stopSpellResolutionRandom = stopSpellResolutionRandom
         this.turnsStopSpell = turnsStopSpell
+    }
+
+    override fun toString(): String {
+        return "stopSpellResolutionRandom=${stopSpellResolutionRandom} turnsStopSpell=${turnsStopSpell} ${super.hashCode()}"
     }
 }
