@@ -189,7 +189,7 @@ open class Actor(
             field = value
             logger.trace("items={}", field)
         }
-    
+
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 

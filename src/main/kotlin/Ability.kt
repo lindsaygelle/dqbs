@@ -3,7 +3,25 @@ package com.github.lindsaygelle
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-abstract class Ability<A : Invoker, B : Receiver>(limit: Int) : Limiter {
+abstract class Ability<A : Invoker, B : Receiver>(
+    checkable: Checkable<A, B>,
+    invocable: Invocable<A>,
+    limit: Int,
+    receivable: Receivable<B>
+) :
+    Limiter {
+    var checkable: Checkable<A, B> = checkable
+        set(value) {
+            field = value
+            logger.trace("checkable={}", field)
+        }
+
+    var invocable: Invocable<A> = invocable
+        set(value) {
+            field = value
+            logger.trace("invocable={}", field)
+        }
+
     final override var limit: Int = limit
         set(value) {
             field = maxOf(0, value)
@@ -13,22 +31,30 @@ abstract class Ability<A : Invoker, B : Receiver>(limit: Int) : Limiter {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
+    var receivable: Receivable<B> = receivable
+        set(value) {
+            field = value
+            logger.trace("receivable={}", field)
+        }
+
     init {
+        this.checkable = checkable
+        this.invocable = invocable
         this.limit = limit
+        this.receivable = receivable
     }
-    
-    protected abstract fun checkInvoker(invoker: A)
-    
-    protected abstract fun checkReceiver(receiver: B)
+
 
     override fun toString(): String {
-        return "hashCode=${hashCode()} limit=${limit}"
+        return "checkable=${checkable} hashCode=${hashCode()} invocable=${invocable} limit=${limit} receivable=${receivable}"
     }
 
-    fun use(invoker: A, receivers: List<B>) {
+    fun use(invoker: A, receivers: List<B>): List<Outcome> {
+        val outcomes = mutableListOf<Outcome>()
         receivers.take(limit).forEachIndexed { _, receiver ->
-            checkInvoker(invoker)
-            checkReceiver(receiver)
+            val invocation = invocable.invoke(invoker)
+            receivable.receive(receiver)
         }
+        return outcomes
     }
 }

@@ -22,4 +22,8 @@ class SleepReception(sleepResistance: Int, sleepResistanceMaximum: Int, sleepRes
         this.sleepResistanceMaximum = sleepResistanceMaximum
         this.sleepResistanceMinimum = sleepResistanceMinimum
     }
+
+    override fun toString(): String {
+        return "sleepResistance=${sleepResistance} sleepResistanceMaximum=${sleepResistanceMaximum} sleepResistanceMinimum=${sleepResistanceMinimum} ${super.toString()}"
+    }
 }
