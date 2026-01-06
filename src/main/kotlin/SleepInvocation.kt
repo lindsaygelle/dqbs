@@ -1,7 +1,12 @@
 package com.github.lindsaygelle
 
-class SleepInvocation(sleepRequirement: Int, sleepRequirementMaximum: Int, sleepRequirementMinimum: Int) :
-    Invocation() {
+class SleepInvocation(
+    magicPoints: Int,
+    sleepRequirement: Int,
+    sleepRequirementMaximum: Int,
+    sleepRequirementMinimum: Int
+) :
+    MagicInvocation(magicPoints) {
     var sleepRequirement: Int = sleepRequirement
         set(value) {
             field = value
@@ -22,5 +27,9 @@ class SleepInvocation(sleepRequirement: Int, sleepRequirementMaximum: Int, sleep
         this.sleepRequirement = sleepRequirement
         this.sleepRequirementMaximum = sleepRequirementMaximum
         this.sleepRequirementMinimum = sleepRequirementMinimum
+    }
+
+    override fun toString(): String {
+        return "sleepRequirement=${sleepRequirement} sleepRequirementMaximum=${sleepRequirementMaximum} sleepRequirementMinimum=${sleepRequirementMinimum} ${super.toString()}"
     }
 }
