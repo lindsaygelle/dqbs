@@ -24,4 +24,8 @@ open class Equipment(name: String, uuid: UUID) : Nameable,
         this.name = name
         this.uuid = uuid
     }
+
+    override fun toString(): String {
+        return "name=${name} uuid=${uuid}"
+    }
 }
