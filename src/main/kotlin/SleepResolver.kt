@@ -7,6 +7,4 @@ interface SleepResolver : Resolver,
     var sleepResolutionMinimum: Int
     val sleepResolutionRange: IntRange
         get() = (sleepResolutionMinimum..sleepResolutionMaximum)
-    val sleepResolutionRandom: Int
-        get() = sleepResolutionRange.random()
 }

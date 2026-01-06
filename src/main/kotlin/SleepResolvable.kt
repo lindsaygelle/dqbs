@@ -1,8 +1,10 @@
 package com.github.lindsaygelle
 
-class SleepResolvable(resolver: SleepResolver) : Resolvable<SleepResolver, SleepResolution>(resolver) {
-    override fun resolve(): SleepResolution {
-        val sleepResolutionRandom = resolver.sleepResolutionRandom
+import java.util.*
+
+class SleepResolvable : Resolvable<SleepResolver, SleepResolution>() {
+    override fun resolve(resolver: SleepResolver): SleepResolution {
+        val sleepResolutionRandom = resolver.sleepResolutionRange.random()
         val turnsSleep = resolver.turnsSleep
         val resolved = sleepResolutionRandom == resolver.sleepResolutionMaximum
         if (resolved) {
@@ -13,7 +15,8 @@ class SleepResolvable(resolver: SleepResolver) : Resolvable<SleepResolver, Sleep
             resolved = resolved,
             sleepResolutionRandom = sleepResolutionRandom,
             timeMilliseconds = System.currentTimeMillis(),
-            turnsSleep = turnsSleep
+            turnsSleep = turnsSleep,
+            uuid = UUID.randomUUID(),
         )
     }
 }

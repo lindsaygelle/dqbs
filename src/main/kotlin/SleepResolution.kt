@@ -1,12 +1,15 @@
 package com.github.lindsaygelle
 
+import java.util.UUID
+
 class SleepResolution(
     resolved: Boolean,
     sleepResolutionRandom: Int,
     timeMilliseconds: Long,
     turnsSleep: Int,
+    uuid: UUID,
 ) : Resolution(
-    resolved, timeMilliseconds
+    resolved, timeMilliseconds, uuid
 ),
     SleepAccumulator {
     var sleepResolutionRandom: Int = sleepResolutionRandom
@@ -23,5 +26,9 @@ class SleepResolution(
     init {
         this.sleepResolutionRandom = sleepResolutionRandom
         this.turnsSleep = turnsSleep
+    }
+
+    override fun toString(): String {
+        return "sleepResolutionRandom=${sleepResolutionRandom} turnsSleep=${turnsSleep} ${super.toString()}"
     }
 }

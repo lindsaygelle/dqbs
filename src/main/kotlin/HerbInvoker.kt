@@ -1,3 +1,7 @@
 package com.github.lindsaygelle
 
-interface HerbInvoker : ItemInvoker
+interface HerbInvoker : HerbRanger,
+    ItemInvoker {
+    var herbScale: Int
+    var herbShift: Int
+}

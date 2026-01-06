@@ -4,14 +4,14 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-open class Resolution(resolved: Boolean, timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
+open class Check(result: Boolean, timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
     UniversalIdentifier {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-    var resolved: Boolean = resolved
+    var result: Boolean = result
         set(value) {
             field = value
-            logger.trace("resolved={}", field)
+            logger.trace("result={}", field)
         }
     final override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
@@ -25,12 +25,12 @@ open class Resolution(resolved: Boolean, timeMilliseconds: Long, uuid: UUID) : T
         }
 
     init {
-        this.resolved = resolved
+        this.result = result
         this.timeMilliseconds = timeMilliseconds
         this.uuid = uuid
     }
 
     override fun toString(): String {
-        return "hashCode=${hashCode()} resolved=${resolved} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
+        return "hashCode=${hashCode()} result=${result} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
     }
 }

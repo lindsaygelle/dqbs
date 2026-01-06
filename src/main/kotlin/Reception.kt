@@ -3,7 +3,7 @@ package com.github.lindsaygelle
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-abstract class Resolvable<R : Resolver, T : Resolution> {
+open class Reception {
+    @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-    abstract fun resolve(resolver: R): T
 }

@@ -1,8 +1,11 @@
 package com.github.lindsaygelle
 
-class StopSpellResolvable(resolver: StopSpellResolver) : Resolvable<StopSpellResolver, StopSpellResolution>(resolver) {
-    override fun resolve(): StopSpellResolution {
-        val stopSpellResolutionRandom = resolver.stopSpellResolutionRandom
+import java.util.*
+
+class StopSpellResolvable : Resolvable<StopSpellResolver,
+    StopSpellResolution>() {
+    override fun resolve(resolver: StopSpellResolver): StopSpellResolution {
+        val stopSpellResolutionRandom = resolver.stopSpellResolutionRange.random()
         val turnsStopSpell = resolver.turnsStopSpell
         val resolved = stopSpellResolutionRandom == resolver.stopSpellResolutionMaximum
         if (resolved) {
@@ -14,6 +17,7 @@ class StopSpellResolvable(resolver: StopSpellResolver) : Resolvable<StopSpellRes
             stopSpellResolutionRandom = stopSpellResolutionRandom,
             timeMilliseconds = System.currentTimeMillis(),
             turnsStopSpell = turnsStopSpell,
+            uuid = UUID.randomUUID(),
         )
     }
 }
