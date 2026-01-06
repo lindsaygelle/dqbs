@@ -5,6 +5,4 @@ interface HurtResister {
     var hurtResistanceMinimum: Int
     val hurtResistanceRange: IntRange
         get() = (hurtResistanceMinimum..hurtResistanceMaximum)
-    val hurtResistanceRangeRandom: Int
-        get() = hurtResistanceRange.random()
 }
