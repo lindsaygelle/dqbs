@@ -1,5 +1,11 @@
 package com.github.lindsaygelle
 
-class SleepReceivable(
-    val sleepResistanceValue: Int,
-)
+class SleepReceivable : Receivable<SleepReceiver>() {
+    override fun receive(receiver: SleepReceiver): Reception {
+        return SleepReception(
+            receiver.sleepResistanceRange.random(),
+            receiver.sleepResistanceMaximum,
+            receiver.sleepResistanceMinimum
+        )
+    }
+}
