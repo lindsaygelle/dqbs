@@ -4,7 +4,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-open class Invocation(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer, UniversalIdentifier {
+open class Invocation(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
+    UniversalIdentifier {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
     override var timeMilliseconds: Long = timeMilliseconds
@@ -24,6 +25,6 @@ open class Invocation(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer, Univer
     }
 
     override fun toString(): String {
-        return "hashCode=${hashCode()} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
+        return "{hashCode=${hashCode()} timeMilliseconds=${timeMilliseconds} uuid=${uuid}}"
     }
 }

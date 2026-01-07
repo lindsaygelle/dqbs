@@ -29,6 +29,6 @@ class SleepResolution(
     }
 
     override fun toString(): String {
-        return "sleepResolutionRandom=${sleepResolutionRandom} turnsSleep=${turnsSleep} ${super.toString()}"
+        return "{sleepResolutionRandom=${sleepResolutionRandom} turnsSleep=${turnsSleep} ${super.toString()}}"
     }
 }

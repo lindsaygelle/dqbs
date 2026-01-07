@@ -31,6 +31,6 @@ class SleepCheck(
     }
 
     override fun toString(): String {
-        return "sleepRequirement=${sleepRequirement} sleepResistance=${sleepResistance} ${super.toString()}"
+        return "{sleepRequirement=${sleepRequirement} sleepResistance=${sleepResistance} ${super.toString()}}"
     }
 }

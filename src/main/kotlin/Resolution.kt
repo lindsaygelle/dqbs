@@ -31,6 +31,6 @@ open class Resolution(resolved: Boolean, timeMilliseconds: Long, uuid: UUID) : T
     }
 
     override fun toString(): String {
-        return "hashCode=${hashCode()} resolved=${resolved} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
+        return "{hashCode=${hashCode()} resolved=${resolved} timeMilliseconds=${timeMilliseconds} uuid=${uuid}}"
     }
 }

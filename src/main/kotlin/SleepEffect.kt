@@ -15,6 +15,6 @@ class SleepEffect(statusSleep: Boolean, timeMilliseconds: Long, uuid: UUID) : Ef
     }
 
     override fun toString(): String {
-        return "statusSleep=${statusSleep} ${super.toString()}"
+        return "{statusSleep=${statusSleep} ${super.toString()}}"
     }
 }

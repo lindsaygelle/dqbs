@@ -14,7 +14,8 @@ class Outcome<C : Check, E : Effect, I : Invocation, R : Reception>(
     reception: R,
     timeMilliseconds: Long,
     uuid: UUID
-) : TimeMeasurer, UniversalIdentifier {
+) : TimeMeasurer,
+    UniversalIdentifier {
     var check: C = check
         set(value) {
             field = value
@@ -77,6 +78,6 @@ class Outcome<C : Check, E : Effect, I : Invocation, R : Reception>(
     }
 
     override fun toString(): String {
-        return "check=${check} effect=${effect} hashCode=${hashCode()} invocation=${invocation} invokerUUID=${invokerUUID} receiverIndex=${receiverIndex} receiverUUID=${receiverUUID} reception=${reception} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
+        return "{check=${check} effect=${effect} hashCode=${hashCode()} invocation=${invocation} invokerUUID=${invokerUUID} receiverIndex=${receiverIndex} receiverUUID=${receiverUUID} reception=${reception} timeMilliseconds=${timeMilliseconds} uuid=${uuid}}"
     }
 }

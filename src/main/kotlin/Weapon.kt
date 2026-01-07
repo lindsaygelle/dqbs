@@ -15,6 +15,6 @@ class Weapon(attack: Int, name: String, uuid: UUID) : AttackPointer,
     }
 
     override fun toString(): String {
-        return "attack=${attack} ${super.toString()}"
+        return "{attack=${attack} ${super.toString()}}"
     }
 }
