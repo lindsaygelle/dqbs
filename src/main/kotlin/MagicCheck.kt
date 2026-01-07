@@ -2,13 +2,12 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-abstract class MagicCheck(
+open class MagicCheck(
     magicPoints: Int,
     magicPointsRequirement: Int,
     timeMilliseconds: Long,
-    uuid: UUID
-) :
-    Check(timeMilliseconds, uuid),
+    uuid: UUID,
+) : Check(timeMilliseconds, uuid),
     MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {
@@ -21,6 +20,9 @@ abstract class MagicCheck(
             field = value
             logger.trace("magicPointsRequirement={}", field)
         }
+
+    override val result: Boolean
+        get() = (magicPoints - magicPointsRequirement) >= 0
 
     init {
         this.magicPoints = magicPoints

@@ -1,7 +1,6 @@
 package com.github.lindsaygelle
 
-abstract class MagicCheckable<A : MagicInvocation, B : Reception, C : MagicCheck>(magicPoints: Int) :
-    Checkable<A, B, C>(),
+abstract class MagicCheckable<A : MagicInvocation, B : Reception, C : MagicCheck>(magicPoints: Int) : Checkable<A, B, C>(),
     MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {

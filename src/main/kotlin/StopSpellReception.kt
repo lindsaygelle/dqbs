@@ -7,7 +7,7 @@ class StopSpellReception(
     stopSpellResistanceMaximum: Int,
     stopSpellResistanceMinimum: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : Reception(timeMilliseconds, uuid) {
     var stopSpellResistance: Int = stopSpellResistance
         set(value) {

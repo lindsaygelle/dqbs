@@ -2,19 +2,23 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-class StopSpell(limit: Int, magicPoints: Int) :
-    MagicAbility<StopSpellInvoker, StopSpellReceiver, StopSpellInvocation, StopSpellReception, StopSpellCheck, StopSpellEffect>(
-        limit, magicPoints
-    ) {
+class StopSpell(
+    limit: Int,
+    magicPoints: Int,
+) : MagicAbility<StopSpellInvoker, StopSpellReceiver, StopSpellInvocation, StopSpellReception, StopSpellCheck, StopSpellEffect>(
+    limit, magicPoints
+) {
     override fun getEffect(
         check: StopSpellCheck,
         invocation: StopSpellInvocation,
         invoker: StopSpellInvoker,
         receiver: StopSpellReceiver,
-        reception: StopSpellReception
+        reception: StopSpellReception,
     ): StopSpellEffect {
         receiver.statusStopSpell = check.result
-        receiver.turnsStopSpell = 0
+        if (receiver.statusStopSpell) {
+            receiver.turnsStopSpell = 0
+        }
         return StopSpellEffect(receiver.statusStopSpell, System.currentTimeMillis(), UUID.randomUUID())
     }
 

@@ -1,5 +1,5 @@
 import com.github.lindsaygelle.StopSpellReceiver
-import java.util.UUID
+import java.util.*
 
 class MockStopSpellReceiver(
     override var stopSpellResistanceMaximum: Int,

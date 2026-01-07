@@ -5,7 +5,7 @@ import java.util.*
 class SleepCheckable(magicPoints: Int) : MagicCheckable<SleepInvocation, SleepReception, SleepCheck>(magicPoints),
     MagicPointer {
     override fun check(
-        invocation: SleepInvocation, reception: SleepReception
+        invocation: SleepInvocation, reception: SleepReception,
     ): SleepCheck {
         return SleepCheck(
             invocation.magicPoints,

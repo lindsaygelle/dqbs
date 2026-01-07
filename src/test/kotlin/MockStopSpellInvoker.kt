@@ -1,5 +1,5 @@
 import com.github.lindsaygelle.StopSpellInvoker
-import java.util.UUID
+import java.util.*
 
 class MockStopSpellInvoker(
     override var magicPoints: Int,

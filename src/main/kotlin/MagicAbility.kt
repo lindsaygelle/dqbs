@@ -2,7 +2,7 @@ package com.github.lindsaygelle
 
 abstract class MagicAbility<A : MagicInvoker, B : Receiver, I : MagicInvocation, R : Reception, C : Check, E : Effect>(
     limit: Int,
-    magicPoints: Int
+    magicPoints: Int,
 ) : Ability<A, B, I, R, C, E>(limit),
     MagicPointer {
     override var magicPoints: Int = magicPoints

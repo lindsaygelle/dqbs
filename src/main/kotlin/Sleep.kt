@@ -2,20 +2,23 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-class Sleep(limit: Int, magicPoints: Int) :
-    MagicAbility<SleepInvoker, SleepReceiver, SleepInvocation, SleepReception, SleepCheck, SleepEffect>(
-        limit,
-        magicPoints
-    ) {
+class Sleep(
+    limit: Int,
+    magicPoints: Int,
+) : MagicAbility<SleepInvoker, SleepReceiver, SleepInvocation, SleepReception, SleepCheck, SleepEffect>(
+    limit, magicPoints
+) {
     override fun getEffect(
         check: SleepCheck,
         invocation: SleepInvocation,
         invoker: SleepInvoker,
         receiver: SleepReceiver,
-        reception: SleepReception
+        reception: SleepReception,
     ): SleepEffect {
         receiver.statusSleep = check.result
-        receiver.turnsSleep = 0
+        if (receiver.statusSleep) {
+            receiver.turnsSleep = 0
+        }
         return SleepEffect(receiver.statusSleep, System.currentTimeMillis(), UUID.randomUUID())
     }
 
