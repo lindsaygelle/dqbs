@@ -2,8 +2,7 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-class StopSpellResolvable : Resolvable<StopSpellResolver,
-    StopSpellResolution>() {
+class StopSpellResolvable : Resolvable<StopSpellResolver, StopSpellResolution>() {
     override fun resolve(resolver: StopSpellResolver): StopSpellResolution {
         val stopSpellResolutionRandom = resolver.stopSpellResolutionRange.random()
         val turnsStopSpell = resolver.turnsStopSpell

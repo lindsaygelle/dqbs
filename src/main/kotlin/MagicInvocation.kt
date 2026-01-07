@@ -1,6 +1,9 @@
 package com.github.lindsaygelle
 
-open class MagicInvocation(magicPoints: Int) : Invocation(), MagicPointer {
+import java.util.*
+
+open class MagicInvocation(magicPoints: Int, timeMilliseconds: Long, uuid: UUID) : Invocation(timeMilliseconds, uuid),
+    MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {
             field = value

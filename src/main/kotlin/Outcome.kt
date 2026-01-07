@@ -4,8 +4,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class Outcome<C : Check, I : Invocation, R : Reception>(
+class Outcome<C : Check, E : Effect, I : Invocation, R : Reception>(
     check: C,
+    effect: E,
     invocation: I,
     invokerUUID: UUID,
     receiverIndex: Int,
@@ -18,6 +19,11 @@ class Outcome<C : Check, I : Invocation, R : Reception>(
         set(value) {
             field = value
             logger.trace("check={}", field)
+        }
+    var effect: E = effect
+        set(value) {
+            field = value
+            logger.trace("effect={}", field)
         }
     var invocation: I = invocation
         set(value) {
@@ -60,6 +66,7 @@ class Outcome<C : Check, I : Invocation, R : Reception>(
 
     init {
         this.check = check
+        this.effect = effect
         this.invocation = invocation
         this.invokerUUID = invokerUUID
         this.receiverIndex = receiverIndex
@@ -70,6 +77,6 @@ class Outcome<C : Check, I : Invocation, R : Reception>(
     }
 
     override fun toString(): String {
-        return "check=${check} hashCode=${hashCode()} invocation=${invocation} invokerUUID=${invokerUUID} receiverIndex=${receiverIndex} receiverUUID=${receiverUUID} reception=${reception} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
+        return "check=${check} effect=${effect} hashCode=${hashCode()} invocation=${invocation} invokerUUID=${invokerUUID} receiverIndex=${receiverIndex} receiverUUID=${receiverUUID} reception=${reception} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
     }
 }

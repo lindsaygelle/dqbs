@@ -1,11 +1,18 @@
 package com.github.lindsaygelle
 
 class Sleep(limit: Int, magicPoints: Int) :
-    MagicAbility<SleepInvoker, SleepReceiver, SleepInvocation, SleepReception, SleepCheck>(limit, magicPoints) {
-    override fun applyEffect(
-        invocation: SleepInvocation, invoker: SleepInvoker, receiver: SleepReceiver, reception: SleepReception
-    ) {
-        receiver.statusSleep = true
+    MagicAbility<SleepInvoker, SleepReceiver, SleepInvocation, SleepReception, SleepCheck, Effect>(limit, magicPoints) {
+    override fun getEffect(
+        check: SleepCheck,
+        invocation: SleepInvocation,
+        invoker: SleepInvoker,
+        receiver: SleepReceiver,
+        reception: SleepReception
+    ): Effect {
+        if (check.result) {
+            receiver.statusSleep = true
+        }
+        return Effect()
     }
 
     override fun getCheckable(): Checkable<SleepInvocation, SleepReception, SleepCheck> {

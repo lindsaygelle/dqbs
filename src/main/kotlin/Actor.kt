@@ -256,7 +256,7 @@ open class Actor(
         }
 
     @Transient
-    var sleepResolvable: SleepResolvable =  sleepResolvable
+    var sleepResolvable: SleepResolvable = sleepResolvable
         set(value) {
             field = value
             logger.trace("sleepResolvable={}", field)

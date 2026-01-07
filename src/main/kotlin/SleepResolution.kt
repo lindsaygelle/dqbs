@@ -1,6 +1,6 @@
 package com.github.lindsaygelle
 
-import java.util.UUID
+import java.util.*
 
 class SleepResolution(
     resolved: Boolean,
