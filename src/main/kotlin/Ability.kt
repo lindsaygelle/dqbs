@@ -73,6 +73,6 @@ abstract class Ability<A : Invoker, B : Receiver, I : Invocation, R : Reception,
     }
 
     override fun toString(): String {
-        return "hashCode=${hashCode()} limit=${limit} ${super.toString()}"
+        return "{hashCode=${hashCode()} limit=${limit} ${super.toString()}}"
     }
 }
