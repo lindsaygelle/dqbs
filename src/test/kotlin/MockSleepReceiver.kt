@@ -1,11 +1,10 @@
 import com.github.lindsaygelle.SleepReceiver
-import java.util.UUID
-import kotlin.random.Random
+import java.util.*
 
 class MockSleepReceiver(
-    override var sleepResistanceMaximum: Int = 16,
-    override var sleepResistanceMinimum: Int = 0,
-    override var statusSleep: Boolean = false,
-    override var turnsSleep: Int = Random.nextInt(0, 10),
-    override var uuid: UUID = UUID.randomUUID(),
+    override var sleepResistanceMaximum: Int,
+    override var sleepResistanceMinimum: Int,
+    override var statusSleep: Boolean,
+    override var turnsSleep: Int,
+    override var uuid: UUID,
 ) : SleepReceiver
