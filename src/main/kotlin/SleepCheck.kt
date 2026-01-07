@@ -13,12 +13,14 @@ class SleepCheck(
     magicPoints, magicPointsRequirement, timeMilliseconds, uuid
 ) {
     override val result: Boolean
-        get() = (sleepRequirement >= sleepResistance) && ((magicPoints - magicPointsRequirement) >= 0)
+        get() = super.result && (sleepRequirement >= sleepResistance)
+
     var sleepRequirement: Int = sleepRequirement
         set(value) {
             field = value
             logger.trace("sleepRequirement={}", field)
         }
+
     var sleepResistance: Int = sleepResistance
         set(value) {
             field = value

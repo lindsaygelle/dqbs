@@ -21,6 +21,7 @@ class HealInvocation(
             field = value
             logger.trace("heal={}", field)
         }
+
     var healOffset: Int = healOffset
         set(value) {
             field = value
