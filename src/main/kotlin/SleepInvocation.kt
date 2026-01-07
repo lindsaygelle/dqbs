@@ -1,12 +1,15 @@
 package com.github.lindsaygelle
 
+import java.util.*
+
 class SleepInvocation(
     magicPoints: Int,
     sleepRequirement: Int,
     sleepRequirementMaximum: Int,
-    sleepRequirementMinimum: Int
-) :
-    MagicInvocation(magicPoints) {
+    sleepRequirementMinimum: Int,
+    timeMilliseconds: Long,
+    uuid: UUID,
+) : MagicInvocation(magicPoints, timeMilliseconds, uuid) {
     var sleepRequirement: Int = sleepRequirement
         set(value) {
             field = value

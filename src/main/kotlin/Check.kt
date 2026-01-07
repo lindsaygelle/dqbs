@@ -4,15 +4,10 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-open class Check(result: Boolean, timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
-    UniversalIdentifier {
+abstract class Check(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer, UniversalIdentifier {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-    var result: Boolean = result
-        set(value) {
-            field = value
-            logger.trace("result={}", field)
-        }
+    abstract val result: Boolean
     final override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = value
@@ -25,7 +20,6 @@ open class Check(result: Boolean, timeMilliseconds: Long, uuid: UUID) : TimeMeas
         }
 
     init {
-        this.result = result
         this.timeMilliseconds = timeMilliseconds
         this.uuid = uuid
     }

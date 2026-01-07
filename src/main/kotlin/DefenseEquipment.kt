@@ -1,6 +1,6 @@
 package com.github.lindsaygelle
 
-import java.util.UUID
+import java.util.*
 
 open class DefenseEquipment(defense: Int, name: String, uuid: UUID) : DefensePointer,
     Equipment(name, uuid) {

@@ -1,4 +1,4 @@
 package com.github.lindsaygelle
 
-interface HerbReceiver: AbilityReceiver,
+interface HerbReceiver : AbilityReceiver,
     HitPointer

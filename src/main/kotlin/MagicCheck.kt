@@ -2,14 +2,13 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-open class MagicCheck(
+abstract class MagicCheck(
     magicPoints: Int,
     magicPointsRequirement: Int,
-    result: Boolean,
     timeMilliseconds: Long,
     uuid: UUID
 ) :
-    Check(result, timeMilliseconds, uuid), MagicPointer {
+    Check(timeMilliseconds, uuid), MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {
             field = value
