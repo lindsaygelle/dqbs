@@ -1,5 +1,5 @@
 import com.github.lindsaygelle.HealInvocable
-import java.util.UUID
+import java.util.*
 import kotlin.test.Test
 
 class HealInvocableTest {

@@ -1,5 +1,5 @@
-import com.github.lindsaygelle.HitPointer
-import com.github.lindsaygelle.Reception
+package com.github.lindsaygelle
+
 import java.util.*
 
 class HealReception(hitPoints: Int, timeMillisecond: Long, uuid: UUID) : Reception(timeMillisecond, uuid),
@@ -15,6 +15,6 @@ class HealReception(hitPoints: Int, timeMillisecond: Long, uuid: UUID) : Recepti
     }
 
     override fun toString(): String {
-        return "hitPoints=${hitPoints} ${super.toString()}}"
+        return "{hitPoints=${hitPoints} ${super.toString()}}"
     }
 }
