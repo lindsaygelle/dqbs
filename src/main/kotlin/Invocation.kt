@@ -8,11 +8,13 @@ open class Invocation(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
     UniversalIdentifier {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = maxOf(0, value)
             logger.trace("timeMilliseconds={}", field)
         }
+
     override var uuid: UUID = uuid
         set(value) {
             field = value

@@ -21,16 +21,19 @@ class Outcome<C : Check, E : Effect, I : Invocation, R : Reception>(
             field = value
             logger.trace("check={}", field)
         }
+
     var effect: E = effect
         set(value) {
             field = value
             logger.trace("effect={}", field)
         }
+
     var invocation: I = invocation
         set(value) {
             field = value
             logger.trace("invocation={}", field)
         }
+
     var invokerUUID: UUID = invokerUUID
         set(value) {
             field = value
@@ -39,26 +42,31 @@ class Outcome<C : Check, E : Effect, I : Invocation, R : Reception>(
 
     @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     var receiverIndex: Int = receiverIndex
         set(value) {
             field = value
             logger.trace("receiverIndex={}", field)
         }
+
     var receiverUUID: UUID = receiverUUID
         set(value) {
             field = value
             logger.trace("receiverUUID={}", field)
         }
+
     var reception: R = reception
         set(value) {
             field = value
             logger.trace("reception={}", field)
         }
+
     override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = value
             logger.trace("timeMilliseconds={}", field)
         }
+
     override var uuid: UUID = uuid
         set(value) {
             field = value

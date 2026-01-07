@@ -14,11 +14,13 @@ class StopSpellReception(
             field = value
             logger.trace("stopSpellResistance={}", field)
         }
+
     var stopSpellResistanceMaximum: Int = stopSpellResistanceMaximum
         set(value) {
             field = value
             logger.trace("stopSpellResistanceMaximum={}", field)
         }
+
     var stopSpellResistanceMinimum: Int = stopSpellResistanceMinimum
         set(value) {
             field = value
@@ -32,6 +34,6 @@ class StopSpellReception(
     }
 
     override fun toString(): String {
-        return "{stopSpellResistance=${stopSpellResistance} stopSpellResistanceMaximum=${stopSpellResistanceMaximum} stopSpellResistanceMinimum=${stopSpellResistanceMinimum} ${super.toString()}}"
+        return "{stopSpellResistance=${stopSpellResistance} stopSpellResistanceMaximum=${stopSpellResistanceMaximum} stopSpellResistanceMinimum=${stopSpellResistanceMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

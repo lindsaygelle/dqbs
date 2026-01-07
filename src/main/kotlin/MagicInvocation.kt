@@ -15,6 +15,6 @@ open class MagicInvocation(magicPoints: Int, timeMilliseconds: Long, uuid: UUID)
     }
 
     override fun toString(): String {
-        return "{magicPoints=${magicPoints} ${super.toString()}}"
+        return "{magicPoints=${magicPoints} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

@@ -1,15 +1,18 @@
 package com.github.lindsaygelle
 
-import java.util.*
+import java.util.UUID
 
-class Heal(
-    limit: Int, magicPoints: Int,
-) : HealAbility<HealInvoker>(limit, magicPoints) {
-
+class HealMore(
+    limit: Int,
+    magicPoints: Int
+) : HealAbility<HealMoreInvoker>(
+    limit,
+    magicPoints
+) {
     override fun getEffect(
         check: HealCheck,
         invocation: HealInvocation,
-        invoker: HealInvoker,
+        invoker: HealMoreInvoker,
         receiver: HealReceiver,
         reception: HealReception,
     ): HealEffect {
@@ -19,7 +22,7 @@ class Heal(
         return HealEffect(receiver.hitPoints, reception.hitPoints, System.currentTimeMillis(), UUID.randomUUID())
     }
 
-    override fun getInvocable(): Invocable<HealInvoker, HealInvocation> {
-        return HealInvocable(magicPoints)
+    override fun getInvocable(): Invocable<HealMoreInvoker, HealInvocation> {
+        return HealMoreInvocable(magicPoints)
     }
 }

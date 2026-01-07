@@ -15,11 +15,13 @@ class StopSpellInvocation(
             field = value
             logger.trace("stopSpellRequirement={}", field)
         }
+
     var stopSpellRequirementMaximum: Int = stopSpellRequirementMaximum
         set(value) {
             field = value
             logger.trace("stopSpellRequirementMaximum={}", field)
         }
+
     var stopSpellRequirementMinimum: Int = stopSpellRequirementMinimum
         set(value) {
             field = value
@@ -33,6 +35,6 @@ class StopSpellInvocation(
     }
 
     override fun toString(): String {
-        return "{stopSpellRequirement=${stopSpellRequirement} stopSpellRequirementMaximum=${stopSpellRequirementMaximum} stopSpellRequirementMinimum=${stopSpellRequirementMinimum} ${super.toString()}}"
+        return "{stopSpellRequirement=${stopSpellRequirement} stopSpellRequirementMaximum=${stopSpellRequirementMaximum} stopSpellRequirementMinimum=${stopSpellRequirementMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

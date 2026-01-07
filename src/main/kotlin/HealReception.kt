@@ -15,6 +15,6 @@ class HealReception(hitPoints: Int, timeMillisecond: Long, uuid: UUID) : Recepti
     }
 
     override fun toString(): String {
-        return "{hitPoints=${hitPoints} ${super.toString()}}"
+        return "{hitPoints=${hitPoints} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

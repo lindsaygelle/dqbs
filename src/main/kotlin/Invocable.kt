@@ -4,6 +4,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 abstract class Invocable<I : Invoker, T : Invocation> {
+    @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     abstract fun invoke(invoker: I): T
 }

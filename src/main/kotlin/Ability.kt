@@ -4,7 +4,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class Ability<A : Invoker, B : Receiver, I : Invocation, R : Reception, C : Check, E : Effect>(
+abstract class Ability<A : AbilityInvoker, B : AbilityReceiver, I : Invocation, R : Reception, C : Check, E : Effect>(
     limit: Int,
 ) : Limiter {
     final override var limit: Int = limit
@@ -61,18 +61,20 @@ abstract class Ability<A : Invoker, B : Receiver, I : Invocation, R : Reception,
     }
 
     protected abstract fun getReceivable(): Receivable<B, R>
+
     private fun getReception(receivable: Receivable<B, R>, receiver: B): R {
         logger.debug("receivable={} receiver={}", receivable, receiver)
         return receivable.receive(receiver)
     }
 
     fun use(invoker: A, receivers: List<B>): List<Outcome<C, E, I, R>> {
+        logger.debug("invoker={} receivers={} receivers.size={}", invoker, receivers, receivers.size)
         return receivers.take(limit).mapIndexed { receiverIndex, receiver ->
             getOutcome(invoker, receiver, receiverIndex)
         }
     }
 
     override fun toString(): String {
-        return "{hashCode=${hashCode()} limit=${limit} ${super.toString()}}"
+        return "{hashCode=${hashCode()} limit=${limit} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

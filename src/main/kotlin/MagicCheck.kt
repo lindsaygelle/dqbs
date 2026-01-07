@@ -30,6 +30,6 @@ open class MagicCheck(
     }
 
     override fun toString(): String {
-        return "{magicPoints=${magicPoints} magicPointsRequirement=${magicPointsRequirement} ${super.toString()}}"
+        return "{magicPoints=${magicPoints} magicPointsRequirement=${magicPointsRequirement} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

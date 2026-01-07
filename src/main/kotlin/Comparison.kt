@@ -9,12 +9,16 @@ class Comparison(attribute: Attribute, operator: Operator, value: Int) {
             field = value
             logger.trace("attribute={}", field)
         }
+
+    @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     private var operator: Operator = operator
         set(value) {
             field = value
             logger.trace("operator={}", field)
         }
+
     private var value: Int = value
         set(value) {
             field = value
@@ -44,5 +48,9 @@ class Comparison(attribute: Attribute, operator: Operator, value: Int) {
             Operator.LESS_THAN_EQUAL_TO -> value <= attributeValue
             Operator.NOT_EQUAL_TO -> value != attributeValue
         }
+    }
+
+    override fun toString(): String {
+        return "{attribute=${attribute} operator=${operator} value=${value} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

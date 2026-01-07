@@ -1,6 +1,6 @@
 package com.github.lindsaygelle
 
-abstract class MagicAbility<A : MagicInvoker, B : Receiver, I : MagicInvocation, R : Reception, C : Check, E : Effect>(
+abstract class MagicAbility<A : MagicInvoker, B : AbilityReceiver, I : MagicInvocation, R : Reception, C : Check, E : Effect>(
     limit: Int,
     magicPoints: Int,
 ) : Ability<A, B, I, R, C, E>(limit),
@@ -16,6 +16,6 @@ abstract class MagicAbility<A : MagicInvoker, B : Receiver, I : MagicInvocation,
     }
 
     override fun toString(): String {
-        return "{magicPoints=${magicPoints} ${super.toString()}}"
+        return "{magicPoints=${magicPoints} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

@@ -23,6 +23,6 @@ class HealEffect(hitPoints: Int, hitPointsPrevious: Int, timeMilliseconds: Long,
     }
 
     override fun toString(): String {
-        return "{hitPoints=${hitPoints} hitPointsPrevious=${hitPointsPrevious} ${super.toString()}}"
+        return "{hitPoints=${hitPoints} hitPointsPrevious=${hitPointsPrevious} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

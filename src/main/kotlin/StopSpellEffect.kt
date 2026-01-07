@@ -15,6 +15,6 @@ class StopSpellEffect(statusStopSpell: Boolean, timeMilliseconds: Long, uuid: UU
     }
 
     override fun toString(): String {
-        return "{statusStopSpell=${statusStopSpell} ${super.toString()}}"
+        return "{statusStopSpell=${statusStopSpell} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }
