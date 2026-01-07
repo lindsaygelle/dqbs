@@ -14,7 +14,9 @@ class StopSpell(limit: Int, magicPoints: Int) :
         reception: StopSpellReception
     ): StopSpellEffect {
         receiver.statusStopSpell = check.result
-        receiver.turnsStopSpell = 0
+        if (receiver.statusStopSpell) {
+            receiver.turnsStopSpell = 0
+        }
         return StopSpellEffect(receiver.statusStopSpell, System.currentTimeMillis(), UUID.randomUUID())
     }
 
