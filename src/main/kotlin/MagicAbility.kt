@@ -1,8 +1,9 @@
 package com.github.lindsaygelle
 
-abstract class MagicAbility<A : MagicInvoker, B : Receiver>(limit: Int, magicPoints: Int) :
-    Ability<A, B>(limit),
-    MagicPointer {
+abstract class MagicAbility<A : MagicInvoker, B : Receiver, I : MagicInvocation, R : Reception, T : Check>(
+    limit: Int,
+    magicPoints: Int
+) : Ability<A, B, I, R, T>(limit), MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {
             field = maxOf(0, value)

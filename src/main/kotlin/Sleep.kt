@@ -1,13 +1,16 @@
 package com.github.lindsaygelle
 
-import java.util.*
+class Sleep(limit: Int, magicPoints: Int) :
+    MagicAbility<SleepInvoker, SleepReceiver, SleepInvocation, SleepReception, SleepCheck>(limit, magicPoints) {
+    override fun getCheckable(): Checkable<SleepInvocation, SleepReception, SleepCheck> {
+        return SleepCheckable(magicPoints)
+    }
 
-class Sleep(limit: Int, magicPoints: Int) : MagicAbility<SleepInvoker, SleepReceiver>(limit, magicPoints) {
-    override fun getOutcome(invoker: SleepInvoker, receiver: SleepReceiver, receiverIndex: Int): Outcome {
-        // TODO
-        val invocation = SleepInvocable(magicPoints).invoke(invoker)
-        val reception = SleepReceivable().receive(receiver)
-        val check = SleepCheckable(magicPoints).check(invocation, reception)
-        return Outcome(check, invocation, reception, System.currentTimeMillis(), UUID.randomUUID())
+    override fun getInvocable(): Invocable<SleepInvoker, SleepInvocation> {
+        return SleepInvocable(magicPoints)
+    }
+
+    override fun getReceivable(): Receivable<SleepReceiver, SleepReception> {
+        return SleepReceivable()
     }
 }
