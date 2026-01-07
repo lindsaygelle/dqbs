@@ -1,5 +1,6 @@
 package com.github.lindsaygelle
 
-interface SleepReceiver : AbilityReceiver,
+interface SleepReceiver : AbilityReceiver, 
+    SleepAccumulator,
     SleepResister,
     SleepToggler
