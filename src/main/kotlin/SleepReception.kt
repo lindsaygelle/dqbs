@@ -1,6 +1,14 @@
 package com.github.lindsaygelle
 
-class SleepReception(sleepResistance: Int, sleepResistanceMaximum: Int, sleepResistanceMinimum: Int) : Reception() {
+import java.util.*
+
+class SleepReception(
+    sleepResistance: Int,
+    sleepResistanceMaximum: Int,
+    sleepResistanceMinimum: Int,
+    timeMilliseconds: Long,
+    uuid: UUID
+) : Reception(timeMilliseconds, uuid) {
     var sleepResistance: Int = sleepResistance
         set(value) {
             field = value
