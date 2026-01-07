@@ -4,7 +4,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class Check(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer, UniversalIdentifier {
+abstract class Check(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
+    UniversalIdentifier {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
     abstract val result: Boolean
@@ -25,6 +26,6 @@ abstract class Check(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer, Univers
     }
 
     override fun toString(): String {
-        return "hashCode=${hashCode()} result=${result} timeMilliseconds=${timeMilliseconds} uuid=${uuid}"
+        return "{hashCode=${hashCode()} result=${result} timeMilliseconds=${timeMilliseconds} uuid=${uuid}}"
     }
 }

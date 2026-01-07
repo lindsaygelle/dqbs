@@ -15,6 +15,7 @@ class Sleep(limit: Int, magicPoints: Int) :
         reception: SleepReception
     ): SleepEffect {
         receiver.statusSleep = check.result
+        receiver.turnsSleep = 0
         return SleepEffect(receiver.statusSleep, System.currentTimeMillis(), UUID.randomUUID())
     }
 

@@ -33,6 +33,6 @@ class SleepInvocation(
     }
 
     override fun toString(): String {
-        return "sleepRequirement=${sleepRequirement} sleepRequirementMaximum=${sleepRequirementMaximum} sleepRequirementMinimum=${sleepRequirementMinimum} ${super.toString()}"
+        return "{sleepRequirement=${sleepRequirement} sleepRequirementMaximum=${sleepRequirementMaximum} sleepRequirementMinimum=${sleepRequirementMinimum} ${super.toString()}}"
     }
 }

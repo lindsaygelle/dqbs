@@ -32,6 +32,6 @@ class SleepReception(
     }
 
     override fun toString(): String {
-        return "sleepResistance=${sleepResistance} sleepResistanceMaximum=${sleepResistanceMaximum} sleepResistanceMinimum=${sleepResistanceMinimum} ${super.toString()}"
+        return "{sleepResistance=${sleepResistance} sleepResistanceMaximum=${sleepResistanceMaximum} sleepResistanceMinimum=${sleepResistanceMinimum} ${super.toString()}}"
     }
 }

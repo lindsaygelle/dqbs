@@ -26,6 +26,6 @@ open class Equipment(name: String, uuid: UUID) : Nameable,
     }
 
     override fun toString(): String {
-        return "hashCode=${hashCode()} name=${name} uuid=${uuid}"
+        return "{hashCode=${hashCode()} name=${name} uuid=${uuid}}"
     }
 }

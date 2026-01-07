@@ -8,7 +8,8 @@ abstract class MagicCheck(
     timeMilliseconds: Long,
     uuid: UUID
 ) :
-    Check(timeMilliseconds, uuid), MagicPointer {
+    Check(timeMilliseconds, uuid),
+    MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {
             field = value
@@ -27,6 +28,6 @@ abstract class MagicCheck(
     }
 
     override fun toString(): String {
-        return "magicPoints=${magicPoints} magicPointsRequirement=${magicPointsRequirement} ${super.toString()}"
+        return "{magicPoints=${magicPoints} magicPointsRequirement=${magicPointsRequirement} ${super.toString()}}"
     }
 }

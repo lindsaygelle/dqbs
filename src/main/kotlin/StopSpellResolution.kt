@@ -29,6 +29,6 @@ class StopSpellResolution(
     }
 
     override fun toString(): String {
-        return "stopSpellResolutionRandom=${stopSpellResolutionRandom} turnsStopSpell=${turnsStopSpell} ${super.hashCode()}"
+        return "{stopSpellResolutionRandom=${stopSpellResolutionRandom} turnsStopSpell=${turnsStopSpell} ${super.hashCode()}}"
     }
 }

@@ -14,6 +14,6 @@ abstract class MagicCheckable<A : MagicInvocation, B : Reception, C : MagicCheck
     }
 
     override fun toString(): String {
-        return "magicPoints=${magicPoints} ${super.toString()}"
+        return "{magicPoints=${magicPoints} ${super.toString()}}"
     }
 }
