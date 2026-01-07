@@ -1,4 +1,5 @@
 package com.github.lindsaygelle
 
-interface HurtReceiver : HitPointer,
+interface HurtReceiver : AbilityReceiver,
+    HitPointer,
     HurtResister

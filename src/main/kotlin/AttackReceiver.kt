@@ -1,8 +1,8 @@
 package com.github.lindsaygelle
 
-interface AttackReceiver : AgilityPointer,
+interface AttackReceiver : AbilityReceiver,
+    AgilityPointer,
     ArmorWearer,
     HitPointer,
-    Receiver,
     ShieldWielder,
     StrengthPointer

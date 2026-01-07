@@ -4,7 +4,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class Ability<A : Invoker, B : Receiver, I : Invocation, R : Reception, C : Check, E : Effect>(
+abstract class Ability<A : AbilityInvoker, B : AbilityReceiver, I : Invocation, R : Reception, C : Check, E : Effect>(
     limit: Int,
 ) : Limiter {
     final override var limit: Int = limit
