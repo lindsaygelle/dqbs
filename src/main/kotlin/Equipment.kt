@@ -4,29 +4,28 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-open class Effect(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
+open class Equipment(name: String, uuid: UUID) : Nameable,
     UniversalIdentifier {
+
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-
-    final override var timeMilliseconds: Long = timeMilliseconds
+    override var name: String = name
         set(value) {
             field = value
-            logger.trace("timeMilliseconds={}", field)
+            logger.trace("name={}", field)
         }
-
-    final override var uuid: UUID = uuid
+    override var uuid: UUID = uuid
         set(value) {
             field = value
             logger.trace("uuid={}", field)
         }
 
     init {
-        this.timeMilliseconds = timeMilliseconds
+        this.name = name
         this.uuid = uuid
     }
 
     override fun toString(): String {
-        return "{hashCode=${hashCode()} timeMilliseconds=${timeMilliseconds} uuid=${uuid}}"
+        return "{hashCode=${hashCode()} name=${name} uuid=${uuid}}"
     }
 }
