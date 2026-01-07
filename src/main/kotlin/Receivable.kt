@@ -4,6 +4,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 abstract class Receivable<R : Receiver, T : Reception> {
+    @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     abstract fun receive(receiver: R): T
 }

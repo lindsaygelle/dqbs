@@ -13,12 +13,14 @@ class StopSpellCheck(
     magicPoints, magicPointsRequirement, timeMilliseconds, uuid
 ) {
     override val result: Boolean
-        get() = (stopSpellRequirement >= stopSpellResistance) && ((magicPoints - magicPointsRequirement) >= 0)
+        get() = super.result && (stopSpellRequirement >= stopSpellResistance)
+
     var stopSpellRequirement: Int = stopSpellRequirement
         set(value) {
             field = value
             logger.trace("stopSpellRequirement={}", field)
         }
+
     var stopSpellResistance: Int = stopSpellResistance
         set(value) {
             field = value
@@ -31,6 +33,6 @@ class StopSpellCheck(
     }
 
     override fun toString(): String {
-        return "{stopSpellRequirement=${stopSpellRequirement} stopSpellResistance=${stopSpellResistance} ${super.toString()}}"
+        return "{stopSpellRequirement=${stopSpellRequirement} stopSpellResistance=${stopSpellResistance} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

@@ -16,6 +16,6 @@ abstract class MagicAbility<A : MagicInvoker, B : AbilityReceiver, I : MagicInvo
     }
 
     override fun toString(): String {
-        return "{magicPoints=${magicPoints} ${super.toString()}}"
+        return "{magicPoints=${magicPoints} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

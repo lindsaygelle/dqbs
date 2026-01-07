@@ -10,13 +10,13 @@ class StopSpellResolution(
     uuid: UUID,
 ) : Resolution(
     resolved, timeMilliseconds, uuid
-),
-    StopSpellAccumulator {
+), StopSpellAccumulator {
     var stopSpellResolutionRandom: Int = stopSpellResolutionRandom
         set(value) {
             field = value
             logger.trace("stopSpellResolutionRandom={}", field)
         }
+
     override var turnsStopSpell: Int = turnsStopSpell
         set(value) {
             field = value
@@ -29,6 +29,6 @@ class StopSpellResolution(
     }
 
     override fun toString(): String {
-        return "{stopSpellResolutionRandom=${stopSpellResolutionRandom} turnsStopSpell=${turnsStopSpell} ${super.hashCode()}}"
+        return "{stopSpellResolutionRandom=${stopSpellResolutionRandom} turnsStopSpell=${turnsStopSpell} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

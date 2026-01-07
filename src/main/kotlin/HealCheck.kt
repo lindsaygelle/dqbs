@@ -23,6 +23,6 @@ class HealCheck(
     }
 
     override fun toString(): String {
-        return "{heal=${heal} ${super.toString()}}"
+        return "{heal=${heal} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

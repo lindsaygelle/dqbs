@@ -1,4 +1,5 @@
 package com.github.lindsaygelle
 
-interface AttackInvoker : StrengthPointer,
+interface AttackInvoker : AbilityInvoker,
+    StrengthPointer,
     WeaponWielder

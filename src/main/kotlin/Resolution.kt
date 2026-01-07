@@ -8,16 +8,19 @@ open class Resolution(resolved: Boolean, timeMilliseconds: Long, uuid: UUID) : T
     UniversalIdentifier {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     var resolved: Boolean = resolved
         set(value) {
             field = value
             logger.trace("resolved={}", field)
         }
+
     final override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = value
             logger.trace("timeMilliseconds={}", field)
         }
+
     final override var uuid: UUID = uuid
         set(value) {
             field = value

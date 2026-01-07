@@ -15,6 +15,6 @@ open class DefenseEquipment(defense: Int, name: String, uuid: UUID) : DefensePoi
     }
 
     override fun toString(): String {
-        return "{defense=${defense} ${super.toString()}}"
+        return "{defense=${defense} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

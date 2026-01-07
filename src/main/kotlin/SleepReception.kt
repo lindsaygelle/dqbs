@@ -14,11 +14,13 @@ class SleepReception(
             field = value
             logger.trace("sleepResistance={}", field)
         }
+
     var sleepResistanceMaximum: Int = sleepResistanceMaximum
         set(value) {
             field = value
             logger.trace("sleepResistanceMaximum={}", field)
         }
+
     var sleepResistanceMinimum: Int = sleepResistanceMinimum
         set(value) {
             field = value
@@ -32,6 +34,6 @@ class SleepReception(
     }
 
     override fun toString(): String {
-        return "{sleepResistance=${sleepResistance} sleepResistanceMaximum=${sleepResistanceMaximum} sleepResistanceMinimum=${sleepResistanceMinimum} ${super.toString()}}"
+        return "{sleepResistance=${sleepResistance} sleepResistanceMaximum=${sleepResistanceMaximum} sleepResistanceMinimum=${sleepResistanceMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

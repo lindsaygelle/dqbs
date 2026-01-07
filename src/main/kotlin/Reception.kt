@@ -8,11 +8,13 @@ open class Reception(timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
     UniversalIdentifier {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     final override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = maxOf(0, value)
             logger.trace("timeMilliseconds={}", field)
         }
+
     final override var uuid: UUID = uuid
         set(value) {
             field = value

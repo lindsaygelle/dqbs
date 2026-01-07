@@ -10,13 +10,13 @@ class SleepResolution(
     uuid: UUID,
 ) : Resolution(
     resolved, timeMilliseconds, uuid
-),
-    SleepAccumulator {
+), SleepAccumulator {
     var sleepResolutionRandom: Int = sleepResolutionRandom
         set(value) {
             field = value
             logger.trace("sleepResolutionRandom={}", field)
         }
+
     override var turnsSleep: Int = turnsSleep
         set(value) {
             field = value
@@ -29,6 +29,6 @@ class SleepResolution(
     }
 
     override fun toString(): String {
-        return "{sleepResolutionRandom=${sleepResolutionRandom} turnsSleep=${turnsSleep} ${super.toString()}}"
+        return "{sleepResolutionRandom=${sleepResolutionRandom} turnsSleep=${turnsSleep} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

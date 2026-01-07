@@ -25,16 +25,19 @@ class HealInvocation(
             field = value
             logger.trace("healOffset={}", field)
         }
+
     var healRandom: Int = healRandom
         set(value) {
             field = value
             logger.trace("healRandom={}", field)
         }
+
     var healRangeMaximum: Int = healRangeMaximum
         set(value) {
             field = value
             logger.trace("healRangeMaximum={}", field)
         }
+
     var healRangeMinimum: Int = healRangeMinimum
         set(value) {
             field = value
@@ -49,6 +52,6 @@ class HealInvocation(
     }
 
     override fun toString(): String {
-        return "{heal=${heal} healOffset=${healOffset} healRandom=${healRandom} healRangeMaximum=${healRangeMaximum} healRangeMinimum=${healRangeMinimum} ${super.toString()}}"
+        return "{heal=${heal} healOffset=${healOffset} healRandom=${healRandom} healRangeMaximum=${healRangeMaximum} healRangeMinimum=${healRangeMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

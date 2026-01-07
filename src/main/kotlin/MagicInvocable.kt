@@ -13,6 +13,6 @@ abstract class MagicInvocable<I : MagicInvoker, T : Invocation>(magicPoints: Int
     }
 
     override fun toString(): String {
-        return "{magicPoints=${magicPoints} ${super.toString()}}"
+        return "{magicPoints=${magicPoints} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }
