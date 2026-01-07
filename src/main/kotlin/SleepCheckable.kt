@@ -10,7 +10,8 @@ class SleepCheckable(magicPoints: Int) : MagicCheckable<SleepInvocation, SleepRe
         return SleepCheck(
             invocation.magicPoints,
             magicPoints,
-            (invocation.sleepRequirement >= reception.sleepResistance) && ((invocation.magicPoints - magicPoints) >= 0),
+            invocation.sleepRequirement,
+            reception.sleepResistance,
             System.currentTimeMillis(),
             UUID.randomUUID()
         )

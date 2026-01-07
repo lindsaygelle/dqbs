@@ -20,6 +20,8 @@ abstract class Ability<A : Invoker, B : Receiver, I : Invocation, R : Reception,
         this.limit = limit
     }
 
+    protected abstract fun applyEffect(invocation: I, invoker: A, receiver: B, reception: R)
+
     protected abstract fun getInvocable(): Invocable<A, I>
     private fun getInvocation(invocable: Invocable<A, I>, invoker: A): I {
         logger.debug("invocable={} invoker={}", invocable, invoker)
@@ -43,6 +45,9 @@ abstract class Ability<A : Invoker, B : Receiver, I : Invocation, R : Reception,
         val reception = getReception(receivable, receiver)
         val checkable = getCheckable()
         val check = getCheck(checkable, invocation, reception)
+        if (check.result) {
+            applyEffect(invocation, invoker, receiver, reception)
+        }
         return Outcome(
             check,
             invocation,
