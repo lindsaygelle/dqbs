@@ -13,7 +13,7 @@ class Outcome<C : Check, E : Effect, I : Invocation, R : Reception>(
     receiverUUID: UUID,
     reception: R,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : TimeMeasurer,
     UniversalIdentifier {
     var check: C = check

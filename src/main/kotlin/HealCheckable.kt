@@ -5,7 +5,7 @@ import java.util.*
 class HealCheckable(magicPoints: Int) : MagicCheckable<HealInvocation, HealReception, HealCheck>(magicPoints) {
     override fun check(
         invocation: HealInvocation,
-        reception: HealReception
+        reception: HealReception,
     ): HealCheck {
         return HealCheck(
             invocation.heal,

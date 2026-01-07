@@ -8,7 +8,7 @@ class SleepCheck(
     sleepRequirement: Int,
     sleepResistance: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : MagicCheck(
     magicPoints, magicPointsRequirement, timeMilliseconds, uuid
 ) {

@@ -3,7 +3,7 @@ package com.github.lindsaygelle
 import java.util.*
 
 class Heal(
-    limit: Int, magicPoints: Int
+    limit: Int, magicPoints: Int,
 ) : MagicAbility<HealInvoker, HealReceiver, HealInvocation, HealReception, HealCheck, HealEffect>(limit, magicPoints) {
     override fun getCheckable(): Checkable<HealInvocation, HealReception, HealCheck> {
         return HealCheckable(magicPoints)
@@ -14,7 +14,7 @@ class Heal(
         invocation: HealInvocation,
         invoker: HealInvoker,
         receiver: HealReceiver,
-        reception: HealReception
+        reception: HealReception,
     ): HealEffect {
         if (check.result) {
             receiver.hitPoints += invocation.heal

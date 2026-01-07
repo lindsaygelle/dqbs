@@ -21,7 +21,7 @@ abstract class Ability<A : Invoker, B : Receiver, I : Invocation, R : Reception,
     }
 
     private fun getCheck(
-        checkable: Checkable<I, R, C>, invocation: I, reception: R
+        checkable: Checkable<I, R, C>, invocation: I, reception: R,
     ): C {
         logger.debug("checkable={} invocation={} reception={}", checkable, invocation, reception)
         return checkable.check(invocation, reception)

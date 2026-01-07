@@ -7,7 +7,7 @@ class SleepReception(
     sleepResistanceMaximum: Int,
     sleepResistanceMinimum: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : Reception(timeMilliseconds, uuid) {
     var sleepResistance: Int = sleepResistance
         set(value) {

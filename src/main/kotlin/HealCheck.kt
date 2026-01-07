@@ -7,7 +7,7 @@ class HealCheck(
     magicPoints: Int,
     magicPointsRequirement: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : MagicCheck(magicPoints, magicPointsRequirement, timeMilliseconds, uuid) {
     var heal: Int = heal
         set(value) {

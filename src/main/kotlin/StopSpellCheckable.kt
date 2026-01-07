@@ -4,9 +4,10 @@ import java.util.*
 
 class StopSpellCheckable(magicPoints: Int) : MagicCheckable<StopSpellInvocation, StopSpellReception, StopSpellCheck>(
     magicPoints
-), MagicPointer {
+),
+    MagicPointer {
     override fun check(
-        invocation: StopSpellInvocation, reception: StopSpellReception
+        invocation: StopSpellInvocation, reception: StopSpellReception,
     ): StopSpellCheck {
         return StopSpellCheck(
             invocation.magicPoints,

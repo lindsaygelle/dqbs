@@ -6,9 +6,8 @@ open class MagicCheck(
     magicPoints: Int,
     magicPointsRequirement: Int,
     timeMilliseconds: Long,
-    uuid: UUID
-) :
-    Check(timeMilliseconds, uuid),
+    uuid: UUID,
+) : Check(timeMilliseconds, uuid),
     MagicPointer {
     override var magicPoints: Int = magicPoints
         set(value) {

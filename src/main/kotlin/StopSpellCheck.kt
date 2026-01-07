@@ -8,7 +8,7 @@ class StopSpellCheck(
     stopSpellRequirement: Int,
     stopSpellResistance: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : MagicCheck(
     magicPoints, magicPointsRequirement, timeMilliseconds, uuid
 ) {

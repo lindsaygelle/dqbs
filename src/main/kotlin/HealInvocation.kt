@@ -10,11 +10,9 @@ class HealInvocation(
     healRangeMinimum: Int,
     magicPoints: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : MagicInvocation(
-    magicPoints,
-    timeMilliseconds,
-    uuid
+    magicPoints, timeMilliseconds, uuid
 ) {
     var heal: Int = heal
         set(value) {
