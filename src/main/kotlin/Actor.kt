@@ -9,6 +9,8 @@ open class Actor(
     agility: Int,
     allegiance: Int,
     armor: Armor?,
+    healMoreScale: Int,
+    healMoreShift: Int,
     healRangeMaximum: Int,
     healRangeMinimum: Int,
     healScale: Int,
@@ -19,6 +21,8 @@ open class Actor(
     herbShift: Int,
     hitPoints: Int,
     hitPointsMaximum: Int,
+    hurtMoreScale: Int,
+    hurtMoreShift: Int,
     hurtRangeMaximum: Int,
     hurtRangeMinimum: Int,
     hurtRequirementMaximum: Int,
@@ -84,6 +88,18 @@ open class Actor(
             logger.trace("armor={}", field)
         }
 
+    override var healMoreScale: Int = healMoreScale
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("healMoreScale={}", field)
+        }
+
+    override var healMoreShift: Int = healMoreShift
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("healMoreShift={}", field)
+        }
+
     override var healRangeMaximum: Int = healRangeMaximum
         set(value) {
             field = maxOf(0, value)
@@ -142,6 +158,18 @@ open class Actor(
         set(value) {
             field = maxOf(0, value)
             logger.trace("hitPointsMaximum={}", field)
+        }
+
+    override var hurtMoreScale: Int = hurtMoreScale
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("hurtMoreScale={}", field)
+        }
+
+    override var hurtMoreShift: Int = hurtMoreShift
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("hurtMoreShift={}", field)
         }
 
     override var hurtRangeMaximum: Int = hurtRangeMaximum
@@ -224,7 +252,7 @@ open class Actor(
             field = value
             logger.trace("name={}", field)
         }
-    
+
     override var shield: Shield? = shield
         set(value) {
             field = value
@@ -254,7 +282,7 @@ open class Actor(
             field = minOf(maxOf(0, value), sleepResistanceMaximum)
             logger.trace("sleepResistanceMinimum={}", field)
         }
-    
+
     override var sleepResolutionMaximum: Int = sleepResolutionMaximum
         set(value) {
             field = maxOf(0, value)
@@ -394,6 +422,8 @@ open class Actor(
         this.agility = agility
         this.allegiance = allegiance
         this.armor = armor
+        this.healMoreScale = healMoreScale
+        this.healMoreShift = healMoreShift
         this.healRangeMaximum = healRangeMaximum
         this.healRangeMinimum = healRangeMinimum
         this.healScale = healScale
@@ -404,6 +434,8 @@ open class Actor(
         this.herbShift = herbShift
         this.hitPoints = hitPoints
         this.hitPointsMaximum = hitPointsMaximum
+        this.hurtMoreScale = hurtMoreScale
+        this.hurtMoreShift = hurtMoreShift
         this.hurtRangeMaximum = hurtRangeMaximum
         this.hurtRangeMinimum = hurtRangeMinimum
         this.hurtRequirementMaximum = hurtRequirementMaximum
