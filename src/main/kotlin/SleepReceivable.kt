@@ -5,6 +5,7 @@ import java.util.*
 class SleepReceivable : Receivable<SleepReceiver, SleepReception>() {
     override fun receive(receiver: SleepReceiver): SleepReception {
         return SleepReception(
+            receiver.armor?.blocksSleep ?: false,
             receiver.sleepResistance,
             receiver.sleepResistanceMaximum,
             receiver.sleepResistanceMinimum,

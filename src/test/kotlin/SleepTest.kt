@@ -1,3 +1,4 @@
+import com.github.lindsaygelle.Armor
 import com.github.lindsaygelle.Sleep
 import com.github.lindsaygelle.SleepReceiver
 import java.util.*
@@ -14,7 +15,11 @@ class SleepTest {
         val invoker = MockSleepInvoker(Random.nextInt(0, magicPoints * 2), 16, 0, UUID.randomUUID())
         val receivers = mutableListOf<SleepReceiver>()
         for (i in 0..Random.nextInt(3, 100)) {
-            receivers.add(MockSleepReceiver(16, 0, false, Random.nextInt(0, 10), UUID.randomUUID()))
+            var armor: Armor? = null
+            if (listOf(true, false).random()) {
+                armor = Armor(listOf(true, false).random(), false, 0, 0, "TEST", UUID.randomUUID())
+            }
+            receivers.add(MockSleepReceiver(armor, 16, 0, false, Random.nextInt(0, 10), UUID.randomUUID()))
         }
         val outcomes = sleep.use(invoker, receivers)
         print(outcomes)
