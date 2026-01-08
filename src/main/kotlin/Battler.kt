@@ -7,27 +7,10 @@ interface Battler : Actioner,
     HitPointsPercenter,
     Indexable,
     MagicPointPercenter,
-    Nameable
-
-/*
-AllegianceKeeper,
-    AgilityPointer,
-    ArmorWearer,
-    HitPointer,
-    HitPointerMaximizer,
-    Indexable,
-    Itemizer,
-    MagicPointer,
-    MagicPointMaximizer,
     Nameable,
-    ShieldWielder,
-    SleepLimiter,
-    SleepToggler,
-    StrengthPointer,
+    SleepResolver,
     StopSpellLimiter,
-    StopSpellToggler,
-    TimeMeasurer,
-    TurnsAccumulator,
-    UniversalIdentifier,
-    WeaponWielder
- */
+    StopSpellResolver,
+    TurnsAccumulator {
+    fun act(receivers: List<BattleReceiver>)
+}

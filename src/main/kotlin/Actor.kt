@@ -477,4 +477,10 @@ open class Actor(
         this.uuid = uuid
         this.weapon = weapon
     }
+
+    final override fun act(receivers: List<BattleReceiver>) {
+        for (action in actions) {
+            action.ability.use(this, receivers)
+        }
+    }
 }
