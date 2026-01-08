@@ -10,7 +10,8 @@ class SleepResolution(
     uuid: UUID,
 ) : Resolution(
     resolved, timeMilliseconds, uuid
-), SleepAccumulator {
+),
+    SleepAccumulator {
     var sleepResolutionRandom: Int = sleepResolutionRandom
         set(value) {
             field = value

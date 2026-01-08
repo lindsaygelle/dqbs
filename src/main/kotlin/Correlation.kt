@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 
 class Correlation(
     criteria: List<Criterion>,
-    match: Match
+    match: Match,
 ) {
     private var criteria: List<Criterion> = criteria
         set(value) {

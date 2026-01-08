@@ -8,7 +8,7 @@ class Armor(
     defense: Int,
     hurtReduction: Int,
     name: String,
-    uuid: UUID
+    uuid: UUID,
 ) : DefenseEquipment(defense, name, uuid),
     HurtReducer,
     SleepBlocker,

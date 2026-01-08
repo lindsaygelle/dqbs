@@ -8,12 +8,9 @@ class HurtCheck(
     magicPoints: Int,
     magicPointsRequirement: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : MagicCheck(
-    magicPoints,
-    magicPointsRequirement,
-    timeMilliseconds,
-    uuid
+    magicPoints, magicPointsRequirement, timeMilliseconds, uuid
 ) {
     var hurtRequirement: Int = hurtRequirement
         set(value) {

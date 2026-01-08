@@ -11,7 +11,7 @@ class HurtMoreTest {
         val limit = Random.nextInt(1, 10)
         val magicPoints = Random.nextInt(0, 100)
         val hurtMore = HurtMore(limit, magicPoints)
-        val invoker = MockHurtMoreInvoker(4, 1, 16, 0, 16, 1, Random.nextInt(0, magicPoints * 2), UUID.randomUUID())
+        val invoker = MockHurtMoreInvoker(Random.nextInt(0, magicPoints * 2), 1, 16, 16, 0, 16, 0, UUID.randomUUID())
         val receivers = mutableListOf<HurtReceiver>()
         for (i in 0..Random.nextInt(3, 100)) {
             var armor: Armor? = null

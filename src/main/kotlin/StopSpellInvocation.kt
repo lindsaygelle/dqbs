@@ -9,7 +9,7 @@ class StopSpellInvocation(
     stopSpellRequirementMinimum: Int,
     timeMilliseconds: Long,
     uuid: UUID,
-) : MagicInvocation(magicPoints, timeMilliseconds, uuid), 
+) : MagicInvocation(magicPoints, timeMilliseconds, uuid),
     StopSpellRequirementMaximizer,
     StopSpellRequirementMinimizer {
     var stopSpellRequirement: Int = stopSpellRequirement

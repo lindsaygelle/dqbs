@@ -11,7 +11,7 @@ class Comparison(
     result: Boolean,
     timeMilliseconds: Long,
     value: Int,
-    uuid: UUID
+    uuid: UUID,
 ) {
     var attribute: Attribute = attribute
         set(value) {

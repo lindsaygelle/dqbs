@@ -39,13 +39,7 @@ class Criterion(attribute: Attribute, operator: Operator, value: Int) {
         }
         val result = compareValue(attributeValue)
         return Comparison(
-            attribute,
-            attributeValue,
-            operator,
-            result,
-            System.currentTimeMillis(),
-            value,
-            UUID.randomUUID()
+            attribute, attributeValue, operator, result, System.currentTimeMillis(), value, UUID.randomUUID()
         )
     }
 

@@ -9,7 +9,7 @@ class HurtReception(
     hurtResistanceMaximum: Int,
     hurtResistanceMinimum: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : Reception(timeMilliseconds, uuid),
     HitPointer,
     HurtResistanceMaximizer,

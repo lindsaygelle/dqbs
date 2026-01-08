@@ -11,7 +11,7 @@ class HurtInvocation(
     hurtRequirementMinimum: Int,
     magicPoints: Int,
     timeMilliseconds: Long,
-    uuid: UUID
+    uuid: UUID,
 ) : MagicInvocation(
     magicPoints, timeMilliseconds, uuid
 ),
