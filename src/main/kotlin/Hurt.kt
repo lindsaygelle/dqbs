@@ -8,7 +8,7 @@ class Hurt(limit: Int, magicPoints: Int) : HurtAbility<HurtInvoker>(limit, magic
         invocation: HurtInvocation,
         invoker: HurtInvoker,
         receiver: HurtReceiver,
-        reception: HurtReception
+        reception: HurtReception,
     ): HurtEffect {
         if (check.result) {
             receiver.hitPoints -= (invocation.hurt + reception.hurtReduction)

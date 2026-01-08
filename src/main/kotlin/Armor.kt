@@ -4,11 +4,11 @@ import java.util.*
 
 class Armor(
     blocksSleep: Boolean,
-    blockStopSpell: Boolean,
+    blocksStopSpell: Boolean,
     defense: Int,
     hurtReduction: Int,
     name: String,
-    uuid: UUID
+    uuid: UUID,
 ) : DefenseEquipment(defense, name, uuid),
     HurtReducer,
     SleepBlocker,
@@ -19,10 +19,10 @@ class Armor(
             logger.trace("blocksSleep={}", field)
         }
 
-    override var blockStopSpell: Boolean = blockStopSpell
+    override var blocksStopSpell: Boolean = blocksStopSpell
         set(value) {
             field = value
-            logger.trace("blockStopSpell={}", field)
+            logger.trace("blocksStopSpell={}", field)
         }
 
     override var hurtReduction: Int = hurtReduction
@@ -33,11 +33,11 @@ class Armor(
 
     init {
         this.blocksSleep = blocksSleep
-        this.blockStopSpell = blockStopSpell
+        this.blocksStopSpell = blocksStopSpell
         this.hurtReduction = hurtReduction
     }
 
     override fun toString(): String {
-        return "{blocksSleep=${blocksSleep} blockStopSpell=${blockStopSpell} hurtReduction=${hurtReduction} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
+        return "{blocksSleep=${blocksSleep} blocksStopSpell=${blocksStopSpell} hurtReduction=${hurtReduction} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

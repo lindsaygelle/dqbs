@@ -10,7 +10,8 @@ class StopSpellResolution(
     uuid: UUID,
 ) : Resolution(
     resolved, timeMilliseconds, uuid
-), StopSpellAccumulator {
+),
+    StopSpellAccumulator {
     var stopSpellResolutionRandom: Int = stopSpellResolutionRandom
         set(value) {
             field = value

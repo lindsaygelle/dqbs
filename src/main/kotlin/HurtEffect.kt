@@ -3,8 +3,7 @@ package com.github.lindsaygelle
 import java.util.*
 
 class HurtEffect(hitPoints: Int, hitPointsPrevious: Int, timeMilliseconds: Long, uuid: UUID) : Effect(
-    timeMilliseconds,
-    uuid
+    timeMilliseconds, uuid
 ),
     HitPointer {
     override var hitPoints: Int = hitPoints

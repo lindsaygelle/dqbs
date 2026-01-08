@@ -5,7 +5,7 @@ import java.util.*
 class HurtCheckable(magicPoints: Int) : MagicCheckable<HurtInvocation, HurtReception, HurtCheck>(magicPoints) {
     override fun check(
         invocation: HurtInvocation,
-        reception: HurtReception
+        reception: HurtReception,
     ): HurtCheck {
         return HurtCheck(
             invocation.hurtRequirement,

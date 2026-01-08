@@ -1,5 +1,5 @@
 package com.github.lindsaygelle
 
 interface StopSpellBlocker {
-    var blockStopSpell: Boolean
+    var blocksStopSpell: Boolean
 }

@@ -4,10 +4,9 @@ import java.util.*
 
 class HealMore(
     limit: Int,
-    magicPoints: Int
+    magicPoints: Int,
 ) : HealAbility<HealMoreInvoker>(
-    limit,
-    magicPoints
+    limit, magicPoints
 ) {
     override fun getEffect(
         check: HealCheck,
