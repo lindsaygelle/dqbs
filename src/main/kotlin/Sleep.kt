@@ -27,7 +27,7 @@ class Sleep(
     }
 
     override fun getInvocable(): Invocable<SleepInvoker, SleepInvocation> {
-        return SleepInvocable(magicPoints)
+        return SleepInvocable()
     }
 
     override fun getReceivable(): Receivable<SleepReceiver, SleepReception> {

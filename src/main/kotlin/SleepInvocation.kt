@@ -9,20 +9,22 @@ class SleepInvocation(
     sleepRequirementMinimum: Int,
     timeMilliseconds: Long,
     uuid: UUID,
-) : MagicInvocation(magicPoints, timeMilliseconds, uuid) {
+) : MagicInvocation(magicPoints, timeMilliseconds, uuid),
+    SleepRequirementMaximizer,
+    SleepRequirementMinimizer {
     var sleepRequirement: Int = sleepRequirement
         set(value) {
             field = value
             logger.trace("sleepRequirement={}", field)
         }
 
-    var sleepRequirementMaximum: Int = sleepRequirementMaximum
+    override var sleepRequirementMaximum: Int = sleepRequirementMaximum
         set(value) {
             field = value
             logger.trace("sleepRequirementMaximum={}", field)
         }
 
-    var sleepRequirementMinimum: Int = sleepRequirementMinimum
+    override var sleepRequirementMinimum: Int = sleepRequirementMinimum
         set(value) {
             field = value
             logger.trace("sleepRequirementMinimum={}", field)

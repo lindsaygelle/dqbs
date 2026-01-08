@@ -1,8 +1,7 @@
 package com.github.lindsaygelle
 
-interface SleepRequirer {
-    var sleepRequirementMaximum: Int
-    var sleepRequirementMinimum: Int
+interface SleepRequirer : SleepRequirementMaximizer,
+    SleepRequirementMinimizer {
     val sleepRequirementRange: IntRange
         get() = (sleepRequirementMinimum..sleepRequirementMaximum)
     val sleepRequirement: Int

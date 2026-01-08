@@ -5,7 +5,6 @@ import java.util.*
 class Heal(
     limit: Int, magicPoints: Int,
 ) : HealAbility<HealInvoker>(limit, magicPoints) {
-
     override fun getEffect(
         check: HealCheck,
         invocation: HealInvocation,
@@ -20,6 +19,6 @@ class Heal(
     }
 
     override fun getInvocable(): Invocable<HealInvoker, HealInvocation> {
-        return HealInvocable(magicPoints)
+        return HealInvocable()
     }
 }

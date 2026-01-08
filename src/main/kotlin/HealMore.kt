@@ -23,6 +23,6 @@ class HealMore(
     }
 
     override fun getInvocable(): Invocable<HealMoreInvoker, HealInvocation> {
-        return HealMoreInvocable(magicPoints)
+        return HealMoreInvocable()
     }
 }

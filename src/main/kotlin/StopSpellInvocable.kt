@@ -2,7 +2,7 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-class StopSpellInvocable(magicPoints: Int) : MagicInvocable<StopSpellInvoker, StopSpellInvocation>(magicPoints) {
+class StopSpellInvocable : MagicInvocable<StopSpellInvoker, StopSpellInvocation>() {
     override fun invoke(invoker: StopSpellInvoker): StopSpellInvocation {
         return StopSpellInvocation(
             invoker.magicPoints,
