@@ -27,7 +27,7 @@ class StopSpell(
     }
 
     override fun getInvocable(): Invocable<StopSpellInvoker, StopSpellInvocation> {
-        return StopSpellInvocable(magicPoints)
+        return StopSpellInvocable()
     }
 
     override fun getReceivable(): Receivable<StopSpellReceiver, StopSpellReception> {

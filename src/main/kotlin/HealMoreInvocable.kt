@@ -2,7 +2,7 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-class HealMoreInvocable(magicPoints: Int) : MagicInvocable<HealMoreInvoker, HealInvocation>(magicPoints) {
+class HealMoreInvocable : MagicInvocable<HealMoreInvoker, HealInvocation>() {
     override fun invoke(invoker: HealMoreInvoker): HealInvocation {
         val healRandom = invoker.healRange.random()
         val healOffset = (healRandom and invoker.healMoreShift) + invoker.healMoreScale

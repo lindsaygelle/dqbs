@@ -2,7 +2,7 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-class SleepInvocable(magicPoints: Int) : MagicInvocable<SleepInvoker, SleepInvocation>(magicPoints) {
+class SleepInvocable : MagicInvocable<SleepInvoker, SleepInvocation>() {
     override fun invoke(invoker: SleepInvoker): SleepInvocation {
         return SleepInvocation(
             invoker.magicPoints,

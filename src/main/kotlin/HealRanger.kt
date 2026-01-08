@@ -1,8 +1,7 @@
 package com.github.lindsaygelle
 
-interface HealRanger {
+interface HealRanger : HealRangeMaximizer,
+    HealRangeMinimizer {
     val healRange: IntRange
         get() = (healRangeMinimum..healRangeMaximum)
-    var healRangeMaximum: Int
-    var healRangeMinimum: Int
 }

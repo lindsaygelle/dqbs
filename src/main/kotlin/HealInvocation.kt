@@ -13,7 +13,7 @@ class HealInvocation(
     uuid: UUID,
 ) : MagicInvocation(
     magicPoints, timeMilliseconds, uuid
-) {
+) , HealRangeMaximizer, HealRangeMinimizer {
     var heal: Int = heal
         set(value) {
             field = value
@@ -32,13 +32,13 @@ class HealInvocation(
             logger.trace("healRandom={}", field)
         }
 
-    var healRangeMaximum: Int = healRangeMaximum
+    override var healRangeMaximum: Int = healRangeMaximum
         set(value) {
             field = value
             logger.trace("healRangeMaximum={}", field)
         }
 
-    var healRangeMinimum: Int = healRangeMinimum
+    override var healRangeMinimum: Int = healRangeMinimum
         set(value) {
             field = value
             logger.trace("healRangeMinimum={}", field)
