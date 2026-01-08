@@ -7,6 +7,13 @@ class HurtCheckable(magicPoints: Int) : MagicCheckable<HurtInvocation, HurtRecep
         invocation: HurtInvocation,
         reception: HurtReception
     ): HurtCheck {
-        return HurtCheck(invocation.magicPoints, magicPoints, System.currentTimeMillis(), UUID.randomUUID())
+        return HurtCheck(
+            invocation.hurtRequirement,
+            reception.hurtResistance,
+            invocation.magicPoints,
+            magicPoints,
+            System.currentTimeMillis(),
+            UUID.randomUUID()
+        )
     }
 }

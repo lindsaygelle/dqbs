@@ -4,8 +4,7 @@ import java.util.*
 
 class HealEffect(hitPoints: Int, hitPointsPrevious: Int, timeMilliseconds: Long, uuid: UUID) : Effect(
     timeMilliseconds, uuid
-),
-    HitPointer {
+), HitPointer {
     override var hitPoints: Int = hitPoints
         set(value) {
             field = value
