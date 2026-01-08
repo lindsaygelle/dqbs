@@ -4,6 +4,7 @@ import java.util.*
 
 class HurtReception(
     hitPoints: Int,
+    hurtReduction: Int,
     hurtResistance: Int,
     hurtResistanceMaximum: Int,
     hurtResistanceMinimum: Int,
@@ -12,11 +13,18 @@ class HurtReception(
 ) : Reception(timeMilliseconds, uuid),
     HitPointer,
     HurtResistanceMaximizer,
-    HurtResistanceMinimizer {
+    HurtResistanceMinimizer,
+    HurtReducer {
     override var hitPoints: Int = hitPoints
         set(value) {
             field = value
             logger.trace("hitPoints={}", field)
+        }
+
+    override var hurtReduction: Int = hurtReduction
+        set(value) {
+            field = value
+            logger.trace("hurtReduction={}", field)
         }
 
     var hurtResistance: Int = hurtResistance
@@ -39,12 +47,13 @@ class HurtReception(
 
     init {
         this.hitPoints = hitPoints
+        this.hurtReduction = hurtReduction
         this.hurtResistance = hurtResistance
         this.hurtResistanceMaximum = hurtResistanceMaximum
         this.hurtResistanceMinimum = hurtResistanceMinimum
     }
 
     override fun toString(): String {
-        return "{hitPoints=${hitPoints} hurtResistance=${hurtResistance} hurtResistanceMaximum=${hurtResistanceMaximum} hurtResistanceMinimum=${hurtResistanceMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
+        return "{hitPoints=${hitPoints} hurtReduction=${hurtReduction} hurtResistance=${hurtResistance} hurtResistanceMaximum=${hurtResistanceMaximum} hurtResistanceMinimum=${hurtResistanceMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }

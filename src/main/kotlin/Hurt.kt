@@ -11,7 +11,7 @@ class Hurt(limit: Int, magicPoints: Int) : HurtAbility<HurtInvoker>(limit, magic
         reception: HurtReception
     ): HurtEffect {
         if (check.result) {
-            // TODO
+            receiver.hitPoints -= (invocation.hurt + reception.hurtReduction)
         }
         return HurtEffect(receiver.hitPoints, reception.hitPoints, System.currentTimeMillis(), UUID.randomUUID())
     }
