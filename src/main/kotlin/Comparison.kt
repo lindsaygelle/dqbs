@@ -25,16 +25,16 @@ class Comparison(attribute: Attribute, operator: Operator, value: Int) {
             logger.trace("value={}", field)
         }
 
-    fun compare(battler: Battler) {
+    fun compare(actor: Actor) {
         val attributeValue = when (attribute) {
-            Attribute.AGILITY -> battler.hitPoints
-            Attribute.HIT_POINTS -> battler.hitPoints
-            Attribute.HIT_POINTS_PERCENTAGE -> battler.hitPointsPercentage
-            Attribute.HIT_POINTS_MAXIMUM -> battler.hitPointsMaximum
-            Attribute.MAGIC_POINTS -> battler.magicPoints
-            Attribute.MAGIC_POINTS_MAXIMUM -> battler.magicPointsMaximum
-            Attribute.MAGIC_POINTS_PERCENTAGE -> battler.magicPointsPercentage
-            Attribute.STRENGTH -> battler.strength
+            Attribute.AGILITY -> actor.hitPoints
+            Attribute.HIT_POINTS -> actor.hitPoints
+            Attribute.HIT_POINTS_PERCENTAGE -> actor.hitPointsPercentage
+            Attribute.HIT_POINTS_MAXIMUM -> actor.hitPointsMaximum
+            Attribute.MAGIC_POINTS -> actor.magicPoints
+            Attribute.MAGIC_POINTS_MAXIMUM -> actor.magicPointsMaximum
+            Attribute.MAGIC_POINTS_PERCENTAGE -> actor.magicPointsPercentage
+            Attribute.STRENGTH -> actor.strength
         }
         compareValue(attributeValue)
     }

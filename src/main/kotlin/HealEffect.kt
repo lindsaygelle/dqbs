@@ -4,12 +4,14 @@ import java.util.*
 
 class HealEffect(hitPoints: Int, hitPointsPrevious: Int, timeMilliseconds: Long, uuid: UUID) : Effect(
     timeMilliseconds, uuid
-), HitPointer {
+),
+    HitPointer {
     override var hitPoints: Int = hitPoints
         set(value) {
             field = value
             logger.trace("hitPoints={}", field)
         }
+
     var hitPointsPrevious: Int = hitPointsPrevious
         set(value) {
             field = value
