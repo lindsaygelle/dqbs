@@ -21,6 +21,8 @@ open class Actor(
     hitPointsMaximum: Int,
     hurtRangeMaximum: Int,
     hurtRangeMinimum: Int,
+    hurtRequirementMaximum: Int,
+    hurtRequirementMinimum: Int,
     hurtResistanceMaximum: Int,
     hurtResistanceMinimum: Int,
     hurtScale: Int,
@@ -148,6 +150,18 @@ open class Actor(
             logger.trace("hurtRangeMaximum={}", field)
         }
 
+    override var hurtRequirementMaximum: Int = hurtRequirementMaximum
+        set(value) {
+            field = maxOf(0, value)
+            logger.trace("hurtRequirementMaximum={}", field)
+        }
+
+    override var hurtRequirementMinimum: Int = hurtRequirementMinimum
+        set(value) {
+            field = minOf(maxOf(0, value), hurtRequirementMaximum)
+            logger.trace("hurtRequirementMinimum={}", field)
+        }
+
     override var hurtRangeMinimum: Int = hurtRangeMinimum
         set(value) {
             field = minOf(maxOf(0, value), hurtRangeMaximum)
@@ -210,8 +224,7 @@ open class Actor(
             field = value
             logger.trace("name={}", field)
         }
-
-
+    
     override var shield: Shield? = shield
         set(value) {
             field = value
@@ -241,8 +254,7 @@ open class Actor(
             field = minOf(maxOf(0, value), sleepResistanceMaximum)
             logger.trace("sleepResistanceMinimum={}", field)
         }
-
-
+    
     override var sleepResolutionMaximum: Int = sleepResolutionMaximum
         set(value) {
             field = maxOf(0, value)
@@ -394,6 +406,8 @@ open class Actor(
         this.hitPointsMaximum = hitPointsMaximum
         this.hurtRangeMaximum = hurtRangeMaximum
         this.hurtRangeMinimum = hurtRangeMinimum
+        this.hurtRequirementMaximum = hurtRequirementMaximum
+        this.hurtRequirementMinimum = hurtRequirementMinimum
         this.hurtResistanceMaximum = hurtResistanceMaximum
         this.hurtResistanceMinimum = hurtResistanceMinimum
         this.hurtScale = hurtScale
