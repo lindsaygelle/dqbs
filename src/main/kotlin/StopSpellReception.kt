@@ -8,20 +8,22 @@ class StopSpellReception(
     stopSpellResistanceMinimum: Int,
     timeMilliseconds: Long,
     uuid: UUID,
-) : Reception(timeMilliseconds, uuid) {
+) : Reception(timeMilliseconds, uuid),
+    StopSpellResistanceMaximizer,
+    StopSpellResistanceMinimizer{
     var stopSpellResistance: Int = stopSpellResistance
         set(value) {
             field = value
             logger.trace("stopSpellResistance={}", field)
         }
 
-    var stopSpellResistanceMaximum: Int = stopSpellResistanceMaximum
+    override var stopSpellResistanceMaximum: Int = stopSpellResistanceMaximum
         set(value) {
             field = value
             logger.trace("stopSpellResistanceMaximum={}", field)
         }
 
-    var stopSpellResistanceMinimum: Int = stopSpellResistanceMinimum
+    override var stopSpellResistanceMinimum: Int = stopSpellResistanceMinimum
         set(value) {
             field = value
             logger.trace("stopSpellResistanceMinimum={}", field)

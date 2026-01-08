@@ -9,20 +9,22 @@ class StopSpellInvocation(
     stopSpellRequirementMinimum: Int,
     timeMilliseconds: Long,
     uuid: UUID,
-) : MagicInvocation(magicPoints, timeMilliseconds, uuid) {
+) : MagicInvocation(magicPoints, timeMilliseconds, uuid), 
+    StopSpellRequirementMaximizer,
+    StopSpellRequirementMinimizer {
     var stopSpellRequirement: Int = stopSpellRequirement
         set(value) {
             field = value
             logger.trace("stopSpellRequirement={}", field)
         }
 
-    var stopSpellRequirementMaximum: Int = stopSpellRequirementMaximum
+    override var stopSpellRequirementMaximum: Int = stopSpellRequirementMaximum
         set(value) {
             field = value
             logger.trace("stopSpellRequirementMaximum={}", field)
         }
 
-    var stopSpellRequirementMinimum: Int = stopSpellRequirementMinimum
+    override var stopSpellRequirementMinimum: Int = stopSpellRequirementMinimum
         set(value) {
             field = value
             logger.trace("stopSpellRequirementMinimum={}", field)
