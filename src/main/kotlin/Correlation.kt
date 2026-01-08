@@ -26,4 +26,8 @@ class Correlation(
         this.criteria = criteria
         this.match = match
     }
+
+    fun compare(actor: Actor) {
+
+    }
 }
