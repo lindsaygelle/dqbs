@@ -16,7 +16,7 @@ class HurtTest {
         for (i in 0..Random.nextInt(3, 100)) {
             var armor: Armor? = null
             if (listOf(true, false).random()) {
-                armor = Armor(Random.nextInt(0, 10), Random.nextInt(0, 10), "TEST", UUID.randomUUID())
+                armor = Armor(false, false, Random.nextInt(0, 10), Random.nextInt(0, 10), "TEST", UUID.randomUUID())
             }
             receivers.add(MockHurtReceiver(armor, Random.nextInt(1, 100), 16, 0, UUID.randomUUID()))
         }
