@@ -24,6 +24,7 @@ class Armor(
             field = value
             logger.trace("blockStopSpell={}", field)
         }
+
     override var hurtReduction: Int = hurtReduction
         set(value) {
             field = maxOf(0, value)
