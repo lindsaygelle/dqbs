@@ -3,7 +3,7 @@ package com.github.lindsaygelle
 import java.util.*
 
 class StopSpellReception(
-    blockStopSpell: Boolean,
+    blocksStopSpell: Boolean,
     stopSpellResistance: Int,
     stopSpellResistanceMaximum: Int,
     stopSpellResistanceMinimum: Int,
@@ -12,11 +12,11 @@ class StopSpellReception(
 ) : Reception(timeMilliseconds, uuid),
     StopSpellBlocker,
     StopSpellResistanceMaximizer,
-    StopSpellResistanceMinimizer{
-    override var blockStopSpell: Boolean = blockStopSpell
+    StopSpellResistanceMinimizer {
+    override var blocksStopSpell: Boolean = blocksStopSpell
         set(value) {
             field = value
-            logger.trace("blockStopSpell={}", field)
+            logger.trace("blocksStopSpell={}", field)
         }
 
     var stopSpellResistance: Int = stopSpellResistance
@@ -38,13 +38,13 @@ class StopSpellReception(
         }
 
     init {
-        this.blockStopSpell = blockStopSpell
+        this.blocksStopSpell = blocksStopSpell
         this.stopSpellResistance = stopSpellResistance
         this.stopSpellResistanceMaximum = stopSpellResistanceMaximum
         this.stopSpellResistanceMinimum = stopSpellResistanceMinimum
     }
 
     override fun toString(): String {
-        return "{blockStopSpell=${blockStopSpell} stopSpellResistance=${stopSpellResistance} stopSpellResistanceMaximum=${stopSpellResistanceMaximum} stopSpellResistanceMinimum=${stopSpellResistanceMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
+        return "{blocksStopSpell=${blocksStopSpell} stopSpellResistance=${stopSpellResistance} stopSpellResistanceMaximum=${stopSpellResistanceMaximum} stopSpellResistanceMinimum=${stopSpellResistanceMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }
