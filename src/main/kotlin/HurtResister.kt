@@ -1,10 +1,9 @@
 package com.github.lindsaygelle
 
-interface HurtResister {
+interface HurtResister : HurtResistanceMaximizer,
+    HurtResistanceMinimizer {
     val hurtResistance: Int
         get() = hurtResistanceRange.random()
-    var hurtResistanceMaximum: Int
-    var hurtResistanceMinimum: Int
     val hurtResistanceRange: IntRange
         get() = (hurtResistanceMinimum..hurtResistanceMaximum)
 }

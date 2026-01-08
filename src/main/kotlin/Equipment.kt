@@ -9,6 +9,7 @@ open class Equipment(name: String, uuid: UUID) : Nameable,
 
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+
     override var name: String = name
         set(value) {
             field = value

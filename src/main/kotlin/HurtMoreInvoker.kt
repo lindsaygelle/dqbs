@@ -1,6 +1,6 @@
 package com.github.lindsaygelle
 
-interface HurtMoreInvoker: HurtRanger,
+interface HurtMoreInvoker : HurtRanger,
     HurtRequirer,
     MagicInvoker {
     var hurtMoreScale: Int

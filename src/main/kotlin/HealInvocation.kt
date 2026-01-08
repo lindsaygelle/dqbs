@@ -13,7 +13,9 @@ class HealInvocation(
     uuid: UUID,
 ) : MagicInvocation(
     magicPoints, timeMilliseconds, uuid
-) , HealRangeMaximizer, HealRangeMinimizer {
+),
+    HealRangeMaximizer,
+    HealRangeMinimizer {
     var heal: Int = heal
         set(value) {
             field = value

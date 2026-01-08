@@ -4,13 +4,13 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class Battle(battlers: List<Battler>, timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
+class Battle(actors: List<Actor>, timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
     TurnsAccumulator,
     UniversalIdentifier {
-    var battlers: List<Battler> = battlers
+    var actors: List<Actor> = actors
         set(value) {
             field = value.distinctBy { battler -> battler.hashCode() }
-            logger.trace("battlers={} battlers.size={}", field, field.size)
+            logger.trace("actors={} actors.size={}", field, field.size)
         }
 
     @Transient
@@ -35,26 +35,44 @@ class Battle(battlers: List<Battler>, timeMilliseconds: Long, uuid: UUID) : Time
         }
 
     init {
-        this.battlers = battlers
+        this.actors = actors
         this.timeMilliseconds = timeMilliseconds
         this.turns = turns
         this.uuid = uuid
     }
 
+    private fun filterActor(actor: Actor): Boolean {
+        return actor.hitPoints > 0
+    }
+
+    private fun filterActors(actors: List<Actor>): List<Actor> {
+        return actors.filter { actor -> filterActor(actor) }
+    }
+
+    private fun sortActor(actor: Actor): Int {
+        return actor.agility
+    }
+
+    private fun sortActors(actors: List<Actor>): List<Actor> {
+        return actors.sortedByDescending { actor -> sortActor(actor) }
+    }
+
     fun tick() {
-        tickBattlers(battlers.filter { battler -> battler.hitPoints > 0 }
-            .sortedByDescending { battler -> battler.agility })
+        var actors = filterActors(actors)
+        actors = sortActors(actors)
+        tickActors(actors)
+        turns++
     }
 
-    private fun tickBattler(battler: Battler, battlerIndex: Int, battlers: List<Battler>) {
-        battler.act(battlers)
+    private fun tickActor(actor: Actor, actorIndex: Int, actors: List<Actor>) {
+        actor.act(actors)
     }
 
-    private fun tickBattlers(battlers: List<Battler>) {
-        val battlerIterator = battlers.withIndex().iterator()
-        while (battlerIterator.hasNext()) {
-            val (battlerIndex, battler) = battlerIterator.next()
-            tickBattler(battler, battlerIndex, battlers)
+    private fun tickActors(actors: List<Actor>) {
+        val actorsIterator = actors.withIndex().iterator()
+        while (actorsIterator.hasNext()) {
+            val (actorIndex, actor) = actorsIterator.next()
+            tickActor(actor, actorIndex, actors)
         }
     }
 }
