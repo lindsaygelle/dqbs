@@ -3,6 +3,9 @@ package com.github.lindsaygelle
 import java.util.*
 
 class HurtInvocation(
+    hurt: Int,
+    hurtOffset: Int,
+    hurtRandom: Int,
     hurtRequirement: Int,
     hurtRequirementMaximum: Int,
     hurtRequirementMinimum: Int,
@@ -11,8 +14,27 @@ class HurtInvocation(
     uuid: UUID
 ) : MagicInvocation(
     magicPoints, timeMilliseconds, uuid
-),  HurtRequirementMaximizer,
+),
+    HurtRequirementMaximizer,
     HurtRequirementMinimizer {
+    var hurt: Int = hurt
+        set(value) {
+            field = value
+            logger.trace("hurt={}", field)
+        }
+
+    var hurtOffset: Int = hurtOffset
+        set(value) {
+            field = value
+            logger.trace("hurtOffset={}", field)
+        }
+
+    var hurtRandom: Int = hurtRandom
+        set(value) {
+            field = value
+            logger.trace("hurtRandom={}", field)
+        }
+
     var hurtRequirement: Int = hurtRequirement
         set(value) {
             field = value
@@ -32,12 +54,15 @@ class HurtInvocation(
         }
 
     init {
+        this.hurt = hurt
+        this.hurtOffset = hurtOffset
+        this.hurtRandom = hurtRandom
         this.hurtRequirement = hurtRequirement
         this.hurtRequirementMaximum = hurtRequirementMaximum
         this.hurtRequirementMinimum = hurtRequirementMinimum
     }
 
     override fun toString(): String {
-        return "hurtRequirement=${hurtRequirement} hurtRequirementMaximum=${hurtRequirementMaximum} hurtRequirementMinimum=${hurtRequirementMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
+        return "hurt=${hurt} hurtOffset=${hurtOffset} hurtRandom=${hurtRandom} hurtRequirement=${hurtRequirement} hurtRequirementMaximum=${hurtRequirementMaximum} hurtRequirementMinimum=${hurtRequirementMinimum} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
     }
 }
