@@ -1,6 +1,8 @@
 package com.github.lindsaygelle
 
 interface HurtResister {
+    val hurtResistance: Int
+        get() = hurtResistanceRange.random()
     var hurtResistanceMaximum: Int
     var hurtResistanceMinimum: Int
     val hurtResistanceRange: IntRange

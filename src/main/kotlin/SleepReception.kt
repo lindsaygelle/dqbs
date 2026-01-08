@@ -8,20 +8,22 @@ class SleepReception(
     sleepResistanceMinimum: Int,
     timeMilliseconds: Long,
     uuid: UUID,
-) : Reception(timeMilliseconds, uuid) {
+) : Reception(timeMilliseconds, uuid),
+    SleepResistanceMaximizer,
+    SleepResistanceMinimizer {
     var sleepResistance: Int = sleepResistance
         set(value) {
             field = value
             logger.trace("sleepResistance={}", field)
         }
 
-    var sleepResistanceMaximum: Int = sleepResistanceMaximum
+    override var sleepResistanceMaximum: Int = sleepResistanceMaximum
         set(value) {
             field = value
             logger.trace("sleepResistanceMaximum={}", field)
         }
 
-    var sleepResistanceMinimum: Int = sleepResistanceMinimum
+    override var sleepResistanceMinimum: Int = sleepResistanceMinimum
         set(value) {
             field = value
             logger.trace("sleepResistanceMinimum={}", field)
