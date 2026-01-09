@@ -12,8 +12,10 @@ class Comparison(
     timeMilliseconds: Long,
     value: Int,
     uuid: UUID,
-) {
-    var attribute: Attribute = attribute
+) : Attributer,
+    TimeMeasurer,
+    UniversalIdentifier {
+    override var attribute: Attribute = attribute
         set(value) {
             field = value
             logger.trace("attribute={}", field)
@@ -25,6 +27,7 @@ class Comparison(
             logger.trace("attributeValue={}", field)
         }
 
+    @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
     var operator: Operator = operator
@@ -39,13 +42,13 @@ class Comparison(
             logger.trace("result={}", field)
         }
 
-    var timeMilliseconds: Long = timeMilliseconds
+    override var timeMilliseconds: Long = timeMilliseconds
         set(value) {
             field = value
             logger.trace("timeMilliseconds={}", field)
         }
 
-    var uuid: UUID = uuid
+    override var uuid: UUID = uuid
         set(value) {
             field = value
             logger.trace("uuid={}", field)
