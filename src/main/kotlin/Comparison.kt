@@ -27,6 +27,7 @@ class Comparison(
             logger.trace("attributeValue={}", field)
         }
 
+    @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
     var operator: Operator = operator
