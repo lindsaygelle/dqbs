@@ -26,16 +26,16 @@ class Criterion(attribute: Attribute, operator: Operator, value: Int) {
             logger.trace("value={}", field)
         }
 
-    fun compare(actor: Actor): Comparison {
+    fun compare(receiver: ActionReceiver): Comparison {
         val attributeValue = when (attribute) {
-            Attribute.AGILITY -> actor.hitPoints
-            Attribute.HIT_POINTS -> actor.hitPoints
-            Attribute.HIT_POINTS_PERCENTAGE -> actor.hitPointsPercentage
-            Attribute.HIT_POINTS_MAXIMUM -> actor.hitPointsMaximum
-            Attribute.MAGIC_POINTS -> actor.magicPoints
-            Attribute.MAGIC_POINTS_MAXIMUM -> actor.magicPointsMaximum
-            Attribute.MAGIC_POINTS_PERCENTAGE -> actor.magicPointsPercentage
-            Attribute.STRENGTH -> actor.strength
+            Attribute.AGILITY -> receiver.hitPoints
+            Attribute.HIT_POINTS -> receiver.hitPoints
+            Attribute.HIT_POINTS_PERCENTAGE -> receiver.hitPointsPercentage
+            Attribute.HIT_POINTS_MAXIMUM -> receiver.hitPointsMaximum
+            Attribute.MAGIC_POINTS -> receiver.magicPoints
+            Attribute.MAGIC_POINTS_MAXIMUM -> receiver.magicPointsMaximum
+            Attribute.MAGIC_POINTS_PERCENTAGE -> receiver.magicPointsPercentage
+            Attribute.STRENGTH -> receiver.strength
         }
         val result = compareValue(attributeValue)
         return Comparison(
@@ -55,6 +55,6 @@ class Criterion(attribute: Attribute, operator: Operator, value: Int) {
     }
 
     override fun toString(): String {
-        return "{attribute=${attribute} operator=${operator} value=${value}}"
+        return "{attribute=${attribute} hashCode=${hashCode()} operator=${operator} value=${value}}"
     }
 }

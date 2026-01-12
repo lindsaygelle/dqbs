@@ -1,16 +1,9 @@
 package com.github.lindsaygelle
 
-interface Actor : Actioner,
-    AllegianceKeeper,
-    BattleInvoker,
-    BattleReceiver,
-    HitPointsPercenter,
+interface Actor : ActionReceiver,
+    Actioner,
     Indexable,
     MagicPointPercenter,
-    Nameable,
-    SleepResolver,
-    StopSpellLimiter,
-    StopSpellResolver,
-    TurnsAccumulator {
-    fun act(receivers: List<BattleReceiver>)
+    Nameable {
+    fun act(receivers: List<ActionReceiver>)
 }
