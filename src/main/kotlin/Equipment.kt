@@ -6,7 +6,6 @@ import java.util.*
 
 open class Equipment(name: String, uuid: UUID) : Nameable,
     UniversalIdentifier {
-
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
@@ -15,6 +14,7 @@ open class Equipment(name: String, uuid: UUID) : Nameable,
             field = value
             logger.trace("name={}", field)
         }
+
     override var uuid: UUID = uuid
         set(value) {
             field = value

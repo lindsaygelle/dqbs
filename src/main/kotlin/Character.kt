@@ -478,9 +478,31 @@ open class Character(
         this.weapon = weapon
     }
 
-    final override fun act(receivers: List<BattleReceiver>) {
+    final override fun getActivities(receivers: List<ActionReceiver>): List<Activity> {
+        logger.debug("receivers.size={}", receivers.size)
+        // TODO
+        val activities = mutableListOf<Activity>()
         for (action in actions) {
-            action.ability.use(this, receivers)
+            val activity = action.use(this, receivers)
+            activities.add(activity)
+            if (activity.outcomes?.isNotEmpty() == true) {
+                break
+            }
+        }
+        return activities
+    }
+
+    final override fun getAttribute(attribute: Attribute): Int {
+        logger.debug("attribute={}", attribute)
+        return when (attribute) {
+            Attribute.AGILITY -> hitPoints
+            Attribute.HIT_POINTS -> hitPoints
+            Attribute.HIT_POINTS_PERCENTAGE -> hitPointsPercentage
+            Attribute.HIT_POINTS_MAXIMUM -> hitPointsMaximum
+            Attribute.MAGIC_POINTS -> magicPoints
+            Attribute.MAGIC_POINTS_MAXIMUM -> magicPointsMaximum
+            Attribute.MAGIC_POINTS_PERCENTAGE -> magicPointsPercentage
+            Attribute.STRENGTH -> strength
         }
     }
 }

@@ -4,34 +4,19 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class Evaluation(
-    comparisons: List<Comparison>,
-    match: Match,
-    result: Boolean,
+class Ranking(
+    scores: List<Score>,
     timeMilliseconds: Long,
     uuid: UUID,
-) : Matcher,
-    TimeMeasurer,
+) : TimeMeasurer,
     UniversalIdentifier {
-    var comparisons: List<Comparison> = comparisons
-        set(value) {
-            field = value
-            logger.trace("comparisons={} comparisons.size={}", field, field.size)
-        }
-
     @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
-    override var match: Match = match
+    var scores: List<Score> = scores
         set(value) {
             field = value
-            logger.trace("match={}", field)
-        }
-
-    var result: Boolean = result
-        set(value) {
-            field = value
-            logger.trace("result={}", field)
+            logger.trace("scores={} scores.size={}", field, field.size)
         }
 
     override var timeMilliseconds: Long = timeMilliseconds
@@ -47,9 +32,7 @@ class Evaluation(
         }
 
     init {
-        this.comparisons = comparisons
-        this.match = match
-        this.result = result
+        this.scores = scores
         this.timeMilliseconds = timeMilliseconds
         this.uuid = uuid
     }

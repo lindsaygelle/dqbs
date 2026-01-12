@@ -1,6 +1,7 @@
 package com.github.lindsaygelle
 
-interface ActionReceiver: AllegianceKeeper,
+interface ActionReceiver : AllegianceKeeper,
+    AttributeReceiver,
     BattleInvoker,
     BattleReceiver,
     HitPointsPercenter,

@@ -4,11 +4,11 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class Rule(
-    criteria: List<Criterion>,
+class Rule<T : AttributeReceiver>(
+    criteria: List<Criterion<T>>,
     match: Match,
 ) : Matcher {
-    var criteria: List<Criterion> = criteria
+    var criteria: List<Criterion<T>> = criteria
         set(value) {
             field = value
             logger.trace("criteria={} criteria.size={}", field, field.size)
@@ -53,19 +53,19 @@ class Rule(
         return compare(comparisons::any)
     }
 
-    fun evaluate(receiver: ActionReceiver): Evaluation {
+    fun evaluate(receiver: T): Evaluation {
         logger.debug("receiver={}", receiver)
         val comparisons = getComparisons(criteria, receiver)
         val result = checkComparisons(comparisons.withIndex())
         return Evaluation(comparisons, match, result, System.currentTimeMillis(), UUID.randomUUID())
     }
 
-    private fun getComparison(criterion: Criterion, criterionIndex: Int, receiver: ActionReceiver): Comparison {
+    private fun getComparison(criterion: Criterion<T>, criterionIndex: Int, receiver: T): Comparison {
         logger.debug("criterion={} criterionIndex={} receiver={}", criterion, criterionIndex, receiver)
         return criterion.compare(receiver)
     }
 
-    private fun getComparisons(criteria: List<Criterion>, receiver: ActionReceiver): List<Comparison> {
+    private fun getComparisons(criteria: List<Criterion<T>>, receiver: T): List<Comparison> {
         logger.debug("criteria.size={} receiver={}", criteria.size, receiver)
         return criteria.mapIndexed { criterionIndex, criterion ->
             getComparison(criterion, criterionIndex, receiver)

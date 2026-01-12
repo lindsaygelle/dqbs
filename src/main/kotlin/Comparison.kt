@@ -7,14 +7,15 @@ import java.util.*
 class Comparison(
     attribute: Attribute,
     attributeValue: Int,
-    operator: Operator,
+    operation: Operation,
     result: Boolean,
     timeMilliseconds: Long,
     value: Int,
     uuid: UUID,
 ) : Attributer,
     TimeMeasurer,
-    UniversalIdentifier {
+    UniversalIdentifier,
+    Valuer {
     override var attribute: Attribute = attribute
         set(value) {
             field = value
@@ -30,7 +31,7 @@ class Comparison(
     @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
-    var operator: Operator = operator
+    var operation: Operation = operation
         set(value) {
             field = value
             logger.trace("operator={}", field)
@@ -54,7 +55,7 @@ class Comparison(
             logger.trace("uuid={}", field)
         }
 
-    var value: Int = value
+    override var value: Int = value
         set(value) {
             field = value
             logger.trace("value={}", field)
@@ -63,7 +64,7 @@ class Comparison(
     init {
         this.attribute = attribute
         this.attributeValue = attributeValue
-        this.operator = operator
+        this.operation = operation
         this.result = result
         this.timeMilliseconds = timeMilliseconds
         this.uuid = uuid
@@ -71,6 +72,6 @@ class Comparison(
     }
 
     override fun toString(): String {
-        return "{attribute=${attribute} attributeValue=${attributeValue} hashCode=${hashCode()} operator=${operator} result=${result} timeMilliseconds=${timeMilliseconds} uuid=${uuid} value=${value}}"
+        return "{attribute=${attribute} attributeValue=${attributeValue} hashCode=${hashCode()} operator=${operation} result=${result} timeMilliseconds=${timeMilliseconds} uuid=${uuid} value=${value}}"
     }
 }
