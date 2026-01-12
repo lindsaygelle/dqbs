@@ -479,8 +479,7 @@ open class Character(
     }
 
     final override fun getActivities(receivers: List<ActionReceiver>): List<Activity> {
-        logger.debug("receivers.size={}", receivers.size)
-        // TODO
+        logger.debug("receivers.size={}", receivers.size) // TODO
         val activities = mutableListOf<Activity>()
         for (action in actions) {
             val activity = action.use(this, receivers)
