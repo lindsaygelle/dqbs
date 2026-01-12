@@ -65,7 +65,8 @@ class Battle(actors: List<Actor>, timeMilliseconds: Long, uuid: UUID) : TimeMeas
     }
 
     private fun tickActor(actor: Actor, actorIndex: Int, actors: List<Actor>) {
-        actor.act(actors)
+        logger.debug("actor={} actorIndex={} actors.size={}", actor, actorIndex, actors.size)
+        actor.getActivities(actors)
     }
 
     private fun tickActors(actors: List<Actor>) {

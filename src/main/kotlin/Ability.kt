@@ -75,6 +75,6 @@ abstract class Ability<A : AbilityInvoker, B : AbilityReceiver, I : Invocation, 
     }
 
     override fun toString(): String {
-        return "{hashCode=${hashCode()} limit=${limit} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
+        return "{hashCode=${hashCode()} limit=${limit}}"
     }
 }

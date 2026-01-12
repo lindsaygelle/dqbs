@@ -1,9 +1,5 @@
 package com.github.lindsaygelle
 
-interface Actor : ActionReceiver,
+interface Actor : ActionInvoker,
     Actioner,
-    Indexable,
-    MagicPointPercenter,
-    Nameable {
-    fun act(receivers: List<ActionReceiver>)
-}
+    ActivitiesProvider

@@ -4,11 +4,11 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class Consider<C : Consideration>(rules: List<Rule>) {
+abstract class Consider<T : AttributeReceiver, C : Consideration>(rules: List<Rule<T>>) : Ruler<T> {
     @Transient
     protected val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
-    var rules = rules
+    override var rules: List<Rule<T>> = rules
         set(value) {
             field = value
             logger.trace("rules={} rules.size={}", field, field.size)
@@ -30,14 +30,14 @@ abstract class Consider<C : Consideration>(rules: List<Rule>) {
         }
     }
 
-    private fun checkReceiver(assessment: Assessment, receiver: ActionReceiver, receiverIndex: Int): Boolean {
+    private fun checkReceiver(assessment: Assessment, receiver: T, receiverIndex: Int): Boolean {
         logger.debug("assessment={} receiver={} receiverIndex={}", assessment, receiver, receiverIndex)
         return assessment.result
     }
 
     protected fun checkReceivers(
-        receivers: List<ActionReceiver>, rules: List<Rule>
-    ): Pair<List<Assessment>, List<ActionReceiver>> {
+        receivers: List<T>, rules: List<Rule<T>>,
+    ): Pair<List<Assessment>, List<T>> {
         logger.debug("receivers.size={} rules.size={}", receivers.size, rules.size)
         val assessments = mutableListOf<Assessment>()
         val receivers = receivers.filterIndexed { receiverIndex, receiver ->
@@ -46,11 +46,11 @@ abstract class Consider<C : Consideration>(rules: List<Rule>) {
             assessments.add(assessment)
             checkReceiver(assessment, receiver, receiverIndex)
         }
-        val pair: Pair<List<Assessment>, List<ActionReceiver>> = Pair(assessments, receivers)
+        val pair: Pair<List<Assessment>, List<T>> = Pair(assessments, receivers)
         return pair
     }
 
-    fun consider(receivers: List<ActionReceiver>): Pair<List<ActionReceiver>, C> {
+    fun consider(receivers: List<T>): Pair<List<T>, C> {
         logger.debug("receivers.size={}", receivers.size)
         val (assessments, receivers) = checkReceivers(receivers, rules)
         return getPair(assessments, receivers)
@@ -58,7 +58,7 @@ abstract class Consider<C : Consideration>(rules: List<Rule>) {
 
     private fun getAssessment(
         evaluations: List<Evaluation>,
-        receiver: ActionReceiver,
+        receiver: T,
         receiverIndex: Int,
     ): Assessment {
         logger.debug(
@@ -73,21 +73,21 @@ abstract class Consider<C : Consideration>(rules: List<Rule>) {
         )
     }
 
-    protected abstract fun getConsideration(assessments: List<Assessment>, receivers: List<ActionReceiver>): C
+    protected abstract fun getConsideration(assessments: List<Assessment>, receivers: List<T>): C
 
-    private fun getEvaluation(receiver: ActionReceiver, receiverIndex: Int, rule: Rule, ruleIndex: Int): Evaluation {
+    private fun getEvaluation(receiver: T, receiverIndex: Int, rule: Rule<T>, ruleIndex: Int): Evaluation {
         logger.debug("receiver={} receiverIndex={} rule={} ruleIndex={}", receiver, receiverIndex, rule, ruleIndex)
         return rule.evaluate(receiver)
     }
 
-    private fun getEvaluations(receiver: ActionReceiver, receiverIndex: Int, rules: List<Rule>): List<Evaluation> {
+    private fun getEvaluations(receiver: T, receiverIndex: Int, rules: List<Rule<T>>): List<Evaluation> {
         logger.debug("receiver={} receiverIndex={} rules.size={}", receiver, receiverIndex, rules.size)
         return rules.mapIndexed { ruleIndex, rule ->
             getEvaluation(receiver, receiverIndex, rule, ruleIndex)
         }
     }
 
-    private fun getPair(assessments: List<Assessment>, receivers: List<ActionReceiver>): Pair<List<ActionReceiver>, C> {
+    private fun getPair(assessments: List<Assessment>, receivers: List<T>): Pair<List<T>, C> {
         logger.debug("assessments.size={} receivers.size={}", assessments.size, receivers.size)
         return Pair(receivers, getConsideration(assessments, receivers))
     }

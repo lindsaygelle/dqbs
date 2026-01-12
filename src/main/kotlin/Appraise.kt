@@ -2,8 +2,8 @@ package com.github.lindsaygelle
 
 import java.util.*
 
-class Appraise(rules: List<Rule>) : Consider<Appraisal>(rules) {
-    override fun getConsideration(assessments: List<Assessment>, receivers: List<ActionReceiver>): Appraisal {
+class Appraise<T : ActionReceiver>(rules: List<Rule<T>>) : Consider<T, Appraisal>(rules) {
+    override fun getConsideration(assessments: List<Assessment>, receivers: List<T>): Appraisal {
         return Appraisal(assessments, receivers.isNotEmpty(), System.currentTimeMillis(), UUID.randomUUID())
     }
 }

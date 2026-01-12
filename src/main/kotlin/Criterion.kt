@@ -4,8 +4,10 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class Criterion(attribute: Attribute, operator: Operator, value: Int) {
-    private var attribute: Attribute = attribute
+class Criterion<T : AttributeReceiver>(attribute: Attribute, operation: Operation, value: Int) : Attributer,
+    Operator,
+    Valuer {
+    override var attribute: Attribute = attribute
         set(value) {
             field = value
             logger.trace("attribute={}", field)
@@ -14,47 +16,40 @@ class Criterion(attribute: Attribute, operator: Operator, value: Int) {
     @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
 
-    private var operator: Operator = operator
+    override var operation: Operation = operation
         set(value) {
             field = value
-            logger.trace("operator={}", field)
+            logger.trace("operation={}", field)
         }
 
-    private var value: Int = value
+    override var value: Int = value
         set(value) {
             field = value
             logger.trace("value={}", field)
         }
 
-    fun compare(receiver: ActionReceiver): Comparison {
-        val attributeValue = when (attribute) {
-            Attribute.AGILITY -> receiver.hitPoints
-            Attribute.HIT_POINTS -> receiver.hitPoints
-            Attribute.HIT_POINTS_PERCENTAGE -> receiver.hitPointsPercentage
-            Attribute.HIT_POINTS_MAXIMUM -> receiver.hitPointsMaximum
-            Attribute.MAGIC_POINTS -> receiver.magicPoints
-            Attribute.MAGIC_POINTS_MAXIMUM -> receiver.magicPointsMaximum
-            Attribute.MAGIC_POINTS_PERCENTAGE -> receiver.magicPointsPercentage
-            Attribute.STRENGTH -> receiver.strength
-        }
-        val result = compareValue(attributeValue)
+    fun compare(receiver: T): Comparison {
+        logger.debug("attribute={} operation={} receiver={} value={}", attribute, operation, receiver, value)
+        val attributeValue = receiver.getAttribute(attribute)
+        val result = compareValue(attributeValue, value)
         return Comparison(
-            attribute, attributeValue, operator, result, System.currentTimeMillis(), value, UUID.randomUUID()
+            attribute, attributeValue, operation, result, System.currentTimeMillis(), value, UUID.randomUUID()
         )
     }
 
-    private fun compareValue(attributeValue: Int): Boolean {
-        return when (operator) {
-            Operator.EQUAL_TO -> value == attributeValue
-            Operator.GREATER_THAN -> value > attributeValue
-            Operator.GREATER_THAN_EQUAL_TO -> value >= attributeValue
-            Operator.LESS_THAN -> value < attributeValue
-            Operator.LESS_THAN_EQUAL_TO -> value <= attributeValue
-            Operator.NOT_EQUAL_TO -> value != attributeValue
+    private fun compareValue(attributeValue: Int, value: Int): Boolean {
+        logger.debug("attributeValue={} value={}", attributeValue, value)
+        return when (operation) {
+            Operation.EQUAL_TO -> value == attributeValue
+            Operation.GREATER_THAN -> value > attributeValue
+            Operation.GREATER_THAN_EQUAL_TO -> value >= attributeValue
+            Operation.LESS_THAN -> value < attributeValue
+            Operation.LESS_THAN_EQUAL_TO -> value <= attributeValue
+            Operation.NOT_EQUAL_TO -> value != attributeValue
         }
     }
 
     override fun toString(): String {
-        return "{attribute=${attribute} hashCode=${hashCode()} operator=${operator} value=${value}}"
+        return "{attribute=${attribute} hashCode=${hashCode()} operation=${operation} value=${value}}"
     }
 }
