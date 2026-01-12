@@ -4,7 +4,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 class Activity(
-    appraisal: Appraisal
+    appraisal: Appraisal,
+    decision: Decision?,
 ) {
     var appraisal: Appraisal = appraisal
         set(value) {
