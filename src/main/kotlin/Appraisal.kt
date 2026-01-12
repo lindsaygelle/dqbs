@@ -4,24 +4,16 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-class Assessment(
-    evaluations: List<Evaluation>, receiverUUID: UUID, result: Boolean, timeMilliseconds: Long, uuid: UUID
-) : TimeMeasurer,
+class Appraisal(assessments: List<Assessment>, result: Boolean, timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
     UniversalIdentifier {
-    var evaluations: List<Evaluation> = evaluations
+    var assessments: List<Assessment> = assessments
         set(value) {
             field = value
-            logger.trace("evaluations={} evaluations.size={}", field, field.size)
+            logger.trace("assessment={} assessments.size={}", field, field.size)
         }
 
     @Transient
     private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-
-    var receiverUUID: UUID = receiverUUID
-        set(value) {
-            field = value
-            logger.trace("receiverUUID={}", field)
-        }
 
     var result: Boolean = result
         set(value) {
@@ -42,10 +34,7 @@ class Assessment(
         }
 
     init {
-        this.evaluations = evaluations
-        this.receiverUUID = receiverUUID
+        this.assessments = assessments
         this.result = result
-        this.timeMilliseconds = timeMilliseconds
-        this.uuid = uuid
     }
 }

@@ -53,22 +53,26 @@ class Rule(
         return compare(comparisons::any)
     }
 
-    fun evaluate(actor: Actor): Evaluation {
-        logger.debug("actor={}", actor)
-        val comparisons = getComparisons(actor, criteria)
+    fun evaluate(receiver: ActionReceiver): Evaluation {
+        logger.debug("receiver={}", receiver)
+        val comparisons = getComparisons(criteria, receiver)
         val result = checkComparisons(comparisons.withIndex())
-        return Evaluation(comparisons, match, result, System.currentTimeMillis(), UUID.randomUUID()) // TODO
+        return Evaluation(comparisons, match, result, System.currentTimeMillis(), UUID.randomUUID())
     }
 
-    private fun getComparison(actor: Actor, criterion: Criterion, criterionIndex: Int): Comparison {
-        logger.debug("actor={} criterion={} criterionIndex={}", actor, criterion, criterionIndex)
-        return criterion.compare(actor)
+    private fun getComparison(criterion: Criterion, criterionIndex: Int, receiver: ActionReceiver): Comparison {
+        logger.debug("criterion={} criterionIndex={} receiver={}", criterion, criterionIndex, receiver)
+        return criterion.compare(receiver)
     }
 
-    private fun getComparisons(actor: Actor, criteria: List<Criterion>): List<Comparison> {
-        logger.debug("actor={} criteria={} criteria.size={}", actor, criteria, criteria.size)
+    private fun getComparisons(criteria: List<Criterion>, receiver: ActionReceiver): List<Comparison> {
+        logger.debug("criteria.size={} receiver={}", criteria.size, receiver)
         return criteria.mapIndexed { criterionIndex, criterion ->
-            getComparison(actor, criterion, criterionIndex)
+            getComparison(criterion, criterionIndex, receiver)
         }
+    }
+
+    override fun toString(): String {
+        return "{criteria=${criteria} hashCode=${hashCode()} match=${match}}"
     }
 }
