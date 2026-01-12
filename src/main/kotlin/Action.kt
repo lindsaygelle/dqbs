@@ -43,8 +43,7 @@ class Action(
         this.rank = rank
     }
 
-    fun use(invoker: ActionInvoker, receivers: List<ActionReceiver>): Activity {
-        // TODO
+    fun use(invoker: ActionInvoker, receivers: List<ActionReceiver>): Activity { // TODO
         val (_, appraisal) = appraise.consider(receivers)
         val (_, decision: Decision?) = if (appraisal.result) decide.consider(receivers) else Pair<List<ActionReceiver>, Decision?>(
             emptyList(), null
