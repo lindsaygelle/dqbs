@@ -478,9 +478,9 @@ open class Character(
         this.weapon = weapon
     }
 
-    final override fun act(receivers: List<BattleReceiver>) {
+    final override fun act(receivers: List<ActionReceiver>) {
         for (action in actions) {
-            action.ability.use(this, receivers)
+            action.use(this, receivers)
         }
     }
 }
