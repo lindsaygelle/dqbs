@@ -40,7 +40,18 @@ class Battle<T : Battler>(
         invoker: T,
         tracers: MutableCollection<Tracer>,
     ): Int {
-        return invoker.agility
+        val score = invoker.agility
+        tracers.add(
+            TurnSort(
+                uuid,
+                invoker.uuid,
+                score,
+                System.currentTimeMillis(), 
+                UUID.randomUUID(),
+                turn,
+            )
+        )
+        return score
     }
 
     private fun sortInvokers(
