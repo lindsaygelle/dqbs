@@ -1,10 +1,77 @@
 package com.github.lindsaygelle.dqbs
 
-import java.util.*
-
-open class MagicAbility<I : MagicInvoker, R : Receiver>(
+open class MagicAbility<I : MagicInvoker, R : AbilityReceiver>(
     limit: Int,
-    override var magicPoints: Int,
-    uuid: UUID,
-) : Ability<I, R>(limit, uuid),
-    MagicPointer
+    protected val magicCost: Int,
+) : Ability<I, R>(limit) {
+    override fun checkInvoker(
+        invoker: I,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        return super.checkInvoker(invoker, tracers) && checkInvokerMagicPoints(
+            invoker, tracers
+        ) && checkInvokerStopSpellStatus(invoker, tracers)
+    }
+
+    private fun checkInvokerMagicPoints(
+        invoker: I,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        val magicPoints = invoker.magicPoints - magicCost
+        val result = magicPoints > -1
+        tracers.add(
+            MagicCostCheck(
+                magicCost,
+                javaClass.simpleName,
+                invoker.magicPoints,
+                invoker.uuid,
+                result,
+                System.currentTimeMillis(),
+                uuid,
+            )
+        )
+        return result
+    }
+
+    private fun checkInvokerStopSpellStatus(
+        invoker: I,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        val result = !invoker.statusStopSpell
+        tracers.add(
+            StatusStopSpellCheck(
+                javaClass.simpleName,
+                invoker.uuid,
+                result,
+                invoker.statusStopSpell,
+                System.currentTimeMillis(),
+                uuid,
+            )
+        )
+        return result
+    }
+
+    override fun effect(
+        invoker: I,
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ) {
+        effectInvokerMagicCost(invoker, tracers)
+    }
+
+    private fun effectInvokerMagicCost(
+        invoker: I,
+        tracers: MutableCollection<Tracer>,
+    ) {
+        val magicPointsPrevious = invoker.magicPoints
+        invoker.magicPoints -= magicCost
+        tracers.add(
+            MagicPointsChange(
+                invoker.magicPoints,
+                magicPointsPrevious,
+                System.currentTimeMillis(),
+                invoker.uuid,
+            )
+        )
+    }
+}

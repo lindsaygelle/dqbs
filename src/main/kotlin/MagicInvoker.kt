@@ -1,4 +1,6 @@
 package com.github.lindsaygelle.dqbs
 
-interface MagicInvoker : Invoker,
-    MagicPointer
+interface MagicInvoker : AbilityInvoker {
+    var magicPoints: Int
+    var statusStopSpell: Boolean
+}

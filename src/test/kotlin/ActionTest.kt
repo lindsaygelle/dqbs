@@ -1,5 +1,4 @@
 import com.github.lindsaygelle.dqbs.*
-import java.util.*
 import kotlin.random.Random
 import kotlin.test.Test
 
@@ -7,63 +6,61 @@ class ActionTest {
     @Test
     fun test() {
         val action: Action<Actor, Actor> = Action(
-            ability = Ability(
-                limit = Random.nextInt(1, 10), uuid = UUID.randomUUID()
+            ability = Sleep(
+                limit = Random.nextInt(1, 10), magicCost = 0
             ),
-            assess = Case(
-                rules = listOf(
-                    Rule(
-                        comparisons = listOf(
-                            Comparison(
-                                Attribute.entries.random(),
-                                Operation.entries.random(),
-                                (0..1).random(),
-                                UUID.randomUUID(),
-                            )
+            assess = Qualify(
+                cases = listOf(
+                    Case(
+                        rules = listOf(
+                            Rule(
+                                comparisons = listOf(
+                                    Comparison(
+                                        Attribute.entries.random(),
+                                        Operation.entries.random(),
+                                        (0..1).random(),
+                                    )
+                                ),
+                                match = Match.entries.random(),
+                            ),
                         ),
-                        match = Match.entries.random(),
-                        uuid = UUID.randomUUID(),
-                    ),
-                ),
-                selections = listOf(Selection.entries.random()),
-                uuid = UUID.randomUUID(),
+                        selections = listOf(Selection.entries.random()),
+                    )
+                )
             ),
-            choose = Case(
-                rules = listOf(
-                    Rule(
-                        comparisons = listOf(
-                            Comparison(
-                                Attribute.entries.random(),
-                                Operation.entries.random(),
-                                (0..1).random(),
-                                UUID.randomUUID(),
-                            )
+            choose = Qualify(
+                listOf(
+                    Case(
+                        rules = listOf(
+                            Rule(
+                                comparisons = listOf(
+                                    Comparison(
+                                        Attribute.entries.random(),
+                                        Operation.entries.random(),
+                                        (0..1).random(),
+                                    )
+                                ),
+                                match = Match.entries.random(),
+                            ),
                         ),
-                        match = Match.entries.random(),
-                        uuid = UUID.randomUUID(),
-                    ),
-                ),
-                selections = listOf(Selection.entries.random()),
-                uuid = UUID.randomUUID(),
+                        selections = listOf(Selection.entries.random()),
+                    )
+                )
             ),
+            priority = 0,
             weigh = Weigh(
                 comparisons = listOf(
                     Comparison(
                         Attribute.entries.random(),
                         Operation.entries.random(),
-                        Random.nextInt(),
-                        UUID.randomUUID(),
+                        Random.nextInt(0, 1),
                     )
                 ),
-                uuid = UUID.randomUUID(),
             ),
-            uuid = UUID.randomUUID(),
         )
         val receivers = mutableListOf<Actor>()
         for (i in 1..10) {
-            val receiver: Actor = MockActor(
-                (0..1).random(), 1, 1, 1,UUID.randomUUID(),
-            )
+            val receiver: Actor = MockBattler()
             receivers.add(receiver)
         }
         val tracer = mutableListOf<Tracer>()

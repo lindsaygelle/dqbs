@@ -3,14 +3,16 @@ package com.github.lindsaygelle.dqbs
 import java.util.*
 
 class Comparison<R : Actor>(
-    override var attribute: Attribute,
-    override var operation: Operation,
-    var value: Int,
-    override var uuid: UUID,
-) : Attributer,
-    Checker<R>,
-    Operator,
-    UniversalIdentifier {
+    private val attribute: Attribute,
+    private val operation: Operation,
+    private val value: Int,
+) : Checker<R> {
+    private val uuid: UUID = UUID.randomUUID()
+
+    init {
+        require(value > -1)
+    }
+
     override fun check(
         receiver: R,
         tracers: MutableCollection<Tracer>,
@@ -18,11 +20,10 @@ class Comparison<R : Actor>(
         tracers.add(
             ComparisonBegin(
                 attribute,
-                uuid,
                 operation,
                 receiver.uuid,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
                 value,
             )
         )
@@ -30,15 +31,7 @@ class Comparison<R : Actor>(
         val result = getResult(receiverValue)
         tracers.add(
             ComparisonEnd(
-                attribute,
-                uuid,
-                operation,
-                receiver.uuid,
-                receiverValue,
-                result,
-                System.currentTimeMillis(),
-                UUID.randomUUID(),
-                value
+                attribute, operation, receiver.uuid, receiverValue, result, System.currentTimeMillis(), uuid, value
             )
         )
         return result
@@ -48,6 +41,15 @@ class Comparison<R : Actor>(
         return when (attribute) {
             Attribute.AGILITY -> receiver.agility
             Attribute.STRENGTH -> receiver.strength
+            Attribute.MAGIC_POINTS -> receiver.magicPoints
+            Attribute.SLEEP_REQUIREMENT_MAXIMUM -> receiver.sleepRequirementMaximum
+            Attribute.SLEEP_REQUIREMENT_MINIMUM -> receiver.sleepRequirementMinimum
+            Attribute.SLEEP_RESISTANCE_MAXIMUM -> receiver.sleepRequirementMaximum
+            Attribute.SLEEP_RESISTANCE_MINIMUM -> receiver.sleepRequirementMinimum
+            Attribute.STOP_SPELL_REQUIREMENT_MAXIMUM -> receiver.stopSpellRequirementMaximum
+            Attribute.STOP_SPELL_REQUIREMENT_MINIMUM -> receiver.stopSpellRequirementMaximum
+            Attribute.STOP_SPELL_RESISTANCE_MAXIMUM -> receiver.stopSpellResistanceMaximum
+            Attribute.STOP_SPELL_RESISTANCE_MINIMUM -> receiver.sleepResistanceMaximum
         }
     }
 

@@ -3,11 +3,8 @@ package com.github.lindsaygelle.dqbs
 import java.util.*
 
 data class WeighCheck(
-    override var receiverUUID: UUID,
-    override var score: Int,
-    override var timeMilliseconds: Long,
-    override var uuid: UUID,
-    override var weighUUID: UUID,
-) : ReceiverIdentifier,
-    Scorer,
-    WeighTracer
+    val receiverUUID: UUID,
+    val score: Int,
+    override val timeMilliseconds: Long,
+    override val uuid: UUID,
+) : WeighTracer

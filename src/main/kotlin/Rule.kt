@@ -1,16 +1,12 @@
 package com.github.lindsaygelle.dqbs
 
-import java.util.*
-
 class Rule<R : Actor>(
     comparisons: Collection<Comparison<R>>,
-    override var match: Match,
-    uuid: UUID,
+    private val match: Match,
 ) : Evaluation<R>(
-    comparisons, uuid
+    comparisons
 ),
-    Checker<R>,
-    Matcher {
+    Checker<R> {
     override fun check(
         receiver: R,
         tracers: MutableCollection<Tracer>,
@@ -19,9 +15,8 @@ class Rule<R : Actor>(
             RuleBegin(
                 match,
                 receiver.uuid,
-                uuid,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         val result = checkMatch(
@@ -32,9 +27,8 @@ class Rule<R : Actor>(
                 match,
                 receiver.uuid,
                 result,
-                uuid,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         return result
@@ -78,9 +72,8 @@ class Rule<R : Actor>(
                 match,
                 receiver.uuid,
                 result,
-                uuid,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         return result

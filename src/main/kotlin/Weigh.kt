@@ -1,11 +1,8 @@
 package com.github.lindsaygelle.dqbs
 
-import java.util.*
-
 class Weigh<R : Actor>(
     comparisons: Collection<Comparison<R>>,
-    uuid: UUID,
-) : Evaluation<R>(comparisons, uuid),
+) : Evaluation<R>(comparisons),
     Sorter<R> {
     override fun sort(
         receivers: Collection<R>,
@@ -15,7 +12,6 @@ class Weigh<R : Actor>(
             WeighBegin(
                 receivers.count(),
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
                 uuid,
             )
         )
@@ -24,7 +20,6 @@ class Weigh<R : Actor>(
             WeighEnd(
                 receivers.count(),
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
                 uuid,
             )
         )
@@ -46,7 +41,6 @@ class Weigh<R : Actor>(
                 receiver.uuid,
                 score,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
                 uuid,
             )
         )

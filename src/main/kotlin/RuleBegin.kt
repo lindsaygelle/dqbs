@@ -1,11 +1,10 @@
 package com.github.lindsaygelle.dqbs
 
-import java.util.UUID
+import java.util.*
 
 data class RuleBegin(
-    override var match: Match,
-    override var receiverUUID: UUID,
-    override var ruleUUID: UUID,
-    override var timeMilliseconds: Long,
-    override var uuid: UUID
-): RuleTracer
+    override val match: Match,
+    override val receiverUUID: UUID,
+    override val timeMilliseconds: Long,
+    override val uuid: UUID,
+) : RuleTracer
