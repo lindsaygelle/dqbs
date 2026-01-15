@@ -1,11 +1,10 @@
 package com.github.lindsaygelle.dqbs
 
-import java.util.UUID
+import java.util.*
 
 data class ActionEnd(
-    override var actionUUID: UUID,
-    override var invokerUUID: UUID,
-    var result: Boolean,
-    override var timeMilliseconds: Long,
-    override var uuid: UUID
+    override val invokerUUID: UUID,
+    val result: Boolean,
+    override val timeMilliseconds: Long,
+    override val uuid: UUID,
 ) : ActionTracer

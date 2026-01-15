@@ -2,28 +2,21 @@ package com.github.lindsaygelle.dqbs
 
 import java.util.*
 
-open class Ability<I : Invoker, R : Receiver>(
-    override var limit: Int,
-    override var uuid: UUID,
-) : Limiter,
-    NameProvider,
-    UniversalIdentifier {
-    protected open fun apply(
-        invoker: I,
-        receiver: R,
-        tracers: MutableCollection<Tracer>,
-    ): Boolean {
-        return true
+abstract class Ability<I : AbilityInvoker, R : AbilityReceiver>(
+    private val limit: Int,
+) {
+    protected val uuid: UUID = UUID.randomUUID()
+
+    init {
+        require(limit > 0)
     }
 
     private fun check(
         invoker: I,
-        receivers: Collection<R>,
+        receiver: R,
         tracers: MutableCollection<Tracer>,
     ): Boolean {
-        return receivers.all { receiver ->
-            (checkInvoker(invoker, tracers) && checkReceiver(receiver, tracers)) && apply(invoker, receiver, tracers)
-        }
+        return checkInvoker(invoker, tracers) && checkReceiver(receiver, tracers)
     }
 
     protected open fun checkInvoker(
@@ -40,33 +33,64 @@ open class Ability<I : Invoker, R : Receiver>(
         return true
     }
 
+    abstract fun effect(
+        invoker: I,
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    )
+
+    private fun tickReceiver(
+        invoker: I,
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        val result = check(invoker, receiver, tracers)
+        if (result) {
+            effect(invoker, receiver, tracers)
+        }
+        return result
+    }
+
+    private fun tickReceivers(
+        invoker: I,
+        receivers: Collection<R>,
+        tracers: MutableCollection<Tracer>,
+    ): Int {
+        var count = 0
+        receivers.forEach { receiver ->
+            if (tickReceiver(invoker, receiver, tracers)) {
+                count++
+            }
+        }
+        return count
+    }
+
     fun use(
         invoker: I,
         receivers: Collection<R>,
         tracers: MutableCollection<Tracer>,
-    ): Boolean {
+    ) {
         tracers.add(
             AbilityBegin(
-                uuid,
                 invoker.uuid,
                 limit,
-                name,
+                javaClass.simpleName,
                 receivers.count(),
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
-        val result = check(invoker, receivers.take(limit), tracers)
+        val receivers = receivers.take(limit)
+        val count = tickReceivers(invoker, receivers, tracers)
         tracers.add(
             AbilityEnd(
-                uuid,
+                count,
                 invoker.uuid,
-                name,
-                result,
+                javaClass.simpleName,
+                receivers.count(),
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
-        return result
     }
 }

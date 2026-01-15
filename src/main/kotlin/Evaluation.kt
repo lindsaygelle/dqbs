@@ -3,9 +3,14 @@ package com.github.lindsaygelle.dqbs
 import java.util.*
 
 abstract class Evaluation<R : Actor>(
-    var comparisons: Collection<Comparison<R>>,
-    override var uuid: UUID,
-) : UniversalIdentifier {
+    protected val comparisons: Collection<Comparison<R>>,
+) {
+    protected val uuid: UUID = UUID.randomUUID()
+
+    init {
+        require(comparisons.isNotEmpty())
+    }
+
     protected fun checkComparison(
         comparison: Comparison<R>,
         receiver: R,

@@ -1,3 +1,7 @@
 package com.github.lindsaygelle.dqbs
 
-interface Invoker: UniversalIdentifier
+import java.util.*
+
+interface Invoker {
+    val uuid: UUID
+}

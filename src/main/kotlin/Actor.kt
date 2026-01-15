@@ -1,7 +1,13 @@
 package com.github.lindsaygelle.dqbs
 
-interface Actor : AgilityProvider,
-    Allier,
-    MagicInvoker,
-    Receiver,
-    StrengthProvider
+interface Actor : HealInvoker,
+    HealMoreInvoker,
+    HealReceiver,
+    SleepInvoker,
+    SleepReceiver,
+    StopSpellInvoker,
+    StopSpellReceiver {
+    val agility: Int
+    var allegiance: Int
+    val strength: Int
+}

@@ -3,12 +3,14 @@ package com.github.lindsaygelle.dqbs
 import java.util.*
 
 class Action<I : Actor, R : Actor>(
-    var ability: Ability<I, R>,
-    var assess: Case<I, R>,
-    var choose: Case<I, R>,
-    override var uuid: UUID,
-    var weigh: Weigh<R>,
-) : UniversalIdentifier {
+    private val ability: Ability<I, R>,
+    private val assess: Qualify<I, R>,
+    private val choose: Qualify<I, R>,
+    val priority: Int,
+    private val weigh: Weigh<R>,
+) {
+    private val uuid: UUID = UUID.randomUUID()
+
     fun use(
         invoker: I,
         receivers: Collection<R>,
@@ -16,30 +18,44 @@ class Action<I : Actor, R : Actor>(
     ): Boolean {
         tracers.add(
             ActionBegin(
-                uuid,
                 invoker.uuid,
                 receivers.count(),
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         var filteredReceivers = assess.filter(invoker, receivers, tracers)
-        var result = filteredReceivers.isNotEmpty()
+        var filteredReceiversCount = filteredReceivers.count()
+        var result = filteredReceiversCount > 0
+        tracers.add(
+            AssessEnd(
+                invoker.uuid,
+                filteredReceiversCount,
+                result,
+                System.currentTimeMillis(),
+                uuid,
+            )
+        )
         if (result) {
             filteredReceivers = choose.filter(invoker, receivers, tracers)
-            result = filteredReceivers.isNotEmpty()
+            filteredReceiversCount = filteredReceivers.count()
+            result = filteredReceiversCount > 0
+            tracers.add(
+                ChooseEnd(
+                    invoker.uuid, filteredReceiversCount, System.currentTimeMillis(), uuid
+                )
+            )
             if (result) {
-                filteredReceivers = weigh.sort(receivers, tracers)
-                result = ability.use(invoker, filteredReceivers, tracers)
+                filteredReceivers = weigh.sort(filteredReceivers, tracers)
+                ability.use(invoker, filteredReceivers, tracers)
             }
         }
         tracers.add(
             ActionEnd(
-                uuid,
                 invoker.uuid,
                 result,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         return result

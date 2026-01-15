@@ -1,12 +1,12 @@
 package com.github.lindsaygelle.dqbs
 
-import java.util.UUID
+import java.util.*
 
 data class AbilityEnd(
-    override var abilityUUID: UUID,
-    override var invokerUUID: UUID,
-    override var name: String,
-    var result: Boolean,
-    override var timeMilliseconds: Long,
-    override var uuid: UUID,
-): AbilityTracer
+    val count: Int,
+    val invokerUUID: UUID,
+    override val name: String,
+    val receiverCount: Int,
+    override val timeMilliseconds: Long,
+    override val uuid: UUID,
+) : AbilityTracer

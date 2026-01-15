@@ -3,10 +3,16 @@ package com.github.lindsaygelle.dqbs
 import java.util.*
 
 class Case<I : Actor, R : Actor>(
-    var rules: Collection<Rule<R>>,
-    var selections: Collection<Selection>,
-    override var uuid: UUID,
-) : UniversalIdentifier {
+    private val rules: Collection<Rule<R>>,
+    private val selections: Collection<Selection>,
+) {
+    private val uuid: UUID = UUID.randomUUID()
+
+    init {
+        require(rules.isNotEmpty())
+        require(selections.isNotEmpty())
+    }
+
     private fun checkRule(
         receiver: R,
         rule: Rule<R>,
@@ -28,13 +34,12 @@ class Case<I : Actor, R : Actor>(
         }
         tracers.add(
             CaseCheck(
-                uuid,
                 count,
                 invoker.uuid,
                 receiver.uuid,
                 result,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         return result
@@ -53,13 +58,12 @@ class Case<I : Actor, R : Actor>(
         }
         tracers.add(
             CaseSelect(
-                uuid,
                 invoker.uuid,
                 receiver.uuid,
                 result,
                 selection,
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         return result
@@ -80,14 +84,13 @@ class Case<I : Actor, R : Actor>(
         invoker: I,
         receivers: Collection<R>,
         tracers: MutableCollection<Tracer>,
-    ): List<R> {
+    ): Collection<R> {
         tracers.add(
             CaseBegin(
-                uuid,
                 invoker.uuid,
                 receivers.count(),
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         val receivers = filterReceivers(
@@ -95,11 +98,10 @@ class Case<I : Actor, R : Actor>(
         )
         tracers.add(
             CaseEnd(
-                uuid,
                 invoker.uuid,
                 receivers.count(),
                 System.currentTimeMillis(),
-                UUID.randomUUID(),
+                uuid,
             )
         )
         return receivers

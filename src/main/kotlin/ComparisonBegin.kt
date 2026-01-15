@@ -1,13 +1,12 @@
 package com.github.lindsaygelle.dqbs
 
-import java.util.UUID
+import java.util.*
 
 data class ComparisonBegin(
-    override var attribute: Attribute,
-    override var comparisonUUID: UUID,
-    override var operation: Operation,
-    override var receiverUUID: UUID,
-    override var timeMilliseconds: Long,
-    override var uuid: UUID,
-    override var value: Int,
-): ComparisonTracer
+    override val attribute: Attribute,
+    override val operation: Operation,
+    override val receiverUUID: UUID,
+    override val timeMilliseconds: Long,
+    override val uuid: UUID,
+    override val value: Int,
+) : ComparisonTracer

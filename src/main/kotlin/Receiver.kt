@@ -1,3 +1,7 @@
 package com.github.lindsaygelle.dqbs
 
-interface Receiver : UniversalIdentifier
+import java.util.*
+
+interface Receiver {
+    val uuid: UUID
+}

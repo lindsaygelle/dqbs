@@ -3,11 +3,15 @@ package com.github.lindsaygelle.dqbs
 import java.util.*
 
 class Battle<T : Battler>(
-    var invokers: Collection<T>,
-    override var uuid: UUID,
-) : TurnAccumulator,
-    UniversalIdentifier {
-    override var turn: Int = 0
+    val invokers: Collection<T>,
+) {
+    var turn: Int = 0
+
+    val uuid: UUID = UUID.randomUUID()
+
+    init {
+        require(invokers.isNotEmpty())
+    }
 
     private fun filterInvoker(
         invoker: T,
@@ -16,12 +20,11 @@ class Battle<T : Battler>(
         val result = true
         tracers.add(
             TurnFilter(
-                uuid,
                 invoker.uuid,
                 result,
                 System.currentTimeMillis(),
                 turn,
-                UUID.randomUUID(),
+                uuid,
             )
         )
         return result
@@ -43,12 +46,11 @@ class Battle<T : Battler>(
         val score = invoker.agility
         tracers.add(
             TurnSort(
-                uuid,
                 invoker.uuid,
                 score,
-                System.currentTimeMillis(), 
-                UUID.randomUUID(),
+                System.currentTimeMillis(),
                 turn,
+                uuid,
             )
         )
         return score
@@ -67,11 +69,10 @@ class Battle<T : Battler>(
         val tracers = mutableListOf<Tracer>()
         tracers.add(
             TurnBegin(
-                uuid,
                 invokers.count(),
                 System.currentTimeMillis(),
                 turn,
-                UUID.randomUUID(),
+                uuid,
             )
         )
         var filteredInvokers = filterInvokers(invokers, tracers)
@@ -79,10 +80,9 @@ class Battle<T : Battler>(
         tickInvokers(filteredInvokers.iterator(), invokers, tracers)
         tracers.add(
             TurnEnd(
-                uuid,
                 System.currentTimeMillis(),
                 turn,
-                UUID.randomUUID(),
+                uuid,
             )
         )
         turn++
@@ -94,9 +94,32 @@ class Battle<T : Battler>(
         receivers: Collection<T>,
         tracers: MutableCollection<Tracer>,
     ) {
-        invoker.actions.any { action ->
+        tickInvokerSleep(invoker, tracers)
+        tickInvokerStopSpell(invoker, tracers)
+        tickInvokerActions(invoker, receivers, tracers)
+    }
+
+    private fun tickInvokerActions(
+        invoker: T,
+        receivers: Collection<T>,
+        tracers: MutableCollection<Tracer>,
+    ) {
+        invoker.actions.withIndex().any { (actionIndex, action) ->
             action.use(invoker, receivers, tracers)
         }
+    }
+
+    private fun tickInvokerSleep(
+        invoker: T,
+        tracers: MutableCollection<Tracer>,
+    ) {
+
+    }
+
+    private fun tickInvokerStopSpell(
+        invoker: T,
+        tracers: MutableCollection<Tracer>,
+    ) {
     }
 
     private fun tickInvokers(
