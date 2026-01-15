@@ -1,4 +1,4 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
 import java.util.*
 

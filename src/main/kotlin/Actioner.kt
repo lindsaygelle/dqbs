@@ -1,5 +1,5 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
 interface Actioner {
-    var actions: List<Action>
+    var actions: Collection<Action<Actor, Actor>>
 }

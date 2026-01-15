@@ -1,5 +1,7 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
-interface Actor : ActionInvoker,
-    Actioner,
-    ActivitiesProvider
+interface Actor : AgilityProvider,
+    Allier,
+    MagicInvoker,
+    Receiver,
+    StrengthProvider

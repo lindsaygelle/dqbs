@@ -1,21 +1,10 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
-abstract class MagicAbility<A : MagicInvoker, B : AbilityReceiver, I : MagicInvocation, R : Reception, C : Check, E : Effect>(
+import java.util.*
+
+open class MagicAbility<I : MagicInvoker, R : Receiver>(
     limit: Int,
-    magicPoints: Int,
-) : Ability<A, B, I, R, C, E>(limit),
-    MagicPointer {
-    override var magicPoints: Int = magicPoints
-        set(value) {
-            field = maxOf(0, value)
-            logger.trace("magicPoints={}", field)
-        }
-
-    init {
-        this.magicPoints = magicPoints
-    }
-
-    override fun toString(): String {
-        return "{magicPoints=${magicPoints} ${this.javaClass.superclass.simpleName}=${super.toString()}}"
-    }
-}
+    override var magicPoints: Int,
+    uuid: UUID,
+) : Ability<I, R>(limit, uuid),
+    MagicPointer

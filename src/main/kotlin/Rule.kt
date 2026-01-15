@@ -1,78 +1,104 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.util.*
 
-class Rule<T : AttributeReceiver>(
-    criteria: List<Criterion<T>>,
-    match: Match,
-) : Matcher {
-    var criteria: List<Criterion<T>> = criteria
-        set(value) {
-            field = value
-            logger.trace("criteria={} criteria.size={}", field, field.size)
-        }
-
-    @Transient
-    private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-
-    override var match: Match = match
-        set(value) {
-            field = value
-            logger.trace("match={}", field)
-        }
-
-    init {
-        this.criteria = criteria
-        this.match = match
+class Rule<R : Actor>(
+    comparisons: Collection<Comparison<R>>,
+    override var match: Match,
+    uuid: UUID,
+) : Evaluation<R>(
+    comparisons, uuid
+),
+    Checker<R>,
+    Matcher {
+    override fun check(
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        tracers.add(
+            RuleBegin(
+                match,
+                receiver.uuid,
+                uuid,
+                System.currentTimeMillis(),
+                UUID.randomUUID(),
+            )
+        )
+        val result = checkMatch(
+            comparisons.withIndex(), receiver, tracers
+        )
+        tracers.add(
+            RuleEnd(
+                match,
+                receiver.uuid,
+                result,
+                uuid,
+                System.currentTimeMillis(),
+                UUID.randomUUID(),
+            )
+        )
+        return result
     }
 
-    private fun checkComparison(comparison: Comparison, comparisonIndex: Int): Boolean {
-        logger.debug("comparison={} comparisonIndex={}", comparison, comparisonIndex)
-        return comparison.result
+    private fun checkAll(
+        comparisons: Iterable<IndexedValue<Comparison<R>>>,
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        return checkComparisons(
+            comparisons::all, receiver, tracers
+        )
     }
 
-    private fun checkComparisons(comparisons: Iterable<IndexedValue<Comparison>>): Boolean {
+    private fun checkAny(
+        comparisons: Iterable<IndexedValue<Comparison<R>>>,
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        return checkComparisons(
+            comparisons::any, receiver, tracers
+        )
+    }
+
+    private fun checkComparisons(
+        comparisons: ((predicate: IndexedValue<Comparison<R>>) -> Boolean) -> Boolean,
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        var count = 0
+        val result = comparisons { (comparisonIndex, comparison) ->
+            count = comparisonIndex
+            checkComparison(
+                comparison, receiver, tracers
+            )
+        }
+        tracers.add(
+            RuleCheck(
+                count,
+                match,
+                receiver.uuid,
+                result,
+                uuid,
+                System.currentTimeMillis(),
+                UUID.randomUUID(),
+            )
+        )
+        return result
+    }
+
+    private fun checkMatch(
+        comparisons: Iterable<IndexedValue<Comparison<R>>>,
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
         return when (match) {
-            Match.ALL -> compareAll(comparisons)
-            Match.ANY -> compareAny(comparisons)
+            Match.ALL -> checkAll(
+                comparisons, receiver, tracers
+            )
+
+            Match.ANY -> checkAny(
+                comparisons, receiver, tracers
+            )
         }
-    }
-
-    private fun compare(aggregator: (predicate: (IndexedValue<Comparison>) -> Boolean) -> Boolean): Boolean {
-        logger.debug("aggregator={}", aggregator)
-        return aggregator { (comparisonIndex, comparison) -> checkComparison(comparison, comparisonIndex) }
-    }
-
-    private fun compareAll(comparisons: Iterable<IndexedValue<Comparison>>): Boolean {
-        return compare(comparisons::all)
-    }
-
-    private fun compareAny(comparisons: Iterable<IndexedValue<Comparison>>): Boolean {
-        return compare(comparisons::any)
-    }
-
-    fun evaluate(receiver: T): Evaluation {
-        logger.debug("receiver={}", receiver)
-        val comparisons = getComparisons(criteria, receiver)
-        val result = checkComparisons(comparisons.withIndex())
-        return Evaluation(comparisons, match, result, System.currentTimeMillis(), UUID.randomUUID())
-    }
-
-    private fun getComparison(criterion: Criterion<T>, criterionIndex: Int, receiver: T): Comparison {
-        logger.debug("criterion={} criterionIndex={} receiver={}", criterion, criterionIndex, receiver)
-        return criterion.compare(receiver)
-    }
-
-    private fun getComparisons(criteria: List<Criterion<T>>, receiver: T): List<Comparison> {
-        logger.debug("criteria.size={} receiver={}", criteria.size, receiver)
-        return criteria.mapIndexed { criterionIndex, criterion ->
-            getComparison(criterion, criterionIndex, receiver)
-        }
-    }
-
-    override fun toString(): String {
-        return "{criteria=${criteria} hashCode=${hashCode()} match=${match}}"
     }
 }

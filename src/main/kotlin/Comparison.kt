@@ -1,77 +1,64 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.util.*
 
-class Comparison(
-    attribute: Attribute,
-    attributeValue: Int,
-    operation: Operation,
-    result: Boolean,
-    timeMilliseconds: Long,
-    value: Int,
-    uuid: UUID,
+class Comparison<R : Actor>(
+    override var attribute: Attribute,
+    override var operation: Operation,
+    var value: Int,
+    override var uuid: UUID,
 ) : Attributer,
-    TimeMeasurer,
-    UniversalIdentifier,
-    Valuer {
-    override var attribute: Attribute = attribute
-        set(value) {
-            field = value
-            logger.trace("attribute={}", field)
-        }
-
-    var attributeValue: Int = attributeValue
-        set(value) {
-            field = value
-            logger.trace("attributeValue={}", field)
-        }
-
-    @Transient
-    private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-
-    var operation: Operation = operation
-        set(value) {
-            field = value
-            logger.trace("operator={}", field)
-        }
-
-    var result: Boolean = result
-        set(value) {
-            field = value
-            logger.trace("result={}", field)
-        }
-
-    override var timeMilliseconds: Long = timeMilliseconds
-        set(value) {
-            field = value
-            logger.trace("timeMilliseconds={}", field)
-        }
-
-    override var uuid: UUID = uuid
-        set(value) {
-            field = value
-            logger.trace("uuid={}", field)
-        }
-
-    override var value: Int = value
-        set(value) {
-            field = value
-            logger.trace("value={}", field)
-        }
-
-    init {
-        this.attribute = attribute
-        this.attributeValue = attributeValue
-        this.operation = operation
-        this.result = result
-        this.timeMilliseconds = timeMilliseconds
-        this.uuid = uuid
-        this.value = value
+    Checker<R>,
+    Operator,
+    UniversalIdentifier {
+    override fun check(
+        receiver: R,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        tracers.add(
+            ComparisonBegin(
+                attribute,
+                uuid,
+                operation,
+                receiver.uuid,
+                System.currentTimeMillis(),
+                UUID.randomUUID(),
+                value,
+            )
+        )
+        val receiverValue = getReceiverValue(receiver)
+        val result = getResult(receiverValue)
+        tracers.add(
+            ComparisonEnd(
+                attribute,
+                uuid,
+                operation,
+                receiver.uuid,
+                receiverValue,
+                result,
+                System.currentTimeMillis(),
+                UUID.randomUUID(),
+                value
+            )
+        )
+        return result
     }
 
-    override fun toString(): String {
-        return "{attribute=${attribute} attributeValue=${attributeValue} hashCode=${hashCode()} operator=${operation} result=${result} timeMilliseconds=${timeMilliseconds} uuid=${uuid} value=${value}}"
+    private fun getReceiverValue(receiver: R): Int {
+        return when (attribute) {
+            Attribute.AGILITY -> receiver.agility
+            Attribute.STRENGTH -> receiver.strength
+        }
+    }
+
+    private fun getResult(receiverValue: Int): Boolean {
+        return when (operation) {
+            Operation.EQUAL_TO -> value == receiverValue
+            Operation.GREATER_THAN -> value > receiverValue
+            Operation.GREATER_THAN_EQUAL_TO -> value >= receiverValue
+            Operation.LESS_THAN -> value < receiverValue
+            Operation.LESS_THAN_EQUAL_TO -> value <= receiverValue
+            Operation.NOT_EQUAL_TO -> value != receiverValue
+        }
     }
 }

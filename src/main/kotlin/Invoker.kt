@@ -1,3 +1,3 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
-interface Invoker : UniversalIdentifier
+interface Invoker: UniversalIdentifier

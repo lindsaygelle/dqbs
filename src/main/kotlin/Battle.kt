@@ -1,79 +1,100 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.util.*
 
-class Battle(actors: List<Actor>, timeMilliseconds: Long, uuid: UUID) : TimeMeasurer,
-    TurnsAccumulator,
+class Battle<T : Battler>(
+    var invokers: Collection<T>,
+    override var uuid: UUID,
+) : TurnAccumulator,
     UniversalIdentifier {
-    var actors: List<Actor> = actors
-        set(value) {
-            field = value.distinctBy { battler -> battler.hashCode() }
-            logger.trace("actors={} actors.size={}", field, field.size)
+    override var turn: Int = 0
+
+    private fun filterInvoker(
+        invoker: T,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        val result = true
+        tracers.add(
+            TurnFilter(
+                uuid,
+                invoker.uuid,
+                result,
+                System.currentTimeMillis(),
+                turn,
+                UUID.randomUUID(),
+            )
+        )
+        return result
+    }
+
+    private fun filterInvokers(
+        invokers: Collection<T>,
+        tracers: MutableCollection<Tracer>,
+    ): Collection<T> {
+        return invokers.filter { invoker ->
+            filterInvoker(invoker, tracers)
         }
+    }
 
-    @Transient
-    private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+    private fun sortInvoker(
+        invoker: T,
+        tracers: MutableCollection<Tracer>,
+    ): Int {
+        return invoker.agility
+    }
 
-    override var timeMilliseconds: Long = timeMilliseconds
-        set(value) {
-            field = maxOf(0, value)
-            logger.trace("timeMilliseconds={}", field)
+    private fun sortInvokers(
+        invokers: Collection<T>,
+        tracers: MutableCollection<Tracer>,
+    ): Collection<T> {
+        return invokers.sortedByDescending { invoker ->
+            sortInvoker(invoker, tracers)
         }
+    }
 
-    override var turns: Int = 0
-        set(value) {
-            field = maxOf(0, value)
-            logger.trace("turns={}", field)
+    fun tick(): Collection<Tracer> {
+        val tracers = mutableListOf<Tracer>()
+        tracers.add(
+            TurnBegin(
+                uuid,
+                invokers.count(),
+                System.currentTimeMillis(),
+                turn,
+                UUID.randomUUID(),
+            )
+        )
+        var filteredInvokers = filterInvokers(invokers, tracers)
+        filteredInvokers = sortInvokers(filteredInvokers, tracers)
+        tickInvokers(filteredInvokers.iterator(), invokers, tracers)
+        tracers.add(
+            TurnEnd(
+                uuid,
+                System.currentTimeMillis(),
+                turn,
+                UUID.randomUUID(),
+            )
+        )
+        turn++
+        return tracers
+    }
+
+    private fun tickInvoker(
+        invoker: T,
+        receivers: Collection<T>,
+        tracers: MutableCollection<Tracer>,
+    ) {
+        invoker.actions.any { action ->
+            action.use(invoker, receivers, tracers)
         }
-
-    override var uuid: UUID = uuid
-        set(value) {
-            field = value
-            logger.trace("uuid={}", field)
-        }
-
-    init {
-        this.actors = actors
-        this.timeMilliseconds = timeMilliseconds
-        this.turns = turns
-        this.uuid = uuid
     }
 
-    private fun filterActor(actor: Actor): Boolean {
-        return actor.hitPoints > 0
-    }
-
-    private fun filterActors(actors: List<Actor>): List<Actor> {
-        return actors.filter { actor -> filterActor(actor) }
-    }
-
-    private fun sortActor(actor: Actor): Int {
-        return actor.agility
-    }
-
-    private fun sortActors(actors: List<Actor>): List<Actor> {
-        return actors.sortedByDescending { actor -> sortActor(actor) }
-    }
-
-    fun tick() {
-        var actors = filterActors(actors)
-        actors = sortActors(actors)
-        tickActors(actors)
-        turns++
-    }
-
-    private fun tickActor(actor: Actor, actorIndex: Int, actors: List<Actor>) {
-        logger.debug("actor={} actorIndex={} actors.size={}", actor, actorIndex, actors.size)
-        actor.getActivities(actors)
-    }
-
-    private fun tickActors(actors: List<Actor>) {
-        val actorsIterator = actors.withIndex().iterator()
-        while (actorsIterator.hasNext()) {
-            val (actorIndex, actor) = actorsIterator.next()
-            tickActor(actor, actorIndex, actors)
+    private fun tickInvokers(
+        invokers: Iterator<T>,
+        receivers: Collection<T>,
+        tracers: MutableCollection<Tracer>,
+    ) {
+        while (invokers.hasNext()) {
+            tickInvoker(invokers.next(), receivers, tracers)
         }
     }
 }

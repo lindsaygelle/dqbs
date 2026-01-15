@@ -1,64 +1,47 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import java.util.*
 
-class Action(
-    ability: Ability<ActionInvoker, ActionReceiver, Invocation, Reception, Check, Effect>,
-    appraise: Appraise<ActionReceiver>,
-    decide: Decide<ActionReceiver>,
-    rank: Rank<ActionReceiver>,
-) {
-    var ability: Ability<ActionInvoker, ActionReceiver, Invocation, Reception, Check, Effect> = ability
-        set(value) {
-            field = value
-            logger.trace("ability={}", field)
-        }
-
-    var appraise: Appraise<ActionReceiver> = appraise
-        set(value) {
-            field = value
-            logger.trace("appraise={}", field)
-        }
-
-    var decide: Decide<ActionReceiver> = decide
-        set(value) {
-            field = value
-            logger.trace("decide={}", field)
-        }
-
-    @Transient
-    private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-
-    var rank: Rank<ActionReceiver> = rank
-        set(value) {
-            field = value
-            logger.trace("rank={}", field)
-        }
-
-    init {
-        this.ability = ability
-        this.appraise = appraise
-        this.decide = decide
-        this.rank = rank
-    }
-
-    fun use(invoker: ActionInvoker, receivers: List<ActionReceiver>): Activity { // TODO
-        val (_, appraisal) = appraise.consider(receivers)
-        val (_, decision: Decision?) = if (appraisal.result) decide.consider(receivers) else Pair<List<ActionReceiver>, Decision?>(
-            emptyList(), null
+class Action<I : Actor, R : Actor>(
+    var ability: Ability<I, R>,
+    var assess: Case<I, R>,
+    var choose: Case<I, R>,
+    override var uuid: UUID,
+    var weigh: Weigh<R>,
+) : UniversalIdentifier {
+    fun use(
+        invoker: I,
+        receivers: Collection<R>,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        tracers.add(
+            ActionBegin(
+                uuid,
+                invoker.uuid,
+                receivers.count(),
+                System.currentTimeMillis(),
+                UUID.randomUUID(),
+            )
         )
-        val (receivers, ranking: Ranking?) = if (decision?.result == true) rank.order(receivers) else Pair<List<ActionReceiver>, Ranking?>(
-            emptyList(), null
-        )
-        var outcomes: List<Outcome<Check, Effect, Invocation, Reception>>? = null
-        if (ranking != null) {
-            outcomes = ability.use(invoker, receivers)
+        var filteredReceivers = assess.filter(invoker, receivers, tracers)
+        var result = filteredReceivers.isNotEmpty()
+        if (result) {
+            filteredReceivers = choose.filter(invoker, receivers, tracers)
+            result = filteredReceivers.isNotEmpty()
+            if (result) {
+                filteredReceivers = weigh.sort(receivers, tracers)
+                result = ability.use(invoker, filteredReceivers, tracers)
+            }
         }
-        return Activity(appraisal, decision, outcomes, ranking)
-    }
-
-    override fun toString(): String {
-        return "{ability=${ability} appraise=${appraise} decide=${decide} hashCode=${hashCode()}}"
+        tracers.add(
+            ActionEnd(
+                uuid,
+                invoker.uuid,
+                result,
+                System.currentTimeMillis(),
+                UUID.randomUUID(),
+            )
+        )
+        return result
     }
 }

@@ -1,4 +1,4 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
 interface MagicPointer {
     var magicPoints: Int

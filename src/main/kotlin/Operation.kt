@@ -1,4 +1,4 @@
-package com.github.lindsaygelle
+package com.github.lindsaygelle.dqbs
 
 enum class Operation {
     EQUAL_TO,
