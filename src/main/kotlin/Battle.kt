@@ -3,6 +3,7 @@ package com.github.lindsaygelle.dqbs
 import java.util.*
 import kotlin.random.Random
 
+// TODO("StopSpell/Sleep turns changes are not working")
 class Battle<T : Battler>(
     val invokers: Collection<T>,
 ) {
