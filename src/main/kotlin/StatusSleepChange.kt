@@ -2,9 +2,9 @@ package com.github.lindsaygelle.dqbs
 
 import java.util.*
 
-data class QualifyBegin(
-    override val invokerUUID: UUID,
-    override val receiverCount: Int,
+data class StatusSleepChange(
+    val statusSleep: Boolean,
+    val statusSleepPrevious: Boolean,
     override val timeMilliseconds: Long,
     override val uuid: UUID,
-) : QualifyTracer
+) : ReceiverTracer

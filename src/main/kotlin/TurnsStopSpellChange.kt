@@ -2,9 +2,9 @@ package com.github.lindsaygelle.dqbs
 
 import java.util.*
 
-data class QualifyBegin(
-    override val invokerUUID: UUID,
-    override val receiverCount: Int,
+data class TurnsStopSpellChange(
+    val turnsStopSpell: Int,
+    val turnsStopSpellPrevious: Int,
     override val timeMilliseconds: Long,
     override val uuid: UUID,
-) : QualifyTracer
+) : ReceiverTracer

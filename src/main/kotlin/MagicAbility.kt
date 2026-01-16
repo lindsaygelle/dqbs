@@ -40,12 +40,9 @@ open class MagicAbility<I : MagicInvoker, R : AbilityReceiver>(
         val result = !invoker.statusStopSpell
         tracers.add(
             StatusStopSpellCheck(
-                javaClass.simpleName,
-                invoker.uuid,
                 result,
-                invoker.statusStopSpell,
                 System.currentTimeMillis(),
-                uuid,
+                invoker.uuid,
             )
         )
         return result

@@ -21,10 +21,12 @@ class StopSpell<I : StopSpellInvoker, R : StopSpellReceiver>(
         receiver: R,
         tracers: MutableCollection<Tracer>,
     ) {
+        val statusStopSpellPrevious = receiver.statusStopSpell
         receiver.statusStopSpell = true
         tracers.add(
             StopSpellStatusChange(
                 receiver.statusStopSpell,
+                statusStopSpellPrevious,
                 System.currentTimeMillis(),
                 receiver.uuid,
             )

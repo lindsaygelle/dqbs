@@ -21,10 +21,12 @@ class Sleep<I : SleepInvoker, R : SleepReceiver>(
         receiver: R,
         tracers: MutableCollection<Tracer>,
     ) {
+        val statusSleepPrevious = receiver.statusSleep
         receiver.statusSleep = true
         tracers.add(
-            SleepStatusChange(
+            StatusSleepChange(
                 receiver.statusSleep,
+                statusSleepPrevious,
                 System.currentTimeMillis(),
                 receiver.uuid,
             )

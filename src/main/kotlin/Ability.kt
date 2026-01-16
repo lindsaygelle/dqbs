@@ -23,7 +23,22 @@ abstract class Ability<I : AbilityInvoker, R : AbilityReceiver>(
         invoker: I,
         tracers: MutableCollection<Tracer>,
     ): Boolean {
-        return true
+        return checkInvokerStatusSleep(invoker, tracers)
+    }
+
+    private fun checkInvokerStatusSleep(
+        invoker: I,
+        tracers: MutableCollection<Tracer>,
+    ): Boolean {
+        val result = !invoker.statusSleep
+        tracers.add(
+            StatusSleepCheck(
+                result,
+                System.currentTimeMillis(),
+                invoker.uuid,
+            )
+        )
+        return result
     }
 
     protected open fun checkReceiver(

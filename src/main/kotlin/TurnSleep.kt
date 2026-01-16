@@ -2,9 +2,9 @@ package com.github.lindsaygelle.dqbs
 
 import java.util.*
 
-data class QualifyBegin(
-    override val invokerUUID: UUID,
-    override val receiverCount: Int,
+data class TurnSleep(
+    val invokerUUID: UUID,
+    override val turn: Int,
     override val timeMilliseconds: Long,
     override val uuid: UUID,
-) : QualifyTracer
+) : TurnTracer
